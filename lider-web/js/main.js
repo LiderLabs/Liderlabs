@@ -136,6 +136,9 @@
             $folioItems.each(function(i) {
 
                 $(this).on('click', function(e) {
+                   
+                    if ($(e.target).is('.item-folio__project-link, .item-folio__project-link *')) return;
+
                     e.preventDefault();
                     var options = {
                         index: i,
