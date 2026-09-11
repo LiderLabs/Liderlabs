@@ -3601,3 +3601,124 @@ footer .row {
 
 
 /*# sourceMappingURL=main.css.map */
+
+/* ===================================================================
+ * # portfolio details - slider show
+ *
+ * ------------------------------------------------------------------- */
+.slider-show {
+    padding-top: 6rem;
+    padding-bottom: 10rem;
+}
+
+.slider-show .row {
+    max-width: 100px;      /* box container width */
+}
+
+.slider-show__slider {
+    margin: 0;
+}
+
+/* each slide is a boxed card */
+.slider-show__slide {
+    position: relative;
+    padding: 0 1.5rem;      /* gap between boxes */
+    box-sizing: border-box;
+}
+
+.slider-show__slide a {
+    display: block;
+    position: relative;
+    text-decoration: none;
+    height: 1120px;                 /* box height */
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    background-color: #111111;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* lift the box slightly on hover */
+.slider-show__slide a:hover,
+.slider-show__slide a:focus {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+.slider-show__slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    object-fit: cover;      /* fills the box without distortion */
+    transition: transform 0.5s ease;
+}
+
+/* subtle zoom on hover */
+.slider-show__slide a:hover img {
+    transform: scale(1.05);
+}
+
+/* caption overlay inside the box */
+.slider-show__caption {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 5rem 3rem 2.8rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0));
+    color: #ffffff;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.slider-show__slide a:hover .slider-show__caption,
+.slider-show__slide a:focus .slider-show__caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slider-show__caption h3 {
+    margin: 0 0 0.6rem;
+    font-size: 2.2rem;
+    line-height: 1.2;
+    color: #ffffff;
+}
+
+.slider-show__caption p {
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.slider-show__link {
+    display: inline-block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #39b54a; /* Glint accent green */
+}
+
+@media only screen and (max-width: 800px) {
+    .slider-show__slide a {
+        height: 320px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .slider-show__slide a {
+        height: 260px;
+UI        border-radius: 4px;
+    }
+    .slider-show__caption {
+        padding: 3.5rem 2rem 2rem;
+        opacity: 1;           /* always visible on touch devices */
+        transform: none;
+    }
+    .slider-show__caption h3 {
+        font-size: 1.9rem;
+    }
+}

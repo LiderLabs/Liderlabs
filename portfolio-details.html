@@ -116,34 +116,69 @@
             </div>
         </nav>
 
-        <section class="slider-show">
-            <div class="row">
-                <div class="column">
-                    <div class="slider-show__slide">
-                        <img src="images/portfolio/gallery/washlab-dashboard.png" alt="">
-                    </div>
-                </div>
-            </div>
+       <section class="slider-show">
+    <div class="slider-show__slider">
 
-            <div class="row">
-                <div class="column">
-                    <div class="slider-show__slide">
-                        <img src="images/portfolio/gallery/g-shutterbug-2.jpg" alt="">
-                    </div>
+        <div class="slider-show__slide">
+            <a href="https://washlab" title="Washlab Dashboard" target="_blank" rel="noopener">
+                <img src="images/portfolio/gallery/washlab-dashboard.png" alt="Washlab Dashboard">
+                <div class="slider-show__caption">
+                    <h3>Washlab Dashboard</h3>
+                    <p>An app to help student book laundry appointment.</p>
+                    <span class="slider-show__link">Visit project &rarr;</span>
                 </div>
-            </div>
+            </a>
+        </div>
 
-            <div class="row">
-                <div class="column">
-                    <div class="slider-show__slide">
-                        <img src="images/portfolio/gallery/g-shutterbug-3.jpg" alt="">
-                    </div>
+        <div class="slider-show__slide">
+            <a href="https://example.com/project-2" title="Project Two" target="_blank" rel="noopener">
+                <img src="images/portfolio/gallery/styleo-dashboard.png" alt="Project Two">
+                <div class="slider-show__caption">
+                    <h3>Styleo App</h3>
+                    <p>A mobile app to help find and book beauty saloons .</p>
+                    <span class="slider-show__link">Visit project &rarr;</span>
                 </div>
-        </section>
+            </a>
+        </div>
+
+        <div class="slider-show__slide">
+            <a href="https://example.com/project-3" title="Project Three" target="_blank" rel="noopener">
+                <img src="images/portfolio/gallery/porta-dashboard.png" alt="Project Three">
+                <div class="slider-show__caption">
+                    <h3>Porta Dashboard</h3>
+                    <p>An analytics dashboard for tracking project progress and performance.</p>
+                    <span class="slider-show__link">Visit project &rarr;</span>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</section>
+
 
         </main>
 <script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/plugins.js"></script>
+< src="js/plugins.js"></script>
 <script src="js/main.js"></script>
+<script>
+(function($) {
+    "use strict";
+    $(document).ready(function() {
+        $('.slider-show__slider').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 4000,
+            speed: 700,
+            fade: true,           /* cross-fade animation; set false for slide */
+            cssEase: 'ease-in-out',
+            arrows: true,
+            dots: true,
+            pauseOnHover: true
+        });
+    });
+})(jQuery);
+</script>
+
         </body>
 </html>
