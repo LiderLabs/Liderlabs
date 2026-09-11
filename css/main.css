@@ -142,7 +142,7 @@ h5, .h5, h6, .h6 {
 }
 
 h1, .h1 {
-    font-size: 3.6rem;
+    font-size: 2.6rem;
     line-height: 1.25;
     letter-spacing: -.1rem;
 }
@@ -1214,7 +1214,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
  * ------------------------------------------------------------------- */
 .display-1 {
     font-family: "montserrat-medium", sans-serif;
-    font-size: 7.8rem;
+    font-size: 4.8rem;
     line-height: 1.25;
     color: #000000;
     margin-top: 0;
@@ -1804,7 +1804,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 
 .home-content h1 {
     font-family: "montserrat-medium", sans-serif;
-    font-size: 6.3rem;
+    font-size: 5.3rem;
     line-height: 1.333;
     margin-top: 0;
     color: #FFFFFF;
@@ -2724,6 +2724,92 @@ html.no-csstransitions .home-content__main {
 }
 
 
+
+/* ------------------------------------------------------------------- 
+ * ## works slider
+ * ------------------------------------------------------------------- */
+.works-slider {
+    margin: 0 -1.5rem;
+}
+
+.works-slider .slick-slide {
+    padding: 0 1.5rem;
+}
+
+.work-card {
+    position: relative;
+}
+
+.works-slider .item-folio__thumb img {
+    width: 100%;
+}
+
+/* arrows
+ * ----------------------------------------------- */
+.works-slider .slick-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 60;
+    width: 4.2rem;
+    height: 4.2rem;
+    margin-top: -2.1rem;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background-color: #000000;
+    color: transparent;
+    text-align: center;
+    cursor: pointer;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+    -webkit-transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.works-slider .slick-arrow:before {
+    display: block;
+    font-family: inherit;
+    font-size: 2.4rem;
+    font-weight: normal;
+    line-height: 4.2rem;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+.works-slider .slick-prev:before {
+    content: "\2190";
+}
+
+.works-slider .slick-next:before {
+    content: "\2192";
+}
+
+.works-slider .slick-prev {
+    left: 1.5rem;
+}
+
+.works-slider .slick-next {
+    right: 1.5rem;
+}
+
+.works-slider .slick-arrow:hover,
+.works-slider .slick-arrow:focus {
+    background-color: #39b54a;
+    outline: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .works-slider {
+        margin: 0 -1rem;
+    }
+    .works-slider .slick-slide {
+        padding: 0 1rem;
+    }
+    .works-slider .slick-arrow {
+        display: none;
+    }
+}
 
 /* ===================================================================
  * # clients
@@ -3711,7 +3797,7 @@ footer .row {
 @media only screen and (max-width: 600px) {
     .slider-show__slide a {
         height: 260px;
-UI        border-radius: 4px;
+        border-radius: 4px;
     }
     .slider-show__caption {
         padding: 3.5rem 2rem 2rem;

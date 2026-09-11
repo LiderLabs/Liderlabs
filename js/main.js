@@ -199,6 +199,10 @@
         
         var containerBricks = $('.masonry');
 
+        // the works section now uses a slick card slider (clWorksSlider);
+        // masonry remains only for the style guide page
+        if (containerBricks.length === 0) return;
+
         containerBricks.imagesLoaded(function () {
             containerBricks.masonry({
                 itemSelector: '.masonry__brick',
@@ -207,6 +211,60 @@
         });
     };
 
+
+   /* works slider
+
+    * ---------------------------------------------------- */
+    var clWorksSlider = function() {
+
+        var $slider = $('.works-slider');
+
+        if ($slider.length === 0) return;
+
+        $slider.slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            infinite: true,
+            speed: 500,
+            autoplay: true,
+            autoplaySpeed: 4000,
+            pauseOnHover: true,
+            pauseOnFocus: false,
+            swipe: true,
+            swipeToSlide: true,
+            arrows: true,
+            dots: true,
+            responsive: [
+                {
+                    breakpoint: 1200,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+
+        // cloned slides (infinite loop) have no PhotoSwipe binding of
+        // their own - forward their clicks to the matching original card
+        $slider.on('click', '.slick-cloned .item-folio', function(e) {
+
+            if ($(e.target).closest('.item-folio__project-link').length) return;
+
+            var index = $(this).closest('.slick-slide').data('slick-index');
+
+            $slider.find('.slick-slide:not(.slick-cloned) .item-folio').eq(index).trigger('click');
+
+        });
+
+    };
 
    /* slick slider
     * ------------------------------------------------------ */
@@ -460,6 +518,7 @@
         clPhotoswipe();
         clStatCount();
         clMasonryFolio();
+        clWorksSlider();
         clSlickSlider();
         clSmoothScroll();
         clPlaceholder();
