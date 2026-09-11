@@ -2757,7 +2757,7 @@ html.no-csstransitions .home-content__main {
     padding: 0;
     border: none;
     border-radius: 0;
-    background-color: #000000;
+    background-color: transparent;
     color: transparent;
     text-align: center;
     cursor: pointer;
