@@ -271,14 +271,17 @@
     var clSlickSlider = function() {
 
         $('.clients').slick({
-            arrows: false,
+            arrows: true,
             dots: true,
             infinite: true,
             slidesToShow: 6,
-            slidesToScroll: 2,
-            //autoplay: true,
+            slidesToScroll: 1,
+            speed: 500,
+            autoplay: true,
+            autoplaySpeed: 4000,
+            pauseOnHover: true,
             pauseOnFocus: false,
-            autoplaySpeed: 1000,
+            swipeToSlide: true,
             responsive: [
                 {
                     breakpoint: 1200,
@@ -296,14 +299,14 @@
                     breakpoint: 800,
                     settings: {
                         slidesToShow: 3,
-                        slidesToScroll: 2
+                        slidesToScroll: 1
                     }
                 },
                 {
                     breakpoint: 500,
                     settings: {
                         slidesToShow: 2,
-                        slidesToScroll: 2
+                        slidesToScroll: 1
                     }
                 }
 
@@ -475,7 +478,7 @@
         //  5: 'This email address looks fake or invalid. Please enter a real email address'
 
         $.ajaxChimp.translations.es = {
-            'submit': 'Submitting...',
+            'submit': 'please Enter a valid email...',
             0: '<i class="fa fa-check"></i> We have sent you a confirmation email',
             1: '<i class="fa fa-warning"></i> You must enter a valid e-mail address.',
             2: '<i class="fa fa-warning"></i> E-mail address is not valid.',

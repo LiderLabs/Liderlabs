@@ -2746,7 +2746,8 @@ html.no-csstransitions .home-content__main {
 
 /* arrows
  * ----------------------------------------------- */
-.works-slider .slick-arrow {
+.works-slider .slick-arrow,
+.clients .slick-arrow {
     position: absolute;
     top: 50%;
     z-index: 60;
@@ -2767,7 +2768,8 @@ html.no-csstransitions .home-content__main {
     transition: background-color 0.3s ease-in-out;
 }
 
-.works-slider .slick-arrow:before {
+.works-slider .slick-arrow:before,
+.clients .slick-arrow:before {
     display: block;
     font-family: inherit;
     font-size: 2.4rem;
@@ -2777,24 +2779,30 @@ html.no-csstransitions .home-content__main {
     opacity: 1;
 }
 
-.works-slider .slick-prev:before {
+.works-slider .slick-prev:before,
+.clients .slick-prev:before {
     content: "\2190";
 }
 
-.works-slider .slick-next:before {
+.works-slider .slick-next:before,
+.clients .slick-next:before {
     content: "\2192";
 }
 
-.works-slider .slick-prev {
+.works-slider .slick-prev,
+.clients .slick-prev {
     left: 1.5rem;
 }
 
-.works-slider .slick-next {
+.works-slider .slick-next,
+.clients .slick-next {
     right: 1.5rem;
 }
 
 .works-slider .slick-arrow:hover,
-.works-slider .slick-arrow:focus {
+.works-slider .slick-arrow:focus,
+.clients .slick-arrow:hover,
+.clients .slick-arrow:focus {
     background-color: #39b54a;
     outline: none;
 }
@@ -2806,7 +2814,8 @@ html.no-csstransitions .home-content__main {
     .works-slider .slick-slide {
         padding: 0 1rem;
     }
-    .works-slider .slick-arrow {
+    .works-slider .slick-arrow,
+    .clients .slick-arrow {
         display: none;
     }
 }
