@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  /* Lider redesign — primary brand colors */
+  --color-brand-primary: #176d8c;
+  --color-brand-primary-dark: #0f5874;
+  --color-brand-primary-light: #e9f5f9;
+
+  /* Main typography */
+  --color-brand-ink: #0d162b;
+  --color-brand-text: #334155;
+  --color-brand-muted: #64748b;
+
+  /* Dark areas / footer */
+  --color-brand-navy: #002d33;
+  --color-brand-navy-soft: #063c46;
+
+  /* Background surfaces */
+  --color-brand-surface: #f7f9fb;
+  --color-brand-surface-blue: #f0f8fb;
+  --color-brand-card: #ffffff;
+
+  /* Borders */
+  --color-brand-border: #dce7ec;
+  --color-brand-border-light: #edf2f5;
+
+  /* Accent */
+  --color-brand-cyan: #1092bf;
+
+  /* Reusable shadows */
+  --shadow-brand-card: 0 8px 28px rgb(15 35 55 / 0.06);
+  --shadow-brand-button: 0 5px 16px rgb(23 109 140 / 0.2);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    background: var(--color-brand-card);
+    color: var(--color-brand-ink);
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  img,
+  picture,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
