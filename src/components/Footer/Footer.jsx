@@ -216,7 +216,7 @@ function Footer() {
               "
             >
               <a
-                href="mailto:support@liderlabs.com"
+                href="mailto:info@liderlabs.com"
                 className="
                   transition-colors
                   duration-200
@@ -229,7 +229,7 @@ function Footer() {
                   focus-visible:ring-offset-brand-navy
                 "
               >
-                support@liderlabs.com
+                info@liderlabs.com
               </a>
 
               <a

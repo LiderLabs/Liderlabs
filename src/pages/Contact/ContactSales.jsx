@@ -1,6 +1,12 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import {
+  useForm,
+  ValidationError,
+} from "@formspree/react";
 
 import { gsap, useGSAP } from "../../lib/gsap";
+
+const FORMSPREE_FORM_ID = "xbglwgdg";
 
 const benefits = [
   "Talk through your project or idea",
@@ -8,8 +14,102 @@ const benefits = [
   "Get a clear scope and next steps",
 ];
 
+const initialFormData = {
+  fullName: "",
+  email: "",
+  company: "",
+  companySize: "1-9",
+  requirements: "",
+};
+
+const fieldOrder = [
+  "fullName",
+  "email",
+  "requirements",
+];
+
+const emailPattern =
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function validateField(name, value) {
+  const cleanValue = value.trim();
+
+  switch (name) {
+    case "fullName":
+      if (!cleanValue) {
+        return "Please enter your name.";
+      }
+
+      if (cleanValue.length < 2) {
+        return "Please enter at least 2 characters.";
+      }
+
+      if (cleanValue.length > 80) {
+        return "Please keep your name under 80 characters.";
+      }
+
+      return "";
+
+    case "email":
+      if (!cleanValue) {
+        return "Please enter your work email.";
+      }
+
+      if (!emailPattern.test(cleanValue)) {
+        return "Please enter a valid email address.";
+      }
+
+      return "";
+
+    case "requirements":
+      if (!cleanValue) {
+        return "Tell us a little about what you need.";
+      }
+
+      if (cleanValue.length < 20) {
+        return "Please provide at least 20 characters so we can understand your project.";
+      }
+
+      return "";
+
+    default:
+      return "";
+  }
+}
+
+function validateForm(formData) {
+  return {
+    fullName: validateField(
+      "fullName",
+      formData.fullName,
+    ),
+
+    email: validateField(
+      "email",
+      formData.email,
+    ),
+
+    requirements: validateField(
+      "requirements",
+      formData.requirements,
+    ),
+  };
+}
+
 function ContactSales() {
   const sectionRef = useRef(null);
+
+  const [formData, setFormData] =
+    useState(initialFormData);
+
+  const [fieldErrors, setFieldErrors] =
+    useState({});
+
+  const [
+    formspreeState,
+    handleFormspreeSubmit,
+    resetFormspree,
+  ] = useForm(FORMSPREE_FORM_ID);
 
   useGSAP(
     () => {
@@ -22,10 +122,16 @@ function ContactSales() {
       mm.add(
         {
           mobile: "(max-width: 767px)",
-          tablet: "(min-width: 768px) and (max-width: 1023px)",
+
+          tablet:
+            "(min-width: 768px) and (max-width: 1023px)",
+
           desktop: "(min-width: 1024px)",
-          reduceMotion: "(prefers-reduced-motion: reduce)",
+
+          reduceMotion:
+            "(prefers-reduced-motion: reduce)",
         },
+
         (context) => {
           const {
             mobile,
@@ -34,65 +140,79 @@ function ContactSales() {
             reduceMotion,
           } = context.conditions;
 
-          const label = section.querySelector(
-            ".sales-label",
+          const label =
+            section.querySelector(
+              ".sales-label",
+            );
+
+          const heading =
+            section.querySelector(
+              ".sales-heading",
+            );
+
+          const benefitsItems = Array.from(
+            section.querySelectorAll(
+              ".sales-benefit",
+            ),
           );
 
-          const heading = section.querySelector(
-            ".sales-heading",
+          const support =
+            section.querySelector(
+              ".sales-support",
+            );
+
+          const divider =
+            section.querySelector(
+              ".sales-divider",
+            );
+
+          const standard =
+            section.querySelector(
+              ".sales-standard",
+            );
+
+          const formPanel =
+            section.querySelector(
+              ".sales-form",
+            );
+
+          const formTitle =
+            section.querySelector(
+              ".sales-form-title",
+            );
+
+          const formFields = Array.from(
+            section.querySelectorAll(
+              ".sales-form-field",
+            ),
           );
 
-          const benefitsItems = gsap.utils.toArray(
-            ".sales-benefit",
-          );
+          const formBottom =
+            section.querySelector(
+              ".sales-form-bottom",
+            );
 
-          const support = section.querySelector(
-            ".sales-support",
-          );
-
-          const divider = section.querySelector(
-            ".sales-divider",
-          );
-
-          const standard = section.querySelector(
-            ".sales-standard",
-          );
-
-          const formPanel = section.querySelector(
-            ".sales-form",
-          );
-
-          const formTitle = section.querySelector(
-            ".sales-form-title",
-          );
-
-          const formFields = gsap.utils.toArray(
-            ".sales-form-field",
-          );
-
-          const formBottom = section.querySelector(
-            ".sales-form-bottom",
-          );
-
-          const submitButton = section.querySelector(
-            ".sales-submit",
-          );
+          const submitButton =
+            section.querySelector(
+              ".sales-submit",
+            );
 
           if (reduceMotion) {
             gsap.set(
               [
                 label,
                 heading,
-                benefitsItems,
+                ...benefitsItems,
                 support,
                 divider,
                 standard,
                 formPanel,
                 formTitle,
-                formFields,
+                ...formFields,
                 formBottom,
                 submitButton,
-              ],
+              ].filter(Boolean),
+
               {
                 x: 0,
                 y: 0,
@@ -107,23 +227,29 @@ function ContactSales() {
 
           gsap.set(label, {
             x: desktop ? -18 : 0,
+
             y: desktop ? 0 : 18,
+
             autoAlpha: 0,
           });
 
           gsap.set(heading, {
             x: desktop ? -46 : 0,
+
             y: desktop
               ? 0
               : mobile
                 ? 50
                 : 42,
+
             autoAlpha: 0,
           });
 
           gsap.set(benefitsItems, {
             x: desktop ? -28 : 0,
+
             y: desktop ? 0 : 24,
+
             autoAlpha: 0,
           });
 
@@ -134,13 +260,20 @@ function ContactSales() {
 
           gsap.set(divider, {
             scaleX: 0,
-            transformOrigin: "left center",
+
+            transformOrigin:
+              "left center",
+
             autoAlpha: 0,
           });
 
           gsap.set(standard, {
             y: mobile ? 36 : 30,
-            scale: mobile ? 0.96 : 0.98,
+
+            scale: mobile
+              ? 0.96
+              : 0.98,
+
             autoAlpha: 0,
           });
 
@@ -157,7 +290,10 @@ function ContactSales() {
                 ? 52
                 : 42,
 
-            scale: mobile ? 0.965 : 0.98,
+            scale: mobile
+              ? 0.965
+              : 0.98,
+
             autoAlpha: 0,
           });
 
@@ -168,6 +304,7 @@ function ContactSales() {
 
           gsap.set(formFields, {
             y: mobile ? 28 : 22,
+
             autoAlpha: 0,
           });
 
@@ -176,141 +313,228 @@ function ContactSales() {
             autoAlpha: 0,
           });
 
-          gsap.set(submitButton, {
-            scale: 0.94,
-          });
+          if (submitButton) {
+            gsap.set(submitButton, {
+              scale: 0.94,
+            });
+          }
 
-          const observer = new IntersectionObserver(
-            ([entry]) => {
-              if (!entry?.isIntersecting) return;
+          const observer =
+            new IntersectionObserver(
+              ([entry]) => {
+                if (
+                  !entry?.isIntersecting
+                ) {
+                  return;
+                }
 
-              gsap
-                .timeline({
-                  defaults: {
-                    ease: "power3.out",
-                  },
-                })
-                .to(label, {
-                  x: 0,
-                  y: 0,
-                  autoAlpha: 1,
-                  duration: 0.42,
-                })
-                .to(
-                  heading,
-                  {
+                const timeline =
+                  gsap.timeline({
+                    defaults: {
+                      ease: "power3.out",
+                    },
+                  });
+
+                timeline
+                  .to(label, {
                     x: 0,
                     y: 0,
-                    autoAlpha: 1,
-                    duration: 0.78,
-                    ease: "power4.out",
-                  },
-                  "-=0.18",
-                )
-                .to(
-                  benefitsItems,
-                  {
-                    x: 0,
-                    y: 0,
-                    autoAlpha: 1,
-                    duration: 0.48,
-                    stagger: 0.09,
-                  },
-                  "-=0.34",
-                )
-                .to(
-                  support,
-                  {
-                    y: 0,
-                    autoAlpha: 1,
-                    duration: 0.46,
-                  },
-                  "-=0.14",
-                )
-                .to(
-                  divider,
-                  {
-                    scaleX: 1,
-                    autoAlpha: 1,
-                    duration: 0.5,
-                  },
-                  "-=0.22",
-                )
-                .to(
-                  standard,
-                  {
-                    y: 0,
-                    scale: 1,
-                    autoAlpha: 1,
-                    duration: 0.6,
-                    ease: "power4.out",
-                  },
-                  "-=0.22",
-                )
-                .to(
-                  formPanel,
-                  {
-                    x: 0,
-                    y: 0,
-                    scale: 1,
-                    autoAlpha: 1,
-                    duration: mobile ? 0.72 : 0.82,
-                    ease: "power4.out",
-                  },
-                  0.18,
-                )
-                .to(
-                  formTitle,
-                  {
-                    y: 0,
-                    autoAlpha: 1,
-                    duration: 0.48,
-                  },
-                  0.4,
-                )
-                .to(
-                  formFields,
-                  {
-                    y: 0,
-                    autoAlpha: 1,
-                    duration: 0.48,
-                    stagger: mobile ? 0.07 : 0.08,
-                  },
-                  0.48,
-                )
-                .to(
-                  formBottom,
-                  {
-                    y: 0,
-                    autoAlpha: 1,
-                    duration: 0.48,
-                  },
-                  0.8,
-                )
-                .to(
-                  submitButton,
-                  {
-                    scale: 1.035,
-                    duration: 0.16,
-                    ease: "power2.out",
-                  },
-                  1.04,
-                )
-                .to(submitButton, {
-                  scale: 1,
-                  duration: 0.18,
-                  ease: "power2.inOut",
-                });
 
-              observer.disconnect();
-            },
-            {
-              threshold: mobile ? 0.05 : 0.1,
-              rootMargin: mobile
-                ? "0px 0px -2% 0px"
-                : "0px 0px -6% 0px",
-            },
-          );
+                    autoAlpha: 1,
+
+                    duration: 0.42,
+                  })
+
+                  .to(
+                    heading,
+
+                    {
+                      x: 0,
+                      y: 0,
+
+                      autoAlpha: 1,
+
+                      duration: 0.78,
+
+                      ease: "power4.out",
+                    },
+
+                    "-=0.18",
+                  )
+
+                  .to(
+                    benefitsItems,
+
+                    {
+                      x: 0,
+                      y: 0,
+
+                      autoAlpha: 1,
+
+                      duration: 0.48,
+
+                      stagger: 0.09,
+                    },
+
+                    "-=0.34",
+                  )
+
+                  .to(
+                    support,
+
+                    {
+                      y: 0,
+
+                      autoAlpha: 1,
+
+                      duration: 0.46,
+                    },
+
+                    "-=0.14",
+                  )
+
+                  .to(
+                    divider,
+
+                    {
+                      scaleX: 1,
+
+                      autoAlpha: 1,
+
+                      duration: 0.5,
+                    },
+
+                    "-=0.22",
+                  )
+
+                  .to(
+                    standard,
+
+                    {
+                      y: 0,
+
+                      scale: 1,
+
+                      autoAlpha: 1,
+
+                      duration: 0.6,
+
+                      ease: "power4.out",
+                    },
+
+                    "-=0.22",
+                  )
+
+                  .to(
+                    formPanel,
+
+                    {
+                      x: 0,
+                      y: 0,
+
+                      scale: 1,
+
+                      autoAlpha: 1,
+
+                      duration: mobile
+                        ? 0.72
+                        : 0.82,
+
+                      ease: "power4.out",
+                    },
+
+                    0.18,
+                  )
+
+                  .to(
+                    formTitle,
+
+                    {
+                      y: 0,
+
+                      autoAlpha: 1,
+
+                      duration: 0.48,
+                    },
+
+                    0.4,
+                  )
+
+                  .to(
+                    formFields,
+
+                    {
+                      y: 0,
+
+                      autoAlpha: 1,
+
+                      duration: 0.48,
+
+                      stagger: mobile
+                        ? 0.07
+                        : 0.08,
+                    },
+
+                    0.48,
+                  )
+
+                  .to(
+                    formBottom,
+
+                    {
+                      y: 0,
+
+                      autoAlpha: 1,
+
+                      duration: 0.48,
+                    },
+
+                    0.8,
+                  );
+
+                if (submitButton) {
+                  timeline
+                    .to(
+                      submitButton,
+
+                      {
+                        scale: 1.035,
+
+                        duration: 0.16,
+
+                        ease: "power2.out",
+                      },
+
+                      1.04,
+                    )
+
+                    .to(
+                      submitButton,
+
+                      {
+                        scale: 1,
+
+                        duration: 0.18,
+
+                        ease:
+                          "power2.inOut",
+                      },
+                    );
+                }
+
+                observer.disconnect();
+              },
+
+              {
+                threshold: mobile
+                  ? 0.05
+                  : 0.1,
+
+                rootMargin: mobile
+                  ? "0px 0px -2% 0px"
+                  : "0px 0px -6% 0px",
+              },
+            );
 
           observer.observe(section);
 
@@ -324,16 +548,95 @@ function ContactSales() {
         mm.revert();
       };
     },
+
     {
       scope: sectionRef,
     },
   );
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleChange = (event) => {
+    const { name, value } =
+      event.target;
 
-    // Backend integration will be added before deployment.
+    setFormData((current) => ({
+      ...current,
+      [name]: value,
+    }));
+
+    setFieldErrors((current) => {
+      if (!current[name]) {
+        return current;
+      }
+
+      return {
+        ...current,
+
+        [name]: validateField(
+          name,
+          value,
+        ),
+      };
+    });
   };
+
+  const handleSubmit = (event) => {
+    const form =
+      event.currentTarget;
+
+    const errors =
+      validateForm(formData);
+
+    const hasErrors =
+      Object.values(errors).some(
+        Boolean,
+      );
+
+    if (hasErrors) {
+      event.preventDefault();
+
+      setFieldErrors(errors);
+
+      const firstInvalidField =
+        fieldOrder.find(
+          (field) => errors[field],
+        );
+
+      if (firstInvalidField) {
+        requestAnimationFrame(() => {
+          const control =
+            form.elements.namedItem(
+              firstInvalidField,
+            );
+
+          control?.focus();
+        });
+      }
+
+      return;
+    }
+
+    setFieldErrors({});
+
+    handleFormspreeSubmit(event);
+  };
+
+  const handleReset = () => {
+    setFormData(initialFormData);
+
+    setFieldErrors({});
+
+    resetFormspree();
+  };
+
+  const hasSubmissionError =
+    Boolean(formspreeState.errors) &&
+    !formspreeState.submitting &&
+    !formspreeState.succeeded;
+
+  const firstName =
+    formData.fullName
+      .trim()
+      .split(/\s+/)[0] || "there";
 
   return (
     <main className="bg-white">
@@ -391,6 +694,8 @@ function ContactSales() {
             lg:gap-16
           "
         >
+          {/* LEFT CONTENT */}
+
           <div className="lg:pt-2">
             <div
               className="
@@ -434,51 +739,55 @@ function ContactSales() {
             </h1>
 
             <div className="mt-9 space-y-5">
-              {benefits.map((benefit) => (
-                <div
-                  key={benefit}
-                  className="
-                    sales-benefit
-                    flex
-                    items-center
-                    gap-4
-                    text-[14px]
-                    font-medium
-                    text-brand-text
-                    md:text-[15px]
-                  "
-                >
-                  <span
+              {benefits.map(
+                (benefit) => (
+                  <div
+                    key={benefit}
                     className="
+                      sales-benefit
                       flex
-                      size-7
-                      shrink-0
                       items-center
-                      justify-center
-                      rounded-full
-                      bg-brand-primary-light
-                      text-brand-primary
+                      gap-4
+                      text-[14px]
+                      font-medium
+                      text-brand-text
+                      md:text-[15px]
                     "
                   >
-                    <svg
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      className="size-3.5"
-                      aria-hidden="true"
+                    <span
+                      className="
+                        flex
+                        size-7
+                        shrink-0
+                        items-center
+                        justify-center
+                        rounded-full
+                        bg-brand-primary-light
+                        text-brand-primary
+                      "
                     >
-                      <path
-                        d="m3.2 8.3 2.8 2.8 6-6"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
+                      <svg
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        className="size-3.5"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="m3.2 8.3 2.8 2.8 6-6"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
 
-                  <span>{benefit}</span>
-                </div>
-              ))}
+                    <span>
+                      {benefit}
+                    </span>
+                  </div>
+                ),
+              )}
             </div>
 
             <p
@@ -506,6 +815,7 @@ function ContactSales() {
                   focus-visible:ring-2
                   focus-visible:ring-brand-primary
                   focus-visible:ring-offset-2
+                  motion-reduce:transition-none
                 "
               >
                 Contact support
@@ -593,14 +903,18 @@ function ContactSales() {
                       md:text-[13px]
                     "
                   >
-                    Trusted by banking, telecom, and government institutions
-                    across Ghana and West Africa for mission-critical
+                    Trusted by banking, telecom,
+                    and government institutions
+                    across Ghana and West Africa
+                    for mission-critical
                     engineering.
                   </p>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* FORM CARD */}
 
           <div
             className="
@@ -616,378 +930,819 @@ function ContactSales() {
               lg:p-10
             "
           >
-            <h2
-              className="
-                sales-form-title
-                text-[24px]
-                font-bold
-                tracking-[-0.035em]
-                text-brand-ink
-                md:text-[28px]
-              "
-            >
-              Tell us how we can help
-            </h2>
-
-            <form
-              onSubmit={handleSubmit}
-              className="mt-8"
-            >
-              <div className="sales-form-field">
-                <label
-                  htmlFor="fullName"
-                  className="
-                    mb-2.5
-                    block
-                    text-[12px]
-                    font-semibold
-                    text-brand-text
-                    md:text-[13px]
-                  "
-                >
-                  Full name
-                </label>
-
-                <input
-                  id="fullName"
-                  name="fullName"
-                  type="text"
-                  autoComplete="name"
-                  placeholder="Kwame Mensah"
-                  required
-                  maxLength={120}
-                  className="
-                    h-13
-                    w-full
-                    rounded-xl
-                    border
-                    border-brand-border
-                    bg-white
-                    px-4
-                    text-[13px]
-                    text-brand-ink
-                    outline-none
-                    transition-[border-color,box-shadow]
-                    duration-200
-                    placeholder:text-slate-400
-                    focus:border-brand-primary
-                    focus:ring-2
-                    focus:ring-brand-primary/10
-                    md:text-[14px]
-                  "
-                />
-              </div>
-
-              <div className="sales-form-field mt-6">
-                <label
-                  htmlFor="email"
-                  className="
-                    mb-2.5
-                    block
-                    text-[12px]
-                    font-semibold
-                    text-brand-text
-                    md:text-[13px]
-                  "
-                >
-                  Work email
-                </label>
-
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  inputMode="email"
-                  placeholder="kwame@company.com"
-                  required
-                  maxLength={254}
-                  className="
-                    h-13
-                    w-full
-                    rounded-xl
-                    border
-                    border-brand-border
-                    bg-white
-                    px-4
-                    text-[13px]
-                    text-brand-ink
-                    outline-none
-                    transition-[border-color,box-shadow]
-                    duration-200
-                    placeholder:text-slate-400
-                    focus:border-brand-primary
-                    focus:ring-2
-                    focus:ring-brand-primary/10
-                    md:text-[14px]
-                  "
-                />
-              </div>
+            {formspreeState.succeeded ? (
+              /* SUCCESS */
 
               <div
                 className="
-                  sales-form-field
-                  mt-6
-                  grid
-                  gap-5
-                  md:grid-cols-2
-                "
-              >
-                <div>
-                  <label
-                    htmlFor="company"
-                    className="
-                      mb-2.5
-                      block
-                      text-[12px]
-                      font-semibold
-                      text-brand-text
-                      md:text-[13px]
-                    "
-                  >
-                    Company{" "}
-                    <span className="font-normal text-brand-muted">
-                      (optional)
-                    </span>
-                  </label>
-
-                  <input
-                    id="company"
-                    name="company"
-                    type="text"
-                    autoComplete="organization"
-                    placeholder="Company or organisation"
-                    maxLength={160}
-                    className="
-                      h-13
-                      w-full
-                      rounded-xl
-                      border
-                      border-brand-border
-                      bg-white
-                      px-4
-                      text-[13px]
-                      text-brand-ink
-                      outline-none
-                      transition-[border-color,box-shadow]
-                      duration-200
-                      placeholder:text-slate-400
-                      focus:border-brand-primary
-                      focus:ring-2
-                      focus:ring-brand-primary/10
-                      md:text-[14px]
-                    "
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="companySize"
-                    className="
-                      mb-2.5
-                      block
-                      text-[12px]
-                      font-semibold
-                      text-brand-text
-                      md:text-[13px]
-                    "
-                  >
-                    Company size
-                  </label>
-
-                  <div className="relative">
-                    <select
-                      id="companySize"
-                      name="companySize"
-                      defaultValue="1-9"
-                      className="
-                        h-13
-                        w-full
-                        appearance-none
-                        rounded-xl
-                        border
-                        border-brand-border
-                        bg-white
-                        px-4
-                        pr-10
-                        text-[13px]
-                        text-brand-text
-                        outline-none
-                        transition-[border-color,box-shadow]
-                        duration-200
-                        focus:border-brand-primary
-                        focus:ring-2
-                        focus:ring-brand-primary/10
-                        md:text-[14px]
-                      "
-                    >
-                      <option value="1-9">
-                        1–9 people
-                      </option>
-
-                      <option value="10-49">
-                        10–49 people
-                      </option>
-
-                      <option value="50-99">
-                        50–99 people
-                      </option>
-
-                      <option value="100-249">
-                        100–249 people
-                      </option>
-
-                      <option value="250+">
-                        250+ people
-                      </option>
-                    </select>
-
-                    <svg
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      aria-hidden="true"
-                      className="
-                        pointer-events-none
-                        absolute
-                        right-4
-                        top-1/2
-                        size-4
-                        -translate-y-1/2
-                        text-brand-muted
-                      "
-                    >
-                      <path
-                        d="m6 8 4 4 4-4"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-
-              <div className="sales-form-field mt-6">
-                <label
-                  htmlFor="requirements"
-                  className="
-                    mb-2.5
-                    block
-                    text-[12px]
-                    font-semibold
-                    text-brand-text
-                    md:text-[13px]
-                  "
-                >
-                  Tell us about your requirements
-                </label>
-
-                <textarea
-                  id="requirements"
-                  name="requirements"
-                  rows={5}
-                  placeholder="I'm interested in..."
-                  required
-                  maxLength={5000}
-                  className="
-                    min-h-35
-                    w-full
-                    resize-y
-                    rounded-xl
-                    border
-                    border-brand-border
-                    bg-white
-                    px-4
-                    py-4
-                    text-[13px]
-                    leading-6
-                    text-brand-ink
-                    outline-none
-                    transition-[border-color,box-shadow]
-                    duration-200
-                    placeholder:text-slate-400
-                    focus:border-brand-primary
-                    focus:ring-2
-                    focus:ring-brand-primary/10
-                    md:text-[14px]
-                  "
-                />
-              </div>
-
-              <div
-                className="
-                  sales-form-bottom
-                  mt-10
                   flex
+                  min-h-[430px]
                   flex-col
-                  gap-6
-                  sm:flex-row
-                  sm:items-center
-                  sm:justify-between
+                  justify-center
                 "
               >
+                <div
+                  className="
+                    flex
+                    size-12
+                    items-center
+                    justify-center
+                    rounded-full
+                    bg-brand-primary-light
+                    text-brand-primary
+                  "
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="size-6"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="m6 12.5 4 4L18 8"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+
                 <p
                   className="
-                    text-[12px]
-                    leading-5
-                    text-brand-muted
-                    md:text-[13px]
+                    mt-6
+                    text-[10px]
+                    font-semibold
+                    uppercase
+                    tracking-[0.14em]
+                    text-brand-primary
                   "
                 >
-                  You can also email us at{" "}
-                  <a
-                    href="mailto:sales@liderlabs.com"
+                  Message received
+                </p>
+
+                <h2
+                  className="
+                    mt-3
+                    text-[28px]
+                    font-bold
+                    tracking-[-0.035em]
+                    text-brand-ink
+                    md:text-[32px]
+                  "
+                >
+                  Thanks, {firstName}.
+                </h2>
+
+                <p
+                  className="
+                    mt-4
+                    max-w-[470px]
+                    text-[13px]
+                    leading-6
+                    text-brand-muted
+                    md:text-[14px]
+                    md:leading-7
+                  "
+                >
+                  We've received your message.
+                  Our team will review your
+                  requirements and get back to
+                  you as soon as possible.
+                </p>
+
+                <div className="mt-8">
+                  <button
+                    type="button"
+                    onClick={handleReset}
                     className="
-                      font-medium
-                      text-brand-ink
-                      underline
-                      underline-offset-2
-                      transition-colors
+                      inline-flex
+                      min-h-11
+                      items-center
+                      justify-center
+                      rounded-full
+                      bg-brand-primary
+                      px-7
+                      py-3.5
+                      text-[12px]
+                      font-semibold
+                      text-white
+                      shadow-brand-button
+                      transition-[transform,background-color,box-shadow]
                       duration-200
-                      hover:text-brand-primary
+                      hover:-translate-y-0.5
+                      hover:bg-brand-primary-dark
                       focus-visible:outline-none
                       focus-visible:ring-2
                       focus-visible:ring-brand-primary
                       focus-visible:ring-offset-2
+                      motion-reduce:transition-none
                     "
                   >
-                    sales@liderlabs.com
-                  </a>
-                </p>
-
-                <button
-                  type="submit"
+                    Send another message
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <>
+                <h2
                   className="
-                    sales-submit
-                    inline-flex
-                    min-h-11
-                    min-w-[155px]
-                    items-center
-                    justify-center
-                    rounded-full
-                    bg-brand-primary
-                    px-7
-                    py-3.5
-                    text-[12px]
-                    font-semibold
-                    text-white
-                    shadow-brand-button
-                    transition-[transform,background-color,box-shadow]
-                    duration-200
-                    hover:-translate-y-0.5
-                    hover:bg-brand-primary-dark
-                    hover:shadow-[0_8px_24px_rgba(23,109,140,0.26)]
-                    focus-visible:outline-none
-                    focus-visible:ring-2
-                    focus-visible:ring-brand-primary
-                    focus-visible:ring-offset-2
+                    sales-form-title
+                    text-[24px]
+                    font-bold
+                    tracking-[-0.035em]
+                    text-brand-ink
+                    md:text-[28px]
                   "
                 >
-                  Send message
-                </button>
-              </div>
-            </form>
+                  Tell us how we can help
+                </h2>
+
+                <form
+                  onSubmit={handleSubmit}
+                  noValidate
+                  className="mt-8"
+                >
+                  {/* Honeypot */}
+
+                  <input
+                    type="text"
+                    name="_gotcha"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="
+                      absolute
+                      left-[-9999px]
+                      size-px
+                      overflow-hidden
+                      opacity-0
+                    "
+                  />
+
+                  {/* STATUS FOR SCREEN READERS */}
+
+                  <div
+                    aria-live="polite"
+                    aria-atomic="true"
+                    className="sr-only"
+                  >
+                    {formspreeState.submitting
+                      ? "Sending message."
+                      : ""}
+                  </div>
+
+                  {/* FULL NAME */}
+
+                  <div className="sales-form-field">
+                    <label
+                      htmlFor="fullName"
+                      className="
+                        mb-2.5
+                        block
+                        text-[12px]
+                        font-semibold
+                        text-brand-text
+                        md:text-[13px]
+                      "
+                    >
+                      Full name
+                    </label>
+
+                    <input
+                      id="fullName"
+                      name="fullName"
+                      type="text"
+                      value={
+                        formData.fullName
+                      }
+                      onChange={handleChange}
+                      autoComplete="name"
+                      placeholder="Kwame Mensah"
+                      required
+                      maxLength={80}
+                      aria-invalid={
+                        fieldErrors.fullName
+                          ? true
+                          : undefined
+                      }
+                      aria-describedby={
+                        fieldErrors.fullName
+                          ? "fullName-error"
+                          : undefined
+                      }
+                      className={`
+                        h-13
+                        w-full
+                        rounded-xl
+                        border
+                        bg-white
+                        px-4
+                        text-[13px]
+                        text-brand-ink
+                        outline-none
+                        transition-[border-color,box-shadow]
+                        duration-200
+                        placeholder:text-slate-400
+                        focus:ring-2
+                        md:text-[14px]
+                        motion-reduce:transition-none
+                        ${
+                          fieldErrors.fullName
+                            ? "border-red-400 focus:border-red-400 focus:ring-red-100"
+                            : "border-brand-border focus:border-brand-primary focus:ring-brand-primary/10"
+                        }
+                      `}
+                    />
+
+                    {fieldErrors.fullName && (
+                      <p
+                        id="fullName-error"
+                        role="alert"
+                        className="
+                          mt-2
+                          text-[11px]
+                          leading-5
+                          text-red-600
+                          md:text-[12px]
+                        "
+                      >
+                        {
+                          fieldErrors.fullName
+                        }
+                      </p>
+                    )}
+
+                    <ValidationError
+                      field="fullName"
+                      prefix="Full name"
+                      errors={
+                        formspreeState.errors
+                      }
+                      className="
+                        mt-2
+                        text-[11px]
+                        leading-5
+                        text-red-600
+                        md:text-[12px]
+                      "
+                    />
+                  </div>
+
+                  {/* EMAIL */}
+
+                  <div className="sales-form-field mt-6">
+                    <label
+                      htmlFor="email"
+                      className="
+                        mb-2.5
+                        block
+                        text-[12px]
+                        font-semibold
+                        text-brand-text
+                        md:text-[13px]
+                      "
+                    >
+                      Work email
+                    </label>
+
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      autoComplete="email"
+                      inputMode="email"
+                      placeholder="kwame@company.com"
+                      required
+                      maxLength={254}
+                      aria-invalid={
+                        fieldErrors.email
+                          ? true
+                          : undefined
+                      }
+                      aria-describedby={
+                        fieldErrors.email
+                          ? "email-error"
+                          : undefined
+                      }
+                      className={`
+                        h-13
+                        w-full
+                        rounded-xl
+                        border
+                        bg-white
+                        px-4
+                        text-[13px]
+                        text-brand-ink
+                        outline-none
+                        transition-[border-color,box-shadow]
+                        duration-200
+                        placeholder:text-slate-400
+                        focus:ring-2
+                        md:text-[14px]
+                        motion-reduce:transition-none
+                        ${
+                          fieldErrors.email
+                            ? "border-red-400 focus:border-red-400 focus:ring-red-100"
+                            : "border-brand-border focus:border-brand-primary focus:ring-brand-primary/10"
+                        }
+                      `}
+                    />
+
+                    {fieldErrors.email && (
+                      <p
+                        id="email-error"
+                        role="alert"
+                        className="
+                          mt-2
+                          text-[11px]
+                          leading-5
+                          text-red-600
+                          md:text-[12px]
+                        "
+                      >
+                        {fieldErrors.email}
+                      </p>
+                    )}
+
+                    <ValidationError
+                      field="email"
+                      prefix="Email"
+                      errors={
+                        formspreeState.errors
+                      }
+                      className="
+                        mt-2
+                        text-[11px]
+                        leading-5
+                        text-red-600
+                        md:text-[12px]
+                      "
+                    />
+                  </div>
+
+                  {/* COMPANY */}
+
+                  <div
+                    className="
+                      sales-form-field
+                      mt-6
+                      grid
+                      gap-5
+                      md:grid-cols-2
+                    "
+                  >
+                    <div>
+                      <label
+                        htmlFor="company"
+                        className="
+                          mb-2.5
+                          block
+                          text-[12px]
+                          font-semibold
+                          text-brand-text
+                          md:text-[13px]
+                        "
+                      >
+                        Company{" "}
+                        <span
+                          className="
+                            font-normal
+                            text-brand-muted
+                          "
+                        >
+                          (optional)
+                        </span>
+                      </label>
+
+                      <input
+                        id="company"
+                        name="company"
+                        type="text"
+                        value={
+                          formData.company
+                        }
+                        onChange={
+                          handleChange
+                        }
+                        autoComplete="organization"
+                        placeholder="Company or organisation"
+                        maxLength={120}
+                        className="
+                          h-13
+                          w-full
+                          rounded-xl
+                          border
+                          border-brand-border
+                          bg-white
+                          px-4
+                          text-[13px]
+                          text-brand-ink
+                          outline-none
+                          transition-[border-color,box-shadow]
+                          duration-200
+                          placeholder:text-slate-400
+                          focus:border-brand-primary
+                          focus:ring-2
+                          focus:ring-brand-primary/10
+                          md:text-[14px]
+                          motion-reduce:transition-none
+                        "
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="companySize"
+                        className="
+                          mb-2.5
+                          block
+                          text-[12px]
+                          font-semibold
+                          text-brand-text
+                          md:text-[13px]
+                        "
+                      >
+                        Company size
+                      </label>
+
+                      <div className="relative">
+                        <select
+                          id="companySize"
+                          name="companySize"
+                          value={
+                            formData.companySize
+                          }
+                          onChange={
+                            handleChange
+                          }
+                          className="
+                            h-13
+                            w-full
+                            appearance-none
+                            rounded-xl
+                            border
+                            border-brand-border
+                            bg-white
+                            px-4
+                            pr-10
+                            text-[13px]
+                            text-brand-text
+                            outline-none
+                            transition-[border-color,box-shadow]
+                            duration-200
+                            focus:border-brand-primary
+                            focus:ring-2
+                            focus:ring-brand-primary/10
+                            md:text-[14px]
+                            motion-reduce:transition-none
+                          "
+                        >
+                          <option value="1-9">
+                            1–9 people
+                          </option>
+
+                          <option value="10-49">
+                            10–49 people
+                          </option>
+
+                          <option value="50-99">
+                            50–99 people
+                          </option>
+
+                          <option value="100-249">
+                            100–249 people
+                          </option>
+
+                          <option value="250+">
+                            250+ people
+                          </option>
+                        </select>
+
+                        <svg
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          aria-hidden="true"
+                          className="
+                            pointer-events-none
+                            absolute
+                            right-4
+                            top-1/2
+                            size-4
+                            -translate-y-1/2
+                            text-brand-muted
+                          "
+                        >
+                          <path
+                            d="m6 8 4 4 4-4"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* REQUIREMENTS */}
+
+                  <div className="sales-form-field mt-6">
+                    <div
+                      className="
+                        mb-2.5
+                        flex
+                        items-end
+                        justify-between
+                        gap-4
+                      "
+                    >
+                      <label
+                        htmlFor="requirements"
+                        className="
+                          block
+                          text-[12px]
+                          font-semibold
+                          text-brand-text
+                          md:text-[13px]
+                        "
+                      >
+                        Tell us about your
+                        requirements
+                      </label>
+
+                      {formData.requirements
+                        .length > 0 && (
+                        <span
+                          className="
+                            shrink-0
+                            text-[10px]
+                            text-brand-muted
+                            md:text-[11px]
+                          "
+                        >
+                          {
+                            formData
+                              .requirements
+                              .length
+                          }
+                          /2000
+                        </span>
+                      )}
+                    </div>
+
+                    <textarea
+                      id="requirements"
+                      name="requirements"
+                      rows={5}
+                      value={
+                        formData.requirements
+                      }
+                      onChange={handleChange}
+                      placeholder="I'm interested in..."
+                      required
+                      maxLength={2000}
+                      aria-invalid={
+                        fieldErrors.requirements
+                          ? true
+                          : undefined
+                      }
+                      aria-describedby={
+                        fieldErrors.requirements
+                          ? "requirements-error"
+                          : undefined
+                      }
+                      className={`
+                        min-h-35
+                        w-full
+                        resize-y
+                        rounded-xl
+                        border
+                        bg-white
+                        px-4
+                        py-4
+                        text-[13px]
+                        leading-6
+                        text-brand-ink
+                        outline-none
+                        transition-[border-color,box-shadow]
+                        duration-200
+                        placeholder:text-slate-400
+                        focus:ring-2
+                        md:text-[14px]
+                        motion-reduce:transition-none
+                        ${
+                          fieldErrors.requirements
+                            ? "border-red-400 focus:border-red-400 focus:ring-red-100"
+                            : "border-brand-border focus:border-brand-primary focus:ring-brand-primary/10"
+                        }
+                      `}
+                    />
+
+                    {fieldErrors.requirements && (
+                      <p
+                        id="requirements-error"
+                        role="alert"
+                        className="
+                          mt-2
+                          text-[11px]
+                          leading-5
+                          text-red-600
+                          md:text-[12px]
+                        "
+                      >
+                        {
+                          fieldErrors.requirements
+                        }
+                      </p>
+                    )}
+
+                    <ValidationError
+                      field="requirements"
+                      prefix="Requirements"
+                      errors={
+                        formspreeState.errors
+                      }
+                      className="
+                        mt-2
+                        text-[11px]
+                        leading-5
+                        text-red-600
+                        md:text-[12px]
+                      "
+                    />
+                  </div>
+
+                  {/* FORMSPREE ERROR */}
+
+                  {hasSubmissionError && (
+                    <div
+                      role="alert"
+                      className="
+                        mt-6
+                        rounded-xl
+                        border
+                        border-red-200
+                        bg-red-50
+                        px-4
+                        py-3.5
+                      "
+                    >
+                      <p
+                        className="
+                          text-[12px]
+                          font-semibold
+                          text-red-700
+                          md:text-[13px]
+                        "
+                      >
+                        We couldn't send your
+                        message right now.
+                      </p>
+
+                      <p
+                        className="
+                          mt-1
+                          text-[11px]
+                          leading-5
+                          text-red-600
+                          md:text-[12px]
+                        "
+                      >
+                        Your information is still
+                        here. Please try again.
+                      </p>
+
+                      <ValidationError
+                        errors={
+                          formspreeState.errors
+                        }
+                        className="sr-only"
+                      />
+                    </div>
+                  )}
+
+                  {/* BOTTOM */}
+
+                  <div
+                    className="
+                      sales-form-bottom
+                      mt-10
+                      flex
+                      flex-col
+                      gap-6
+                      sm:flex-row
+                      sm:items-center
+                      sm:justify-between
+                    "
+                  >
+                    <p
+                      className="
+                        text-[12px]
+                        leading-5
+                        text-brand-muted
+                        md:text-[13px]
+                      "
+                    >
+                      You can also email us at{" "}
+                      <a
+                        href="mailto:info@liderlabs.com"
+                        className="
+                          font-medium
+                          text-brand-ink
+                          underline
+                          underline-offset-2
+                          transition-colors
+                          duration-200
+                          hover:text-brand-primary
+                          focus-visible:outline-none
+                          focus-visible:ring-2
+                          focus-visible:ring-brand-primary
+                          focus-visible:ring-offset-2
+                          motion-reduce:transition-none
+                        "
+                      >
+                        info@liderlabs.com
+                      </a>
+                    </p>
+
+                    <button
+                      type="submit"
+                      disabled={
+                        formspreeState.submitting
+                      }
+                      className="
+                        sales-submit
+                        inline-flex
+                        min-h-11
+                        min-w-[155px]
+                        items-center
+                        justify-center
+                        gap-2.5
+                        rounded-full
+                        bg-brand-primary
+                        px-7
+                        py-3.5
+                        text-[12px]
+                        font-semibold
+                        text-white
+                        shadow-brand-button
+                        transition-[transform,background-color,box-shadow,opacity]
+                        duration-200
+                        hover:-translate-y-0.5
+                        hover:bg-brand-primary-dark
+                        hover:shadow-[0_8px_24px_rgba(23,109,140,0.26)]
+                        focus-visible:outline-none
+                        focus-visible:ring-2
+                        focus-visible:ring-brand-primary
+                        focus-visible:ring-offset-2
+                        disabled:cursor-not-allowed
+                        disabled:opacity-70
+                        disabled:hover:translate-y-0
+                        motion-reduce:transition-none
+                      "
+                    >
+                      {formspreeState.submitting ? (
+                        <>
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            aria-hidden="true"
+                            className="
+                              size-4
+                              animate-spin
+                              motion-reduce:animate-none
+                            "
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="9"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              opacity="0.25"
+                            />
+
+                            <path
+                              d="M21 12a9 9 0 0 0-9-9"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+
+                          Sending...
+                        </>
+                      ) : (
+                        "Send message"
+                      )}
+                    </button>
+                  </div>
+                </form>
+              </>
+            )}
           </div>
         </div>
       </section>

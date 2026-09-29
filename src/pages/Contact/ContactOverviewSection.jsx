@@ -116,7 +116,7 @@ const contactDetails = [
         <span className="text-brand-border">·</span>
 
         <a
-          href="mailto:support@liderlabs.com"
+          href="mailto:info@liderlabs.com"
           className="
             transition-colors
             duration-200
@@ -127,7 +127,7 @@ const contactDetails = [
             focus-visible:ring-offset-2
           "
         >
-          support@liderlabs.com
+          info@liderlabs.com
         </a>
       </div>
     ),
@@ -1064,7 +1064,7 @@ function ContactOverviewSection() {
             </Link>
 
             <a
-              href="mailto:support@liderlabs.com"
+              href="mailto:info@liderlabs.com"
               className="
                 contact-action-card
                 group
