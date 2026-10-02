@@ -1,10 +1,23 @@
 # Lider Technologies Website
 
-A responsive corporate website for **Lider Technologies**, built to show how the company turns ideas into working software, digital products, infrastructure, and business outcomes.
-
-The site follows a simple storytelling flow:
+A responsive corporate website for **Lider Technologies**, built to show how the company turns ideas into software, digital products, infrastructure, and business outcomes.
 
 **Idea → Architecture → Build → Deploy → Client → Business Impact**
+
+---
+
+## Project Status
+
+- Frontend Development — **Complete**
+- Backend / Form Integration — **Complete**
+- Responsive Development — **Complete**
+- Animation System — **Complete**
+- Core Pages — **Complete**
+- Deployment Flow — **Configured**
+
+The project is in its final QA and production verification stage.
+
+---
 
 ## Tech Stack
 
@@ -13,76 +26,127 @@ The site follows a simple storytelling flow:
 - React Router
 - Tailwind CSS v4
 - GSAP + ScrollTrigger + MotionPathPlugin
+- `@gsap/react`
+- Formspree
 - Git + GitHub
 - Vercel
 
-## Brand
+---
 
-The current visual system is built around teal, cyan, deep navy, white, and light blue-gray surfaces.
+## Brand
 
 ```text
 Primary        #176d8c
 Primary Dark   #0f5874
+Primary Light  #e9f5f9
 Navy           #002d33
 Signal Cyan    #1092bf
 Ink            #0d162b
 Surface        #f7f9fb
 ```
 
-The cyan signal is used throughout the site as a visual thread connecting the different stages of Lider's engineering process.
+The cyan signal is used throughout the site as a visual thread connecting Lider's engineering process.
+
+---
+
+## Routes
+
+```text
+/                Home
+/about           About
+/services        Services
+/clients         Clients
+/contact         Contact
+/contact/sales   Contact Sales
+```
+
+---
 
 ## Pages
 
-```text
-/               Home
-/about          About
-/services       Services
-/clients        Clients
-/contact        Contact
-/contact/sales  Contact Sales
-```
-
 ### Home
-Hero, Who We Are, Product Story, Process, Trusted Clients, Metrics, and Work With Us CTA.
+Hero, Who We Are, Proven Systems, Product Story, Process, Trusted Clients, Metrics, and CTA.
 
 ### About
-Hero, Capabilities, Engineering Principles, Trusted Ecosystem, and Careers CTA.
+Hero, Who We Are, Capabilities, Engineering Principles, Trusted Ecosystem, and Careers CTA.
 
 ### Services
-Hero, Enterprise Systems, Our Approach, Development Process, Services Proof, and CTA.
+Hero, End-to-End Enterprise Systems, Our Approach, Development Process, Services Proof, and CTA.
 
 ### Clients
 Hero, Metrics, Proven Systems, Testimonials, Trusted Businesses, and CTA.
 
 ### Contact
-Contact overview, response details, Lider Labs Center/map, and FAQ.
+Contact overview, contact details, sales/support options, response metrics, map, and FAQ.
 
 ### Contact Sales
-Sales form and enterprise contact information.
+Sales enquiry page with enterprise contact information and a fully integrated Formspree form.
 
-> The Contact Sales interface is built, but the form backend is not connected yet.
+---
 
 ## Animation
 
 GSAP is the main animation engine.
 
-The site uses:
+The project uses:
 
 - `useGSAP()` for React-safe animation setup
-- `gsap.matchMedia()` for responsive behavior
-- ScrollTrigger for scroll-driven sections
-- MotionPathPlugin for moving signal paths
-- CSS `sticky` for longer story sections where it gives better layout control than GSAP pinning
+- `gsap.matchMedia()` for responsive animation behavior
+- `ScrollTrigger` for scroll-driven sections
+- `MotionPathPlugin` for animated signal paths
+- CSS `sticky` for storytelling sections
+- `IntersectionObserver` + `requestAnimationFrame` for counters
+- `prefers-reduced-motion` support
 
-Some sections use different mobile behavior so the experience stays readable and reliable on smaller screens.
+Responsive behavior is adapted for mobile, tablet, and desktop.
 
 Examples:
 
-- **Product Story:** sticky scroll story on tablet/desktop, normal-flow products with a travelling cyan signal on mobile
-- **Process:** sticky card story on desktop, individual card reveals on mobile/tablet
-- **Metrics:** `IntersectionObserver` + `requestAnimationFrame` for number counting, with GSAP used for the visual entrance
+- Product Story uses sticky storytelling on larger screens and normal-flow content on mobile.
+- Process uses sticky cards on desktop and individual reveals on smaller screens.
+- Services CTA uses a moving client-logo carousel on small screens.
 
-More detail is in (./docs/ANIMATIONS.md).
+---
+
+## Contact Sales Form
+
+The Contact Sales form is integrated with **Formspree** using `@formspree/react`.
+
+### Fields
+
+- Full name
+- Work email
+- Company
+- Company size
+- Requirements
+
+### Features
+
+- Client-side validation
+- Accessible error messages
+- Loading/submitting state
+- Success confirmation
+- Error feedback
+- Form reset
+- Honeypot spam protection
+- Automatic focus on the first invalid field
+- Responsive layout
+
+### Submission Flow
+
+```text
+User fills form
+      ↓
+Validation
+      ↓
+Formspree submission
+      ↓
+Success / Error feedback
+```
+
+The backend requirement for the current sales enquiry workflow is complete through Formspree.
+
+---
 
 ## Project Structure
 
@@ -104,7 +168,18 @@ src/
 └── main.jsx
 ```
 
-Shared UI lives in `components/`, while page-specific sections stay close to the page that owns them.
+---
+
+## Development Guidelines
+
+- Use `Link` and `NavLink` for internal navigation.
+- Keep animation logic scoped to its section.
+- Use Tailwind CSS v4 utilities consistently.
+- Keep important content readable without animation.
+- Respect reduced-motion preferences.
+- Preserve the approved design before introducing new styling.
+
+---
 
 ## Getting Started
 
@@ -122,38 +197,53 @@ npm run build
 npm run preview
 ```
 
-## Development Notes
+---
 
-- Use `Link` and `NavLink` for internal navigation.
-- Keep animation logic scoped to the section it controls.
-- Prefer Tailwind v4 canonical utilities where possible.
-- Keep important content readable without animation.
-- Respect `prefers-reduced-motion`.
-- Avoid motion that makes scrolling difficult.
-- Follow the approved design/reference before introducing new styling.
+## Git Workflow
 
-## Contact Sales Form
+```bash
+git pull
+npm run dev
 
-Current fields:
+npm run build
+git status
+git add .
+git commit -m "update: project changes"
+git push
+```
 
-- Full name
-- Work email
-- Company
-- Company size
-- Requirements
+---
 
-The frontend is ready, but submission is still pending backend integration.
+## Deployment
 
-Next steps:
+The project is deployed through **Vercel** and connected to GitHub.
 
-1. client-side validation
-2. accessible error messages
-3. loading/submitting state
-4. backend/API endpoint
-5. server-side validation
-6. email or CRM delivery
-7. success/error feedback
-8. spam and rate-limit protection
+```text
+Local Development
+      ↓
+GitHub
+      ↓
+Vercel
+      ↓
+Production
+```
+
+---
+
+## Final Release Checks
+
+Development is complete. Remaining work is focused on release quality:
+
+- Final responsive QA
+- Accessibility review
+- Performance and image review
+- Content consistency check
+- Privacy and Terms destinations
+- Metadata and SEO review
+- Final production build verification
+- Final Vercel deployment testing
+
+---
 
 ## Documentation
 
@@ -162,19 +252,3 @@ Next steps:
 - [Components](./docs/COMPONENTS.md)
 - [Deployment](./docs/DEPLOYMENT.md)
 - [Contributing](./docs/CONTRIBUTING.md)
-
-## Project Status
-
-The main frontend is built.
-
-Still to do before final production release:
-
-- Contact Sales backend
-- final responsive QA
-- accessibility review
-- performance/image review
-- content consistency check
-- Privacy and Terms destinations
-- metadata/SEO review
-- optional 404 page
-- final deployment testing

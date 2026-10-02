@@ -730,28 +730,38 @@ function TrustedEcosystemSection() {
 
       <div className="relative z-10 mx-auto max-w-[1220px]">
         <div className="text-center">
-          <div
-            className="
-              ecosystem-label
-              inline-flex
-              rounded-full
-              bg-brand-primary-light
-              px-3
-              py-1.5
-            "
-          >
-            <span
-              className="
-                text-[10px]
-                font-semibold
-                uppercase
-                tracking-[0.14em]
-                text-brand-primary
-              "
-            >
-              Trusted Ecosystem
-            </span>
-          </div>
+         <div
+  className="
+    ecosystem-label
+    inline-flex
+    flex-col
+    items-start
+  "
+>
+  <span
+    className="
+      text-[11px]
+      font-semibold
+      uppercase
+      tracking-[0.18em]
+      text-brand-primary
+    "
+  >
+    Trusted Ecosystem
+  </span>
+
+  <span
+    aria-hidden="true"
+    className="
+      mt-2
+      h-0.5
+      w-24
+      rounded-full
+      bg-brand-cyan
+      sm:w-40
+    "
+  />
+        </div>
 
           <h2
             className="

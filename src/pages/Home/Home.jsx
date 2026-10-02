@@ -1,5 +1,6 @@
 import HeroSection from "./HeroSection";
 import WhoWeAreSection from "./WhoWeAreSection";
+import ProvenSystemsSection from "../Clients/ProvenSystemsSection";
 import ProductStorySection from "./ProductStorySection";
 import ProcessSection from "./ProcessSection";
 import TrustedClientsSection from "./TrustedClientsSection";
@@ -11,6 +12,7 @@ function Home() {
     <main>
       <HeroSection />
       <WhoWeAreSection />
+      <ProvenSystemsSection/>
       <ProductStorySection />
       <ProcessSection/>
       <TrustedClientsSection/>

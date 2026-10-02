@@ -155,26 +155,67 @@ function ProcessSignal({
 function ProcessHeader() {
   return (
     <div className="process-header text-center">
+      {/* PROCESS LABEL */}
+
       <div
         className="
           process-label
           inline-flex
-          rounded-full
-          bg-brand-primary-light
-          px-3
-          py-1.5
+          flex-col
+          items-center
         "
       >
         <span
           className="
-            text-[10px]
+            process-label-text
+            text-[11px]
             font-semibold
             uppercase
-            tracking-[0.14em]
+            tracking-[0.18em]
             text-brand-primary
           "
         >
           Process
+        </span>
+
+        <span
+          aria-hidden="true"
+          className="
+            relative
+            mt-2
+            h-0.5
+            w-16
+            overflow-hidden
+            rounded-full
+            bg-brand-primary/10
+            sm:w-20
+          "
+        >
+          <span
+            className="
+              process-label-line
+              absolute
+              inset-0
+              origin-center
+              rounded-full
+              bg-brand-cyan
+            "
+          />
+
+          <span
+            className="
+              process-label-sheen
+              absolute
+              -left-5
+              top-1/2
+              h-1
+              w-8
+              -translate-y-1/2
+              rounded-full
+              bg-white/90
+              blur-[1px]
+            "
+          />
         </span>
       </div>
 
@@ -228,12 +269,14 @@ function StageCard({
         className,
       ].join(" ")}
     >
+      {/* STAGE META */}
+
       <div
         className="
           process-stage-meta
           flex
           items-center
-          gap-2
+          gap-3
         "
       >
         <span
@@ -248,22 +291,30 @@ function StageCard({
           {stage.number}
         </span>
 
-        <span className="text-[11px] text-brand-primary/40">
-          //
-        </span>
-
         <span
           className="
+            relative
+            inline-block
+            pb-1
             text-[10px]
             font-semibold
             uppercase
             tracking-[0.15em]
             text-brand-primary
+            after:absolute
+            after:bottom-0
+            after:left-0
+            after:h-0.5
+            after:w-full
+            after:rounded-full
+            after:bg-brand-cyan
           "
         >
           {stage.label}
         </span>
       </div>
+
+      {/* TITLE */}
 
       <h3
         className="
@@ -282,6 +333,8 @@ function StageCard({
         {stage.title}
       </h3>
 
+      {/* DESCRIPTION */}
+
       <p
         className="
           process-stage-description
@@ -294,6 +347,8 @@ function StageCard({
       >
         {stage.description}
       </p>
+
+      {/* SERVICES */}
 
       <span
         className="
@@ -317,6 +372,8 @@ function StageCard({
           →
         </span>
       </span>
+
+      {/* FOOTER */}
 
       <div
         className="
@@ -351,74 +408,17 @@ function StageCard({
               gap-3
             "
           >
-            <div
-              className="
-                flex
-                min-w-0
-                items-center
-                gap-2
-              "
+            <p
+              className={[
+                "truncate text-[12px] font-semibold",
+
+                stage.variant === "dark"
+                  ? "text-white"
+                  : "text-brand-ink",
+              ].join(" ")}
             >
-              {stage.variant === "dark" ? (
-                <span
-                  aria-hidden="true"
-                  className="
-                    process-status-dot
-                    size-2
-                    shrink-0
-                    rounded-full
-                    bg-emerald-400
-                    shadow-[0_0_12px_rgba(52,211,153,0.55)]
-                  "
-                />
-              ) : (
-                <span
-                  className="
-                    flex
-                    size-5
-                    shrink-0
-                    items-center
-                    justify-center
-                    text-brand-primary
-                  "
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    className="size-4"
-                    aria-hidden="true"
-                  >
-                    <rect
-                      x="6"
-                      y="9"
-                      width="12"
-                      height="10"
-                      rx="2"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                    />
-
-                    <path
-                      d="M9 9V7a3 3 0 0 1 6 0v2"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                    />
-                  </svg>
-                </span>
-              )}
-
-              <p
-                className={[
-                  "truncate text-[12px] font-semibold",
-
-                  stage.variant === "dark"
-                    ? "text-white"
-                    : "text-brand-ink",
-                ].join(" ")}
-              >
-                {stage.footerLabel}
-              </p>
-            </div>
+              {stage.footerLabel}
+            </p>
 
             {stage.status && (
               <span
@@ -497,6 +497,7 @@ function ProcessSection() {
           reduceMotion:
             "(prefers-reduced-motion: reduce)",
         },
+
         (context) => {
           const {
             mobile,
@@ -547,13 +548,14 @@ function ProcessSection() {
                 label,
                 heading,
                 description,
-                flowCards,
-                desktopCards,
+                ...flowCards,
+                ...desktopCards,
                 ".process-stage-meta",
                 ".process-stage-title",
                 ".process-stage-description",
                 ".process-stage-footer",
               ],
+
               {
                 x: 0,
                 y: 0,
@@ -568,6 +570,7 @@ function ProcessSection() {
                 tabletDotRef.current,
                 desktopDotRef.current,
               ],
+
               {
                 autoAlpha: 0,
               },
@@ -597,54 +600,61 @@ function ProcessSection() {
                   ease: "power3.out",
                 },
               })
+
               .fromTo(
                 label,
+
                 {
                   y: 14,
                   autoAlpha: 0,
                 },
+
                 {
                   y: 0,
                   autoAlpha: 1,
                   duration: 0.42,
                 },
               )
+
               .fromTo(
                 heading,
+
                 {
                   y: 30,
                   autoAlpha: 0,
                 },
+
                 {
                   y: 0,
                   autoAlpha: 1,
 
                   duration: 0.68,
                 },
+
                 "-=0.2",
               )
+
               .fromTo(
                 description,
+
                 {
                   y: 18,
                   autoAlpha: 0,
                 },
+
                 {
                   y: 0,
                   autoAlpha: 1,
 
                   duration: 0.5,
                 },
+
                 "-=0.34",
               );
           }
 
           /*
            * MOBILE + TABLET
-           *
-           * Normal flow remains untouched.
-           * Each card gets its own reliable
-           * late ScrollTrigger.
            */
 
           if (!desktop) {
@@ -692,11 +702,6 @@ function ProcessSection() {
                     ".process-live",
                   );
 
-                const statusDot =
-                  card.querySelector(
-                    ".process-status-dot",
-                  );
-
                 const entrance =
                   gsap.timeline({
                     scrollTrigger: {
@@ -719,6 +724,7 @@ function ProcessSection() {
                 entrance
                   .fromTo(
                     card,
+
                     {
                       y: mobile
                         ? 46
@@ -730,6 +736,7 @@ function ProcessSection() {
 
                       autoAlpha: 0,
                     },
+
                     {
                       y: 0,
                       scale: 1,
@@ -740,40 +747,51 @@ function ProcessSection() {
                         : 0.66,
                     },
                   )
+
                   .fromTo(
                     meta,
+
                     {
                       y: 14,
                       autoAlpha: 0,
                     },
+
                     {
                       y: 0,
                       autoAlpha: 1,
 
                       duration: 0.34,
                     },
+
                     "-=0.4",
                   )
+
                   .fromTo(
                     title,
+
                     {
                       y: 18,
                       autoAlpha: 0,
                     },
+
                     {
                       y: 0,
                       autoAlpha: 1,
 
                       duration: 0.44,
                     },
+
                     "-=0.25",
                   )
+
                   .fromTo(
                     body,
+
                     {
                       y: 16,
                       autoAlpha: 0,
                     },
+
                     {
                       y: 0,
                       autoAlpha: 1,
@@ -782,30 +800,36 @@ function ProcessSection() {
 
                       stagger: 0.06,
                     },
+
                     "-=0.3",
                   )
+
                   .fromTo(
                     footer,
+
                     {
                       y: 18,
                       autoAlpha: 0,
                     },
+
                     {
                       y: 0,
                       autoAlpha: 1,
 
                       duration: 0.42,
                     },
+
                     "-=0.26",
                   );
 
                 /*
-                 * Little card landing
+                 * CARD LANDING
                  */
 
                 entrance
                   .to(
                     card,
+
                     {
                       y: -3,
 
@@ -813,8 +837,10 @@ function ProcessSection() {
 
                       ease: "power2.out",
                     },
+
                     "-=0.18",
                   )
+
                   .to(card, {
                     y: 0,
 
@@ -824,21 +850,24 @@ function ProcessSection() {
                   });
 
                 /*
-                 * Number pulse
+                 * NUMBER PULSE
                  */
 
                 if (number) {
                   entrance
                     .to(
                       number,
+
                       {
                         scale: 1.16,
                         color: "#1092bf",
 
                         duration: 0.13,
                       },
+
                       "-=0.34",
                     )
+
                     .to(number, {
                       scale: 1,
 
@@ -847,13 +876,14 @@ function ProcessSection() {
                 }
 
                 /*
-                 * Arrow movement
+                 * ARROW MOVEMENT
                  */
 
                 if (arrow) {
                   entrance
                     .to(
                       arrow,
+
                       {
                         x: 4,
 
@@ -861,8 +891,10 @@ function ProcessSection() {
 
                         ease: "power2.out",
                       },
+
                       "-=0.28",
                     )
+
                     .to(arrow, {
                       x: 0,
 
@@ -873,15 +905,17 @@ function ProcessSection() {
                 }
 
                 /*
-                 * Footer panel settles in
+                 * FOOTER PANEL
                  */
 
                 if (footerBox) {
                   entrance.fromTo(
                     footerBox,
+
                     {
                       scale: 0.98,
                     },
+
                     {
                       scale: 1,
 
@@ -889,30 +923,9 @@ function ProcessSection() {
 
                       ease: "power2.out",
                     },
+
                     "-=0.28",
                   );
-                }
-
-                /*
-                 * BUILD status dot
-                 */
-
-                if (statusDot) {
-                  entrance
-                    .to(
-                      statusDot,
-                      {
-                        scale: 1.35,
-
-                        duration: 0.12,
-                      },
-                      "-=0.28",
-                    )
-                    .to(statusDot, {
-                      scale: 1,
-
-                      duration: 0.16,
-                    });
                 }
 
                 /*
@@ -923,6 +936,7 @@ function ProcessSection() {
                   entrance
                     .to(
                       live,
+
                       {
                         scale: 1.14,
 
@@ -930,8 +944,10 @@ function ProcessSection() {
 
                         ease: "back.out(2)",
                       },
+
                       "-=0.26",
                     )
+
                     .to(live, {
                       scale: 1,
 
@@ -1065,9 +1081,6 @@ function ProcessSection() {
 
           /*
            * INITIAL STATES
-           *
-           * Card 1 begins active.
-           * 2 + 3 are visible previews.
            */
 
           desktopCards.forEach(
@@ -1111,9 +1124,10 @@ function ProcessSection() {
                   [
                     meta,
                     title,
-                    body,
+                    ...body,
                     footer,
                   ],
+
                   {
                     y: 0,
                     autoAlpha: 1,
@@ -1161,9 +1175,7 @@ function ProcessSection() {
             });
 
           /*
-           * SMALL INTRO HOLD
-           *
-           * Lets Concept breathe first.
+           * CONCEPT HOLD
            */
 
           const introHold = {
@@ -1172,6 +1184,7 @@ function ProcessSection() {
 
           story.to(
             introHold,
+
             {
               progress: 1,
 
@@ -1179,6 +1192,7 @@ function ProcessSection() {
 
               ease: "none",
             },
+
             0,
           );
 
@@ -1202,6 +1216,7 @@ function ProcessSection() {
             story
               .to(
                 card1,
+
                 {
                   y: 0,
                   scale: 1,
@@ -1217,10 +1232,13 @@ function ProcessSection() {
 
                   ease: "power2.inOut",
                 },
+
                 0.65,
               )
+
               .to(
                 card2,
+
                 {
                   y: -4,
                   scale: 1.01,
@@ -1236,30 +1254,39 @@ function ProcessSection() {
 
                   ease: "power3.out",
                 },
+
                 0.68,
               )
+
               .to(
                 parts.meta,
+
                 {
                   y: 0,
                   autoAlpha: 1,
 
                   duration: 0.14,
                 },
+
                 0.74,
               )
+
               .to(
                 parts.title,
+
                 {
                   y: 0,
                   autoAlpha: 1,
 
                   duration: 0.17,
                 },
+
                 0.8,
               )
+
               .to(
                 parts.body,
+
                 {
                   y: 0,
                   autoAlpha: 1,
@@ -1268,16 +1295,20 @@ function ProcessSection() {
 
                   stagger: 0.035,
                 },
+
                 0.86,
               )
+
               .to(
                 parts.footer,
+
                 {
                   y: 0,
                   autoAlpha: 1,
 
                   duration: 0.2,
                 },
+
                 0.94,
               );
 
@@ -1285,21 +1316,26 @@ function ProcessSection() {
               story
                 .to(
                   parts.number,
+
                   {
                     scale: 1.18,
                     color: "#1092bf",
 
                     duration: 0.1,
                   },
+
                   0.76,
                 )
+
                 .to(
                   parts.number,
+
                   {
                     scale: 1,
 
                     duration: 0.12,
                   },
+
                   0.86,
                 );
             }
@@ -1308,20 +1344,25 @@ function ProcessSection() {
               story
                 .to(
                   parts.arrow,
+
                   {
                     x: 5,
 
                     duration: 0.1,
                   },
+
                   0.96,
                 )
+
                 .to(
                   parts.arrow,
+
                   {
                     x: 0,
 
                     duration: 0.13,
                   },
+
                   1.06,
                 );
             }
@@ -1337,6 +1378,7 @@ function ProcessSection() {
 
           story.to(
             buildHold,
+
             {
               progress: 1,
 
@@ -1344,6 +1386,7 @@ function ProcessSection() {
 
               ease: "none",
             },
+
             1.16,
           );
 
@@ -1358,6 +1401,7 @@ function ProcessSection() {
             story
               .to(
                 card2,
+
                 {
                   y: 0,
                   scale: 1,
@@ -1373,10 +1417,13 @@ function ProcessSection() {
 
                   ease: "power2.inOut",
                 },
+
                 1.75,
               )
+
               .to(
                 card3,
+
                 {
                   y: -4,
                   scale: 1.01,
@@ -1392,30 +1439,39 @@ function ProcessSection() {
 
                   ease: "power3.out",
                 },
+
                 1.78,
               )
+
               .to(
                 parts.meta,
+
                 {
                   y: 0,
                   autoAlpha: 1,
 
                   duration: 0.14,
                 },
+
                 1.84,
               )
+
               .to(
                 parts.title,
+
                 {
                   y: 0,
                   autoAlpha: 1,
 
                   duration: 0.17,
                 },
+
                 1.9,
               )
+
               .to(
                 parts.body,
+
                 {
                   y: 0,
                   autoAlpha: 1,
@@ -1424,16 +1480,20 @@ function ProcessSection() {
 
                   stagger: 0.035,
                 },
+
                 1.96,
               )
+
               .to(
                 parts.footer,
+
                 {
                   y: 0,
                   autoAlpha: 1,
 
                   duration: 0.2,
                 },
+
                 2.04,
               );
 
@@ -1441,21 +1501,26 @@ function ProcessSection() {
               story
                 .to(
                   parts.number,
+
                   {
                     scale: 1.18,
                     color: "#1092bf",
 
                     duration: 0.1,
                   },
+
                   1.86,
                 )
+
                 .to(
                   parts.number,
+
                   {
                     scale: 1,
 
                     duration: 0.12,
                   },
+
                   1.96,
                 );
             }
@@ -1464,20 +1529,25 @@ function ProcessSection() {
               story
                 .to(
                   parts.arrow,
+
                   {
                     x: 5,
 
                     duration: 0.1,
                   },
+
                   2.06,
                 )
+
                 .to(
                   parts.arrow,
+
                   {
                     x: 0,
 
                     duration: 0.13,
                   },
+
                   2.16,
                 );
             }
@@ -1486,6 +1556,7 @@ function ProcessSection() {
               story
                 .to(
                   parts.live,
+
                   {
                     scale: 1.18,
 
@@ -1493,15 +1564,19 @@ function ProcessSection() {
 
                     ease: "back.out(2)",
                   },
+
                   2.1,
                 )
+
                 .to(
                   parts.live,
+
                   {
                     scale: 1,
 
                     duration: 0.14,
                   },
+
                   2.2,
                 );
             }
@@ -1509,9 +1584,6 @@ function ProcessSection() {
 
           /*
            * FINAL LAUNCH HOLD
-           *
-           * Card 03 stays active before
-           * the sticky area releases.
            */
 
           const launchHold = {
@@ -1520,6 +1592,7 @@ function ProcessSection() {
 
           story.to(
             launchHold,
+
             {
               progress: 1,
 
@@ -1527,6 +1600,7 @@ function ProcessSection() {
 
               ease: "none",
             },
+
             2.28,
           );
 
@@ -1540,6 +1614,7 @@ function ProcessSection() {
           ) {
             gsap.to(
               desktopPathRef.current,
+
               {
                 strokeDashoffset: -180,
 
@@ -1553,6 +1628,7 @@ function ProcessSection() {
 
             gsap.set(
               desktopDotRef.current,
+
               {
                 autoAlpha: 1,
 
@@ -1565,6 +1641,7 @@ function ProcessSection() {
 
             gsap.to(
               desktopDotRef.current,
+
               {
                 motionPath: {
                   path:
@@ -1609,6 +1686,7 @@ function ProcessSection() {
         mm.revert();
       };
     },
+
     {
       scope: sectionRef,
     },

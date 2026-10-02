@@ -269,33 +269,44 @@ function Navbar() {
           <Link
             to="/contact"
             className="
+              group
               inline-flex
               min-h-10
               items-center
               justify-center
               rounded-full
-              bg-brand-primary
-              px-6
-              py-2.5
-              text-[13px]
-              font-semibold
-              text-white
-              shadow-brand-button
-              transition-[transform,background-color,box-shadow]
-              duration-200
-              ease-out
-              motion-reduce:transition-none
-              motion-reduce:hover:translate-y-0
-              hover:-translate-y-0.5
-              hover:bg-brand-primary-dark
-              hover:shadow-[0_8px_20px_rgba(23,109,140,0.24)]
               focus-visible:outline-none
               focus-visible:ring-2
               focus-visible:ring-brand-primary
               focus-visible:ring-offset-2
             "
           >
-            Work with us
+            <span
+              className="
+                inline-flex
+                min-h-10
+                items-center
+                justify-center
+                rounded-full
+                bg-brand-primary
+                px-6
+                py-2.5
+                text-[13px]
+                font-semibold
+                text-white
+                shadow-brand-button
+                transition-[transform,background-color,box-shadow]
+                duration-200
+                ease-out
+                group-hover:-translate-y-0.5
+                group-hover:bg-brand-primary-dark
+                group-hover:shadow-[0_8px_20px_rgba(23,109,140,0.24)]
+                motion-reduce:transform-none
+                motion-reduce:transition-none
+              "
+            >
+              Work with us
+            </span>
           </Link>
         </div>
 
@@ -433,37 +444,51 @@ function Navbar() {
               </NavLink>
             ))}
 
-            <Link
-              to="/contact"
-              tabIndex={
-                isMenuOpen ? undefined : -1
-              }
-              className="
-                mt-3
-                inline-flex
-                min-h-11
-                items-center
-                justify-center
-                rounded-full
-                bg-brand-primary
-                px-5
-                py-3
-                text-[13px]
-                font-semibold
-                text-white
-                shadow-brand-button
-                transition-[transform,background-color,box-shadow]
-                duration-200
-                motion-reduce:transition-none
-                hover:bg-brand-primary-dark
-                focus-visible:outline-none
-                focus-visible:ring-2
-                focus-visible:ring-brand-primary
-                focus-visible:ring-offset-2
-              "
-            >
-              Work with us
-            </Link>
+           <Link
+  to="/contact"
+  tabIndex={isMenuOpen ? undefined : -1}
+  className="
+    group
+    mt-3
+    inline-flex
+    min-h-11
+    items-center
+    justify-center
+    rounded-full
+    focus-visible:outline-none
+    focus-visible:ring-2
+    focus-visible:ring-brand-primary
+    focus-visible:ring-offset-2
+  "
+>
+  <span
+    className="
+      inline-flex
+      min-h-11
+      w-full
+      items-center
+      justify-center
+      rounded-full
+      bg-brand-primary
+      px-5
+      py-3
+      text-[13px]
+      font-semibold
+      text-white
+      shadow-brand-button
+      transition-[transform,background-color,box-shadow]
+      duration-200
+      ease-out
+      group-hover:-translate-y-0.5
+      group-hover:bg-brand-primary-dark
+      group-hover:shadow-[0_8px_20px_rgba(23,109,140,0.24)]
+      motion-reduce:transform-none
+      motion-reduce:transition-none
+    "
+  >
+    Work with us
+  </span>
+          </Link>
           </div>
         </div>
       </div>

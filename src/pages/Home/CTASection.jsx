@@ -27,6 +27,7 @@ function CTASection() {
           reduceMotion:
             "(prefers-reduced-motion: reduce)",
         },
+
         (context) => {
           const {
             mobile,
@@ -47,11 +48,11 @@ function CTASection() {
           const primary =
             section.querySelector(".cta-primary");
 
-          const supporting =
-            section.querySelector(".cta-supporting");
-
           const secondary =
             section.querySelector(".cta-secondary");
+
+          const supporting =
+            section.querySelector(".cta-supporting");
 
           /*
            * REDUCED MOTION
@@ -64,8 +65,8 @@ function CTASection() {
                 heading,
                 subtitle,
                 primary,
-                supporting,
                 secondary,
+                supporting,
               ],
               {
                 x: 0,
@@ -191,6 +192,7 @@ function CTASection() {
                 ease: "power3.out",
               },
             })
+
             .to(card, {
               y: 0,
               scale: 1,
@@ -200,6 +202,7 @@ function CTASection() {
                 ? 0.7
                 : 0.75,
             })
+
             .to(
               heading,
               {
@@ -209,6 +212,7 @@ function CTASection() {
               },
               "-=0.4",
             )
+
             .to(
               subtitle,
               {
@@ -218,17 +222,21 @@ function CTASection() {
               },
               "-=0.32",
             )
+
             .to(
-              primary,
+              [primary, secondary],
               {
                 y: 0,
                 scale: 1,
                 autoAlpha: 1,
 
                 duration: 0.44,
+
+                stagger: 0.08,
               },
               "-=0.25",
             )
+
             .to(
               supporting,
               {
@@ -238,31 +246,10 @@ function CTASection() {
                 duration: 0.4,
               },
               "-=0.18",
-            )
-            .to(
-              secondary,
-              {
-                y: 0,
-                scale: 1,
-                autoAlpha: 1,
-
-                duration: 0.44,
-              },
-              "-=0.18",
             );
 
           /*
            * CLOSING SIGNAL
-           *
-           * The track height follows the section's
-           * responsive top padding:
-           *
-           * mobile  = 56px
-           * tablet  = 64px
-           * desktop = 80px
-           *
-           * Subtract half the signal dot so its
-           * center meets the terminal cleanly.
            */
 
           const signalDistance = desktop
@@ -302,6 +289,7 @@ function CTASection() {
                   invalidateOnRefresh: true,
                 },
               })
+
               .set(
                 signalDotRef.current,
                 {
@@ -309,6 +297,7 @@ function CTASection() {
                 },
                 0,
               )
+
               .to(
                 signalDotRef.current,
                 {
@@ -320,6 +309,7 @@ function CTASection() {
                 },
                 0,
               )
+
               .to(
                 signalFillRef.current,
                 {
@@ -331,6 +321,7 @@ function CTASection() {
                 },
                 0,
               )
+
               .to(
                 signalDotRef.current,
                 {
@@ -342,6 +333,7 @@ function CTASection() {
                 },
                 0.73,
               )
+
               .to(
                 terminalRef.current,
                 {
@@ -354,6 +346,7 @@ function CTASection() {
                 },
                 0.75,
               )
+
               .to(
                 terminalRef.current,
                 {
@@ -365,6 +358,7 @@ function CTASection() {
                 },
                 0.86,
               )
+
               .to(
                 terminalRef.current,
                 {
@@ -376,6 +370,7 @@ function CTASection() {
                 },
                 0.94,
               )
+
               .to(
                 signalDotRef.current,
                 {
@@ -394,6 +389,7 @@ function CTASection() {
         mm.revert();
       };
     },
+
     {
       scope: sectionRef,
     },
@@ -415,7 +411,7 @@ function CTASection() {
         lg:py-20
       "
     >
-      {/* Closing signal */}
+      {/* CLOSING SIGNAL */}
 
       <div
         aria-hidden="true"
@@ -495,7 +491,7 @@ function CTASection() {
           max-w-[1220px]
         "
       >
-        {/* Signal terminal */}
+        {/* SIGNAL TERMINAL */}
 
         <div
           ref={terminalRef}
@@ -528,7 +524,7 @@ function CTASection() {
           />
         </div>
 
-        {/* CTA card */}
+        {/* CTA CARD */}
 
         <div
           className="
@@ -549,7 +545,7 @@ function CTASection() {
             lg:py-16
           "
         >
-          {/* Background glows */}
+          {/* BACKGROUND GLOWS */}
 
           <div
             aria-hidden="true"
@@ -636,10 +632,23 @@ function CTASection() {
               Let&apos;s build something amazing!
             </p>
 
-            <div className="cta-primary mt-7">
+            {/* BUTTONS */}
+
+            <div
+              className="
+                mt-7
+                flex
+                flex-col
+                items-center
+                justify-center
+                gap-3
+                sm:flex-row
+              "
+            >
               <Link
                 to="/contact/sales"
                 className="
+                  cta-primary
                   inline-flex
                   min-h-11
                   w-full
@@ -665,40 +674,20 @@ function CTASection() {
                   focus-visible:ring-white
                   focus-visible:ring-offset-2
                   focus-visible:ring-offset-brand-navy
-                  min-[420px]:w-auto
+                  sm:w-auto
                 "
               >
                 Fill out the contact form
+
                 <span aria-hidden="true">
                   →
                 </span>
               </Link>
-            </div>
 
-            <p
-              className="
-                cta-supporting
-                mx-auto
-                mt-9
-                max-w-[560px]
-                text-[10px]
-                font-semibold
-                uppercase
-                leading-5
-                tracking-[0.16em]
-                text-white/50
-                sm:mt-10
-                sm:tracking-[0.18em]
-              "
-            >
-              Join the list of our satisfied clients. You&apos;ll be in good
-              company.
-            </p>
-
-            <div className="cta-secondary mt-6">
               <Link
                 to="/contact"
                 className="
+                  cta-secondary
                   inline-flex
                   min-h-11
                   w-full
@@ -723,12 +712,32 @@ function CTASection() {
                   focus-visible:ring-white
                   focus-visible:ring-offset-2
                   focus-visible:ring-offset-brand-navy
-                  min-[420px]:w-auto
+                  sm:w-auto
                 "
               >
                 Reach out to us now...
               </Link>
             </div>
+
+            <p
+              className="
+                cta-supporting
+                mx-auto
+                mt-9
+                max-w-[560px]
+                text-[10px]
+                font-semibold
+                uppercase
+                leading-5
+                tracking-[0.16em]
+                text-white/50
+                sm:mt-10
+                sm:tracking-[0.18em]
+              "
+            >
+              Join the list of our satisfied clients. You&apos;ll be in good
+              company.
+            </p>
           </div>
         </div>
       </div>

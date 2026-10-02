@@ -698,28 +698,37 @@ function ContactSales() {
 
           <div className="lg:pt-2">
             <div
-              className="
-                sales-label
-                inline-flex
-                rounded
-                bg-brand-primary-light
-                px-3
-                py-1.5
-              "
-            >
-              <span
-                className="
-                  text-[10px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.14em]
-                  text-brand-primary
-                "
-              >
-                Contact
-              </span>
-            </div>
+  className="
+    sales-label
+    inline-flex
+    flex-col
+    items-start
+  "
+>
+  <span
+    className="
+      text-[11px]
+      font-semibold
+      uppercase
+      tracking-[0.18em]
+      text-brand-primary
+    "
+  >
+    Contact
+  </span>
 
+  <span
+    aria-hidden="true"
+    className="
+      mt-2
+      h-0.5
+      w-16
+      rounded-full
+      bg-brand-cyan
+      sm:w-20
+    "
+  />
+            </div>
             <h1
               className="
                 sales-heading
@@ -802,7 +811,7 @@ function ContactSales() {
             >
               Already using our products?{" "}
               <a
-                href="mailto:support@liderlabs.com"
+                href="mailto:info@liderlabs.com"
                 className="
                   font-medium
                   text-brand-ink

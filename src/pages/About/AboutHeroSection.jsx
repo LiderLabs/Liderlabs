@@ -50,7 +50,10 @@ function AboutSignal({
           width="500%"
           height="500%"
         >
-          <feGaussianBlur stdDeviation="4" result="blur" />
+          <feGaussianBlur
+            stdDeviation="4"
+            result="blur"
+          />
 
           <feMerge>
             <feMergeNode in="blur" />
@@ -82,7 +85,10 @@ function AboutSignal({
         vectorEffect="non-scaling-stroke"
       />
 
-      <g ref={dotRef} filter={`url(#${filterId})`}>
+      <g
+        ref={dotRef}
+        filter={`url(#${filterId})`}
+      >
         <circle
           cx="0"
           cy="0"
@@ -127,32 +133,63 @@ function AboutHeroSection() {
 
       if (!section) return;
 
-      const label = section.querySelector(".about-hero-label");
-      const heading = section.querySelector(".about-hero-heading");
-      const copy = section.querySelector(".about-hero-copy");
+      const labelText =
+        section.querySelector(
+          ".about-hero-label-text",
+        );
 
-      const glowLeft = section.querySelector(
-        ".about-hero-glow-left",
-      );
+      const labelLine =
+        section.querySelector(
+          ".about-hero-label-line",
+        );
 
-      const glowRight = section.querySelector(
-        ".about-hero-glow-right",
-      );
+      const labelSheen =
+        section.querySelector(
+          ".about-hero-label-sheen",
+        );
+
+      const heading =
+        section.querySelector(
+          ".about-hero-heading",
+        );
+
+      const copy =
+        section.querySelector(
+          ".about-hero-copy",
+        );
+
+      const glowLeft =
+        section.querySelector(
+          ".about-hero-glow-left",
+        );
+
+      const glowRight =
+        section.querySelector(
+          ".about-hero-glow-right",
+        );
 
       const width = window.innerWidth;
 
       const isMobile = width < 768;
-      const isTablet = width >= 768 && width < 1024;
-      const isDesktop = width >= 1024;
+      const isTablet =
+        width >= 768 &&
+        width < 1024;
+      const isDesktop =
+        width >= 1024;
 
-      const reduceMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
+      const reduceMotion =
+        window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+
+      /*
+       * REDUCED MOTION
+       */
 
       if (reduceMotion) {
         gsap.set(
           [
-            label,
+            labelText,
             heading,
             copy,
             glowLeft,
@@ -165,6 +202,14 @@ function AboutHeroSection() {
             autoAlpha: 1,
           },
         );
+
+        gsap.set(labelLine, {
+          scaleX: 1,
+        });
+
+        gsap.set(labelSheen, {
+          autoAlpha: 0,
+        });
 
         gsap.set(
           [
@@ -180,41 +225,86 @@ function AboutHeroSection() {
         return;
       }
 
-      gsap.set(label, {
+      /*
+       * ABOUT LABEL
+       */
+
+      gsap.set(labelText, {
         y: 14,
-        scale: 0.96,
         autoAlpha: 0,
       });
 
+      gsap.set(labelLine, {
+        scaleX: 0,
+        transformOrigin:
+          "center center",
+      });
+
+      gsap.set(labelSheen, {
+        xPercent: -180,
+        autoAlpha: 0,
+      });
+
+      /*
+       * HERO CONTENT
+       */
+
       gsap.set(heading, {
-        y: isMobile ? 32 : isTablet ? 36 : 42,
+        y: isMobile
+          ? 32
+          : isTablet
+            ? 36
+            : 42,
+
         autoAlpha: 0,
       });
 
       gsap.set(copy, {
-        y: isMobile ? 20 : 24,
+        y: isMobile
+          ? 20
+          : 24,
+
         autoAlpha: 0,
       });
 
+      /*
+       * BACKGROUND GLOWS
+       */
+
       gsap.set(glowLeft, {
-        x: isMobile ? -18 : -35,
+        x: isMobile
+          ? -18
+          : -35,
+
         y: -15,
+
         scale: 0.82,
+
         autoAlpha: 0,
       });
 
       gsap.set(glowRight, {
-        x: isMobile ? 18 : 35,
+        x: isMobile
+          ? 18
+          : 35,
+
         y: 20,
+
         scale: 0.84,
+
         autoAlpha: 0,
       });
 
-      const intro = gsap.timeline({
-        defaults: {
-          ease: "power3.out",
-        },
-      });
+      /*
+       * INTRO
+       */
+
+      const intro =
+        gsap.timeline({
+          defaults: {
+            ease: "power3.out",
+          },
+        });
 
       intro
         .to(
@@ -224,10 +314,14 @@ function AboutHeroSection() {
             y: 0,
             scale: 1,
             autoAlpha: 1,
-            duration: isMobile ? 1 : 1.4,
+
+            duration: isMobile
+              ? 1
+              : 1.4,
           },
           0,
         )
+
         .to(
           glowRight,
           {
@@ -235,88 +329,203 @@ function AboutHeroSection() {
             y: 0,
             scale: 1,
             autoAlpha: 1,
-            duration: isMobile ? 1.05 : 1.5,
+
+            duration: isMobile
+              ? 1.05
+              : 1.5,
           },
           0.05,
         )
+
+        /*
+         * ABOUT TEXT
+         */
+
         .to(
-          label,
+          labelText,
           {
             y: 0,
-            scale: 1,
             autoAlpha: 1,
-            duration: 0.45,
+            duration: 0.42,
           },
           0.1,
         )
+
+        /*
+         * UNDERLINE DRAW
+         */
+
+        .to(
+          labelLine,
+          {
+            scaleX: 1,
+
+            duration: 0.55,
+
+            ease: "power3.out",
+          },
+          0.22,
+        )
+
+        /*
+         * UNDERLINE SHEEN
+         */
+
+        .set(
+          labelSheen,
+          {
+            autoAlpha: 1,
+          },
+          0.3,
+        )
+
+        .to(
+          labelSheen,
+          {
+            xPercent: 360,
+
+            duration: 0.62,
+
+            ease: "power2.inOut",
+          },
+          0.3,
+        )
+
+        .to(
+          labelSheen,
+          {
+            autoAlpha: 0,
+            duration: 0.1,
+          },
+          0.82,
+        )
+
+        /*
+         * HEADING
+         */
+
         .to(
           heading,
           {
             y: 0,
             autoAlpha: 1,
-            duration: isMobile ? 0.75 : 0.9,
+
+            duration: isMobile
+              ? 0.75
+              : 0.9,
           },
-          0.2,
+          0.25,
         )
+
+        /*
+         * COPY
+         */
+
         .to(
           copy,
           {
             y: 0,
             autoAlpha: 1,
-            duration: isMobile ? 0.6 : 0.7,
+
+            duration: isMobile
+              ? 0.6
+              : 0.7,
           },
-          0.42,
+          0.48,
         );
+
+      /*
+       * SIGNAL
+       */
 
       let signalPath = null;
       let signalDot = null;
 
       if (isMobile) {
-        signalPath = mobilePathRef.current;
-        signalDot = mobileDotRef.current;
+        signalPath =
+          mobilePathRef.current;
+
+        signalDot =
+          mobileDotRef.current;
       }
 
       if (isTablet) {
-        signalPath = tabletPathRef.current;
-        signalDot = tabletDotRef.current;
+        signalPath =
+          tabletPathRef.current;
+
+        signalDot =
+          tabletDotRef.current;
       }
 
       if (isDesktop) {
-        signalPath = desktopPathRef.current;
-        signalDot = desktopDotRef.current;
+        signalPath =
+          desktopPathRef.current;
+
+        signalDot =
+          desktopDotRef.current;
       }
 
-      if (signalPath && signalDot) {
+      if (
+        signalPath &&
+        signalDot
+      ) {
         gsap.to(signalPath, {
-          strokeDashoffset: isDesktop ? -130 : -110,
-          duration: isDesktop ? 8 : 7,
+          strokeDashoffset:
+            isDesktop
+              ? -130
+              : -110,
+
+          duration:
+            isDesktop
+              ? 8
+              : 7,
+
           repeat: -1,
+
           ease: "none",
         });
 
         gsap.set(signalDot, {
           scale: 0.8,
+
           autoAlpha: 0,
-          transformOrigin: "50% 50%",
+
+          transformOrigin:
+            "50% 50%",
         });
 
         gsap
           .timeline({
-            delay: isMobile ? 0.3 : 0.45,
+            delay: isMobile
+              ? 0.3
+              : 0.45,
           })
+
           .to(signalDot, {
             scale: 1,
+
             autoAlpha: 1,
+
             duration: 0.22,
+
             ease: "power2.out",
           })
+
           .to(
             signalDot,
             {
               motionPath: {
-                path: signalPath,
-                align: signalPath,
-                alignOrigin: [0.5, 0.5],
+                path:
+                  signalPath,
+
+                align:
+                  signalPath,
+
+                alignOrigin: [
+                  0.5,
+                  0.5,
+                ],
+
                 start: 0,
                 end: 1,
               },
@@ -331,44 +540,79 @@ function AboutHeroSection() {
             },
             0,
           )
+
           .to(
             signalDot,
             {
               scale: 1.3,
+
               duration: 0.12,
+
               ease: "power2.out",
             },
-            isMobile ? 1.95 : 2.3,
+
+            isMobile
+              ? 1.95
+              : 2.3,
           )
+
           .to(
             signalDot,
             {
               scale: 1,
+
               duration: 0.15,
+
               ease: "power2.inOut",
             },
-            isMobile ? 2.07 : 2.42,
+
+            isMobile
+              ? 2.07
+              : 2.42,
           );
       }
 
+      /*
+       * AMBIENT GLOW MOVEMENT
+       */
+
       gsap.to(glowLeft, {
-        x: isMobile ? 8 : 18,
-        y: isMobile ? 6 : 10,
+        x: isMobile
+          ? 8
+          : 18,
+
+        y: isMobile
+          ? 6
+          : 10,
+
         duration: 6,
+
         repeat: -1,
+
         yoyo: true,
+
         ease: "sine.inOut",
       });
 
       gsap.to(glowRight, {
-        x: isMobile ? -8 : -16,
-        y: isMobile ? -6 : -10,
+        x: isMobile
+          ? -8
+          : -16,
+
+        y: isMobile
+          ? -6
+          : -10,
+
         duration: 7,
+
         repeat: -1,
+
         yoyo: true,
+
         ease: "sine.inOut",
       });
     },
+
     {
       scope: sectionRef,
     },
@@ -391,6 +635,8 @@ function AboutHeroSection() {
         lg:py-24
       "
     >
+      {/* LEFT GLOW */}
+
       <div
         aria-hidden="true"
         className="
@@ -406,6 +652,8 @@ function AboutHeroSection() {
         "
       />
 
+      {/* RIGHT GLOW */}
+
       <div
         aria-hidden="true"
         className="
@@ -420,6 +668,8 @@ function AboutHeroSection() {
           blur-[110px]
         "
       />
+
+      {/* MOBILE SIGNAL */}
 
       <AboutSignal
         path={mobileSignalPath}
@@ -440,6 +690,8 @@ function AboutHeroSection() {
           md:hidden
         "
       />
+
+      {/* TABLET SIGNAL */}
 
       <AboutSignal
         path={tabletSignalPath}
@@ -463,6 +715,8 @@ function AboutHeroSection() {
         "
       />
 
+      {/* DESKTOP SIGNAL */}
+
       <AboutSignal
         path={desktopSignalPath}
         pathRef={desktopPathRef}
@@ -484,6 +738,8 @@ function AboutHeroSection() {
         "
       />
 
+      {/* CONTENT */}
+
       <div
         className="
           relative
@@ -493,20 +749,71 @@ function AboutHeroSection() {
           text-center
         "
       >
+        {/* ABOUT LABEL */}
+
         <div
           className="
             about-hero-label
             inline-flex
-            rounded-full
-            bg-brand-primary-light
-            px-3
-            py-1.5
+            flex-col
+            items-center
           "
         >
-          <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-brand-primary">
+          <span
+            className="
+              about-hero-label-text
+              text-[11px]
+              font-semibold
+              uppercase
+              tracking-[0.18em]
+              text-brand-primary
+            "
+          >
             About
           </span>
+
+          <span
+            aria-hidden="true"
+            className="
+              relative
+              mt-2
+              h-0.5
+              w-14
+              overflow-hidden
+              rounded-full
+              bg-brand-primary/10
+              sm:w-16
+            "
+          >
+            <span
+              className="
+                about-hero-label-line
+                absolute
+                inset-0
+                origin-center
+                rounded-full
+                bg-brand-cyan
+              "
+            />
+
+            <span
+              className="
+                about-hero-label-sheen
+                absolute
+                -left-5
+                top-1/2
+                h-1
+                w-8
+                -translate-y-1/2
+                rounded-full
+                bg-white/90
+                blur-[1px]
+              "
+            />
+          </span>
         </div>
+
+        {/* HEADING */}
 
         <h1
           className="
@@ -515,7 +822,7 @@ function AboutHeroSection() {
             mt-5
             max-w-[900px]
             text-[38px]
-            font-bold
+            font-extrabold
             leading-[1]
             tracking-[-0.045em]
             text-brand-ink
@@ -527,6 +834,8 @@ function AboutHeroSection() {
         >
           We build the technology that African systems run on.
         </h1>
+
+        {/* COPY */}
 
         <p
           className="

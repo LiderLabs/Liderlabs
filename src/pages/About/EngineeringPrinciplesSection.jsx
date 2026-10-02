@@ -804,28 +804,38 @@ function EngineeringPrinciplesSection() {
       <div className="relative z-10 mx-auto max-w-[1280px]">
         <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-8">
           <div>
-            <div
-              className="
-                principles-label
-                inline-flex
-                rounded-full
-                bg-brand-primary-light
-                px-3
-                py-1.5
-              "
-            >
-              <span
-                className="
-                  text-[10px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.14em]
-                  text-brand-primary
-                "
-              >
-                How We Work
-              </span>
-            </div>
+           <div
+  className="
+    principles-label
+    inline-flex
+    flex-col
+    items-start
+  "
+>
+  <span
+    className="
+      text-[11px]
+      font-semibold
+      uppercase
+      tracking-[0.18em]
+      text-brand-primary
+    "
+  >
+    How We Work
+  </span>
+
+  <span
+    aria-hidden="true"
+    className="
+      mt-2
+      h-0.5
+      w-20
+      rounded-full
+      bg-brand-cyan
+      sm:w-24
+    "
+  />
+          </div>
 
             <h2
               className="

@@ -60,10 +60,13 @@ function HeroSection() {
       mm.add(
         {
           mobile: "(max-width: 767px)",
-          tablet: "(min-width: 768px) and (max-width: 1023px)",
+          tablet:
+            "(min-width: 768px) and (max-width: 1023px)",
           desktop: "(min-width: 1024px)",
-          reduceMotion: "(prefers-reduced-motion: reduce)",
+          reduceMotion:
+            "(prefers-reduced-motion: reduce)",
         },
+
         (context) => {
           const {
             mobile,
@@ -72,34 +75,48 @@ function HeroSection() {
             reduceMotion,
           } = context.conditions;
 
-          const heading = section.querySelector(
-            ".hero-heading",
+          const heading =
+            section.querySelector(
+              ".hero-heading",
+            );
+
+          const description =
+            section.querySelector(
+              ".hero-description",
+            );
+
+          const actions = Array.from(
+            section.querySelectorAll(
+              ".hero-action",
+            ),
           );
 
-          const description = section.querySelector(
-            ".hero-description",
+          const trustedPanel =
+            section.querySelector(
+              ".hero-trusted-panel",
+            );
+
+          const trustedItems = Array.from(
+            section.querySelectorAll(
+              ".hero-trusted-item",
+            ),
           );
 
-          const actions = gsap.utils.toArray(
-            ".hero-action",
-          );
-
-          const trusted = gsap.utils.toArray(
-            ".hero-trusted",
-          );
-
-          const background = section.querySelector(
-            ".hero-background",
-          );
+          const background =
+            section.querySelector(
+              ".hero-background",
+            );
 
           if (reduceMotion) {
             gsap.set(
               [
                 heading,
                 description,
-                actions,
-                trusted,
-              ],
+                ...actions,
+                trustedPanel,
+                ...trustedItems,
+              ].filter(Boolean),
+
               {
                 x: 0,
                 y: 0,
@@ -117,6 +134,7 @@ function HeroSection() {
                 desktopDotRef.current,
                 compactDotRef.current,
               ],
+
               {
                 autoAlpha: 0,
               },
@@ -140,7 +158,7 @@ function HeroSection() {
             : 28;
 
           const trustedY = mobile
-            ? 18
+            ? 20
             : 24;
 
           const backgroundScale = mobile
@@ -168,8 +186,16 @@ function HeroSection() {
             autoAlpha: 0,
           });
 
-          gsap.set(trusted, {
+          gsap.set(trustedPanel, {
             y: trustedY,
+            scale: mobile
+              ? 0.985
+              : 0.99,
+            autoAlpha: 0,
+          });
+
+          gsap.set(trustedItems, {
+            y: 10,
             autoAlpha: 0,
           });
 
@@ -179,74 +205,113 @@ function HeroSection() {
                 ease: "power3.out",
               },
             })
+
             .to(
               background,
+
               {
                 scale: 1,
+
                 duration: mobile
                   ? 1.2
                   : tablet
                     ? 1.45
                     : 1.8,
+
                 ease: "power2.out",
               },
+
               0,
             )
+
             .to(
               heading,
+
               {
                 y: 0,
                 autoAlpha: 1,
+
                 duration: mobile
                   ? 0.82
                   : 1,
               },
+
               0.08,
             )
+
             .to(
               description,
+
               {
                 y: 0,
                 autoAlpha: 1,
+
                 duration: mobile
                   ? 0.62
                   : 0.8,
               },
+
               mobile
                 ? 0.3
                 : 0.42,
             )
+
             .to(
               actions,
+
               {
                 y: 0,
                 autoAlpha: 1,
+
                 duration: mobile
                   ? 0.55
                   : 0.7,
+
                 stagger: mobile
                   ? 0.09
                   : 0.12,
               },
+
               mobile
                 ? 0.48
                 : 0.62,
             )
+
             .to(
-              trusted,
+              trustedPanel,
+
+              {
+                y: 0,
+                scale: 1,
+                autoAlpha: 1,
+
+                duration: mobile
+                  ? 0.58
+                  : 0.72,
+
+                ease: "power4.out",
+              },
+
+              mobile
+                ? 0.68
+                : 0.84,
+            )
+
+            .to(
+              trustedItems,
+
               {
                 y: 0,
                 autoAlpha: 1,
-                duration: mobile
-                  ? 0.5
-                  : 0.65,
-                stagger: mobile
-                  ? 0.065
-                  : 0.08,
+
+                duration: 0.42,
+
+                stagger: 0.07,
               },
+
               mobile
-                ? 0.7
-                : 0.88,
+                ? 0.82
+                : 1.02,
             );
 
           if (
@@ -256,6 +321,7 @@ function HeroSection() {
           ) {
             gsap.to(
               compactPathRef.current,
+
               {
                 strokeDashoffset: -100,
                 duration: 7,
@@ -266,10 +332,12 @@ function HeroSection() {
 
             gsap.set(
               compactDotRef.current,
+
               {
                 autoAlpha: 0,
                 scale: 0.55,
-                transformOrigin: "50% 50%",
+                transformOrigin:
+                  "50% 50%",
               },
             );
 
@@ -279,47 +347,65 @@ function HeroSection() {
                 repeatDelay: 0.8,
                 delay: 0.55,
               })
+
               .set(
                 compactDotRef.current,
+
                 {
                   autoAlpha: 1,
                   scale: 0.7,
                 },
               )
+
               .to(
                 compactDotRef.current,
+
                 {
                   scale: 1.15,
                   duration: 0.22,
                   ease: "power2.out",
                 },
               )
+
               .to(
                 compactDotRef.current,
+
                 {
                   motionPath: {
                     path:
                       compactPathRef.current,
+
                     align:
                       compactPathRef.current,
-                    alignOrigin: [0.5, 0.5],
+
+                    alignOrigin: [
+                      0.5,
+                      0.5,
+                    ],
+
                     start: 0,
                     end: 1,
                   },
+
                   duration: mobile
                     ? 3.6
                     : 4,
+
                   ease: "power1.inOut",
                 },
+
                 0,
               )
+
               .to(
                 compactDotRef.current,
+
                 {
                   autoAlpha: 0,
                   scale: 0.55,
                   duration: 0.28,
                 },
+
                 "-=0.12",
               );
           }
@@ -331,6 +417,7 @@ function HeroSection() {
           ) {
             gsap.to(
               desktopPathRef.current,
+
               {
                 strokeDashoffset: -120,
                 duration: 6,
@@ -341,10 +428,12 @@ function HeroSection() {
 
             gsap.set(
               desktopDotRef.current,
+
               {
                 autoAlpha: 0,
                 scale: 0.6,
-                transformOrigin: "50% 50%",
+                transformOrigin:
+                  "50% 50%",
               },
             );
 
@@ -354,45 +443,63 @@ function HeroSection() {
                 repeatDelay: 0.7,
                 delay: 0.8,
               })
+
               .set(
                 desktopDotRef.current,
+
                 {
                   autoAlpha: 1,
                   scale: 0.7,
                 },
               )
+
               .to(
                 desktopDotRef.current,
+
                 {
                   scale: 1.25,
                   duration: 0.25,
                   ease: "power2.out",
                 },
               )
+
               .to(
                 desktopDotRef.current,
+
                 {
                   motionPath: {
                     path:
                       desktopPathRef.current,
+
                     align:
                       desktopPathRef.current,
-                    alignOrigin: [0.5, 0.5],
+
+                    alignOrigin: [
+                      0.5,
+                      0.5,
+                    ],
+
                     start: 0,
                     end: 1,
                   },
+
                   duration: 3.2,
+
                   ease: "power1.inOut",
                 },
+
                 0,
               )
+
               .to(
                 desktopDotRef.current,
+
                 {
                   autoAlpha: 0,
                   scale: 0.6,
                   duration: 0.3,
                 },
+
                 "-=0.15",
               );
           }
@@ -403,6 +510,7 @@ function HeroSection() {
         mm.revert();
       };
     },
+
     {
       scope: sectionRef,
     },
@@ -464,6 +572,8 @@ function HeroSection() {
           to-transparent
         "
       />
+
+      {/* COMPACT SIGNAL */}
 
       <svg
         aria-hidden="true"
@@ -534,6 +644,8 @@ function HeroSection() {
         />
       </svg>
 
+      {/* DESKTOP SIGNAL */}
+
       <svg
         aria-hidden="true"
         viewBox="0 0 1440 720"
@@ -603,6 +715,8 @@ function HeroSection() {
         />
       </svg>
 
+      {/* CONTENT */}
+
       <div
         className="
           relative
@@ -660,10 +774,13 @@ function HeroSection() {
               md:leading-7
             "
           >
-            We architect, design, and build sophisticated custom software, web
-            platforms, and network infrastructure for forward-thinking
-            enterprises across the continent and beyond.
+            We architect, design, and build sophisticated
+            custom software, web platforms, and network
+            infrastructure for forward-thinking enterprises
+            across the continent and beyond.
           </p>
+
+          {/* ACTIONS */}
 
           <div
             className="
@@ -699,7 +816,6 @@ function HeroSection() {
                 transition-[transform,background-color,box-shadow]
                 duration-200
                 ease-out
-                motion-reduce:transition-none
                 hover:-translate-y-0.5
                 hover:bg-brand-primary
                 focus-visible:outline-none
@@ -707,6 +823,7 @@ function HeroSection() {
                 focus-visible:ring-white
                 focus-visible:ring-offset-2
                 focus-visible:ring-offset-brand-navy
+                motion-reduce:transition-none
                 min-[420px]:w-auto
               "
             >
@@ -735,7 +852,6 @@ function HeroSection() {
                 transition-[transform,background-color,border-color]
                 duration-200
                 ease-out
-                motion-reduce:transition-none
                 hover:-translate-y-0.5
                 hover:bg-white/10
                 focus-visible:outline-none
@@ -743,6 +859,7 @@ function HeroSection() {
                 focus-visible:ring-white
                 focus-visible:ring-offset-2
                 focus-visible:ring-offset-brand-navy
+                motion-reduce:transition-none
                 min-[420px]:w-auto
               "
             >
@@ -750,66 +867,186 @@ function HeroSection() {
             </Link>
           </div>
 
+          {/* TRUSTED COMPANIES */}
+          
           <div
             className="
-              mt-10
-              flex
-              flex-col
-              items-start
-              gap-4
+              hero-trusted-panel
+              mt-9
+              w-full
+              max-w-[590px]
               sm:mt-12
-              sm:flex-row
-              sm:flex-wrap
-              sm:items-center
-              sm:gap-x-5
-              sm:gap-y-3
             "
           >
-            <p
-              className="
-                hero-trusted
-                text-[11px]
-                font-medium
-                text-white/60
-              "
-            >
-              Trusted by market leaders
-            </p>
+            {/* MOBILE */}
 
             <div
               className="
-                flex
-                max-w-full
-                flex-wrap
-                items-center
-                gap-x-5
-                gap-y-3
+                rounded-2xl
+                border
+                border-white/10
+                bg-white/[0.07]
+                px-3
+                py-3.5
+                backdrop-blur-md
+                sm:hidden
               "
             >
-              {trustedLogos.map((company) => (
+              <p
+                className="
+                  hero-trusted-item
+                  text-center
+                  text-[9px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.15em]
+                  text-white/70
+                "
+              >
+                Trusted by market leaders
+              </p>
+
+              <div
+                className="
+                  mt-3
+                  grid
+                  grid-cols-3
+                  gap-2
+                "
+              >
+                {trustedLogos.map((company) => (
+                  <div
+                    key={company.name}
+                    className="
+                      hero-trusted-item
+                      flex
+                      h-10
+                      min-w-0
+                      items-center
+                      justify-center
+                      rounded-lg
+                      bg-white/95
+                      px-2
+                      shadow-[0_3px_10px_rgba(0,0,0,0.08)]
+                    "
+                  >
+                    <img
+                      src={company.logo}
+                      alt={`${company.name} logo`}
+                      loading="eager"
+                      decoding="async"
+                      className="
+                        max-h-6
+                        max-w-full
+                        object-contain
+                      "
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* TABLET / DESKTOP */}
+
+            <div
+              className="
+                hidden
+                rounded-[18px]
+                border
+                border-white/10
+                bg-white/[0.07]
+                px-5
+                py-4
+                shadow-[0_14px_35px_rgba(0,0,0,0.12)]
+                backdrop-blur-md
+                sm:block
+              "
+            >
+              <div
+                className="
+                  flex
+                  items-center
+                  gap-5
+                "
+              >
                 <div
-                  key={company.name}
                   className="
-                    hero-trusted
-                    flex
-                    h-8
-                    w-16
-                    items-center
-                    justify-center
+                    hero-trusted-item
+                    shrink-0
+                    border-r
+                    border-white/10
+                    pr-5
                   "
                 >
-                  <img
-                    src={company.logo}
-                    alt={`${company.name} logo`}
+                  <p
                     className="
-                      max-h-6
-                      max-w-16
-                      object-contain
-                      opacity-90
+                      text-[11px]
+                      font-semibold
+                      uppercase
+                      tracking-[0.14em]
+                      text-white/75
                     "
-                  />
+                  >
+                    Trusted by
+                  </p>
+
+                  <p
+                    className="
+                      mt-1
+                      text-[13px]
+                      font-semibold
+                      text-white
+                    "
+                  >
+                    Market leaders
+                  </p>
                 </div>
-              ))}
+
+                <div
+                  className="
+                    flex
+                    min-w-0
+                    flex-1
+                    items-center
+                    justify-between
+                    gap-3
+                  "
+                >
+                  {trustedLogos.map((company) => (
+                    <div
+                      key={company.name}
+                      className="
+                        hero-trusted-item
+                        flex
+                        h-12
+                        min-w-[80px]
+                        max-w-[110px]
+                        flex-1
+                        items-center
+                        justify-center
+                        rounded-xl
+                        border
+                        border-white/10
+                        bg-white/95
+                        px-3
+                        shadow-[0_4px_14px_rgba(0,0,0,0.08)]
+                      "
+                    >
+                      <img
+                        src={company.logo}
+                        alt={`${company.name} logo`}
+                        loading="eager"
+                        decoding="async"
+                        className="
+                          max-h-8
+                          max-w-full
+                          object-contain
+                        "
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>

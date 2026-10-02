@@ -28,12 +28,14 @@ const contactDetails = [
         />
       </svg>
     ),
+
     content: (
       <span>
         UQ122 University Farm Road Adjiringanor School Junction
       </span>
     ),
   },
+
   {
     label: "Phone",
     icon: (
@@ -51,6 +53,7 @@ const contactDetails = [
         />
       </svg>
     ),
+
     content: (
       <a
         href="tel:+233552887039"
@@ -68,6 +71,7 @@ const contactDetails = [
       </a>
     ),
   },
+
   {
     label: "Email",
     icon: (
@@ -96,6 +100,7 @@ const contactDetails = [
         />
       </svg>
     ),
+
     content: (
       <div className="flex flex-wrap gap-x-3 gap-y-1">
         <a
@@ -132,6 +137,7 @@ const contactDetails = [
       </div>
     ),
   },
+
   {
     label: "Hours",
     icon: (
@@ -157,6 +163,7 @@ const contactDetails = [
         />
       </svg>
     ),
+
     content: <span>Mon – Fri: 8:30 AM – 5:30 PM GMT</span>,
   },
 ];
@@ -510,11 +517,12 @@ function ContactOverviewSection() {
           });
 
           actionCards.forEach((card, index) => {
-            const startX = desktop || tablet
-              ? index === 0
-                ? -30
-                : 30
-              : 0;
+            const startX =
+              desktop || tablet
+                ? index === 0
+                  ? -30
+                  : 30
+                : 0;
 
             gsap.set(card, {
               x: startX,
@@ -723,27 +731,39 @@ function ContactOverviewSection() {
         "
       >
         <div>
+          {/* CONTACT LABEL */}
+
           <div
             className="
               contact-overview-label
               inline-flex
-              rounded
-              bg-brand-primary-light
-              px-3
-              py-1.5
+              flex-col
+              items-start
             "
           >
             <span
               className="
-                text-[10px]
+                text-[11px]
                 font-semibold
                 uppercase
-                tracking-[0.14em]
+                tracking-[0.18em]
                 text-brand-primary
               "
             >
               Contact
             </span>
+
+            <span
+              aria-hidden="true"
+              className="
+                mt-2
+                h-0.5
+                w-16
+                rounded-full
+                bg-brand-cyan
+                sm:w-20
+              "
+            />
           </div>
 
           <h1
@@ -778,7 +798,7 @@ function ContactOverviewSection() {
             "
           >
             Get in touch with our team for projects, product enquiries,
-            onboarding or support from our offices in Accra and Kumasi.
+            onboarding or support from our office in Accra.
           </p>
 
           <h2
@@ -1025,25 +1045,11 @@ function ContactOverviewSection() {
                 </span>
               </div>
 
-              <h3
-                className="
-                  mt-5
-                  text-[16px]
-                  font-semibold
-                  text-brand-ink
-                "
-              >
+              <h3 className="mt-5 text-[16px] font-semibold text-brand-ink">
                 Sales
               </h3>
 
-              <p
-                className="
-                  mt-4
-                  text-[13px]
-                  leading-6
-                  text-brand-muted
-                "
-              >
+              <p className="mt-4 text-[13px] leading-6 text-brand-muted">
                 Talk to us about a project, pricing, or a product for your
                 organisation.
               </p>
@@ -1136,25 +1142,11 @@ function ContactOverviewSection() {
                 </span>
               </div>
 
-              <h3
-                className="
-                  mt-5
-                  text-[16px]
-                  font-semibold
-                  text-brand-ink
-                "
-              >
+              <h3 className="mt-5 text-[16px] font-semibold text-brand-ink">
                 Support
               </h3>
 
-              <p
-                className="
-                  mt-4
-                  text-[13px]
-                  leading-6
-                  text-brand-muted
-                "
-              >
+              <p className="mt-4 text-[13px] leading-6 text-brand-muted">
                 Already using our products? Ask questions, report problems, or
                 leave feedback.
               </p>
@@ -1187,9 +1179,10 @@ function ContactOverviewSection() {
               sm:p-6
             "
           >
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-start gap-2">
               <span
                 className="
+                  pt-0.5
                   text-[10px]
                   font-bold
                   text-brand-primary
@@ -1198,21 +1191,30 @@ function ContactOverviewSection() {
                 01
               </span>
 
-              <span className="text-[10px] text-brand-primary/45">
-                //
-              </span>
+              <span className="inline-flex flex-col items-start">
+                <span
+                  className="
+                    text-[10px]
+                    font-semibold
+                    uppercase
+                    tracking-[0.16em]
+                    text-brand-primary
+                    md:text-[11px]
+                  "
+                >
+                  Rapid Deployment Dispatch
+                </span>
 
-              <span
-                className="
-                  text-[10px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.16em]
-                  text-brand-primary
-                  md:text-[11px]
-                "
-              >
-                Rapid Deployment Dispatch
+                <span
+                  aria-hidden="true"
+                  className="
+                    mt-1.5
+                    h-0.5
+                    w-full
+                    rounded-full
+                    bg-brand-cyan
+                  "
+                />
               </span>
             </div>
 

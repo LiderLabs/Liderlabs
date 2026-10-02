@@ -446,6 +446,7 @@ function ServicesCTASection() {
       "
     >
       {/* Final Services signal */}
+
       <div
         aria-hidden="true"
         className="
@@ -517,6 +518,7 @@ function ServicesCTASection() {
 
       <div className="relative z-10 mx-auto max-w-[1180px]">
         {/* Final terminal */}
+
         <div
           ref={terminalRef}
           aria-hidden="true"
@@ -696,66 +698,125 @@ function ServicesCTASection() {
                 "
               >
                 Fill out the contact form
-                {/* <span aria-hidden="true">→</span> */}
               </Link>
             </div>
 
+            <div className="mt-9">
+  <span
+    className="
+      services-cta-partner-label
+      block
+      text-center
+      text-[9px]
+      font-semibold
+      uppercase
+      tracking-[0.16em]
+      text-white/50
+      md:text-[10px]
+    "
+  >
+    Join our satisfied partners
+  </span>
+
+  {/* SMALL SCREENS — MOVING CAROUSEL */}
+  <div
+    className="
+      services-cta-partner
+      relative
+      mt-5
+      overflow-hidden
+      sm:hidden
+    "
+  >
+    <div className="services-partner-marquee flex w-max">
+      {[0, 1].map((group) => (
+        <div
+          key={group}
+          aria-hidden={group === 1}
+          className="
+            flex
+            shrink-0
+            items-center
+            gap-3
+            pr-3
+          "
+        >
+          {partners.map((partner) => (
             <div
+              key={`${group}-${partner.name}`}
               className="
-                mt-9
                 flex
-                flex-col
+                h-11
+                w-[82px]
+                shrink-0
                 items-center
                 justify-center
-                gap-4
-                sm:flex-row
-                sm:flex-wrap
-                sm:gap-x-5
-                sm:gap-y-4
+                rounded-lg
+                bg-white
+                px-3
+                shadow-[0_4px_14px_rgba(0,0,0,0.10)]
               "
             >
-              <span
+              <img
+                src={partner.logo}
+                alt={group === 0 ? `${partner.name} logo` : ""}
+                loading="lazy"
+                decoding="async"
                 className="
-                  services-cta-partner-label
-                  text-[9px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.16em]
-                  text-white/45
-                  md:text-[10px]
+                  max-h-7
+                  max-w-[62px]
+                  object-contain
                 "
-              >
-                Join our satisfied partners
-              </span>
+              />
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
 
-              <div
-                className="
-                  flex
-                  flex-wrap
-                  items-center
-                  justify-center
-                  gap-x-4
-                  gap-y-3
-                  sm:gap-x-5
-                "
-              >
-                {partners.map((partner) => (
-                  <img
-                    key={partner.name}
-                    src={partner.logo}
-                    alt={`${partner.name} logo`}
-                    loading="lazy"
-                    decoding="async"
-                    className="
-                      services-cta-partner
-                      max-h-4.5
-                      max-w-14.5
-                      object-contain
-                      opacity-75
-                    "
-                  />
-                ))}
-              </div>
+  {/* TABLET + DESKTOP — KEEP STATIC */}
+  <div
+    className="
+      mt-5
+      hidden
+      flex-wrap
+      items-center
+      justify-center
+      gap-3
+      sm:flex
+    "
+  >
+    {partners.map((partner) => (
+      <div
+        key={partner.name}
+        className="
+          services-cta-partner
+          flex
+          h-12
+          w-[84px]
+          items-center
+          justify-center
+          rounded-lg
+          bg-white
+          p-2.5
+          shadow-[0_4px_14px_rgba(0,0,0,0.12)]
+        "
+      >
+        <img
+          src={partner.logo}
+          alt={`${partner.name} logo`}
+          loading="lazy"
+          decoding="async"
+          className="
+            max-h-8
+            max-w-full
+            object-contain
+          "
+        />
+      </div>
+    ))}
+  </div>
             </div>
           </div>
         </div>

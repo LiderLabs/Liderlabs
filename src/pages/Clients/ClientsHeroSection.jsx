@@ -155,9 +155,11 @@ function ClientsHeroSection() {
       mm.add(
         {
           mobile: "(max-width: 767px)",
-          tablet: "(min-width: 768px) and (max-width: 1023px)",
+          tablet:
+            "(min-width: 768px) and (max-width: 1023px)",
           desktop: "(min-width: 1024px)",
-          reduceMotion: "(prefers-reduced-motion: reduce)",
+          reduceMotion:
+            "(prefers-reduced-motion: reduce)",
         },
         (context) => {
           const {
@@ -241,7 +243,11 @@ function ClientsHeroSection() {
           });
 
           gsap.set(heading, {
-            y: mobile ? 48 : tablet ? 42 : 38,
+            y: mobile
+              ? 48
+              : tablet
+                ? 42
+                : 38,
             autoAlpha: 0,
           });
 
@@ -412,7 +418,9 @@ function ClientsHeroSection() {
 
           if (signalPath && signalDot) {
             gsap.to(signalPath, {
-              strokeDashoffset: desktop ? -140 : -115,
+              strokeDashoffset: desktop
+                ? -140
+                : -115,
               duration: desktop ? 8 : 7,
               repeat: -1,
               ease: "none",
@@ -635,27 +643,40 @@ function ClientsHeroSection() {
           text-center
         "
       >
+        {/* CLIENTS LABEL */}
+
         <div
           className="
             clients-hero-label
             inline-flex
-            rounded-full
-            border
-            border-brand-border-light
-            bg-white/85
-            px-3
-            py-1.5
+            flex-col
+            items-center
           "
         >
           <span
             className="
-              text-[10px]
+              text-[12px]
               font-semibold
+              uppercase
+              tracking-[0.18em]
               text-brand-primary
+              sm:text-[13px]
             "
           >
             Clients
           </span>
+
+          <span
+            aria-hidden="true"
+            className="
+              mt-2
+              h-0.5
+              w-16
+              rounded-full
+              bg-brand-cyan
+              sm:w-20
+            "
+          />
         </div>
 
         <h1

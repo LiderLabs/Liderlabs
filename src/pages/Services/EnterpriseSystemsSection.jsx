@@ -307,7 +307,10 @@ function EnterpriseSignal({
           width="500%"
           height="500%"
         >
-          <feGaussianBlur stdDeviation="4" result="blur" />
+          <feGaussianBlur
+            stdDeviation="4"
+            result="blur"
+          />
 
           <feMerge>
             <feMergeNode in="blur" />
@@ -339,7 +342,10 @@ function EnterpriseSignal({
         vectorEffect="non-scaling-stroke"
       />
 
-      <g ref={dotRef} filter={`url(#${filterId})`}>
+      <g
+        ref={dotRef}
+        filter={`url(#${filterId})`}
+      >
         <circle
           cx="0"
           cy="0"
@@ -390,9 +396,11 @@ function EnterpriseSystemsSection() {
       mm.add(
         {
           mobile: "(max-width: 767px)",
-          tablet: "(min-width: 768px) and (max-width: 1023px)",
+          tablet:
+            "(min-width: 768px) and (max-width: 1023px)",
           desktop: "(min-width: 1024px)",
-          reduceMotion: "(prefers-reduced-motion: reduce)",
+          reduceMotion:
+            "(prefers-reduced-motion: reduce)",
         },
         (context) => {
           const {
@@ -427,15 +435,16 @@ function EnterpriseSystemsSection() {
           ) => {
             if (!element) return;
 
-            const observer = new IntersectionObserver(
-              ([entry]) => {
-                if (!entry?.isIntersecting) return;
+            const observer =
+              new IntersectionObserver(
+                ([entry]) => {
+                  if (!entry?.isIntersecting) return;
 
-                callback();
-                observer.disconnect();
-              },
-              options,
-            );
+                  callback();
+                  observer.disconnect();
+                },
+                options,
+              );
 
             observer.observe(element);
             observers.push(observer);
@@ -556,7 +565,9 @@ function EnterpriseSystemsSection() {
 
           if (signalPath && signalDot) {
             gsap.to(signalPath, {
-              strokeDashoffset: desktop ? -150 : -125,
+              strokeDashoffset: desktop
+                ? -150
+                : -125,
               duration: desktop ? 9 : 7,
               repeat: -1,
               ease: "none",
@@ -1287,19 +1298,11 @@ function EnterpriseSystemsSection() {
                     </span>
 
                     <span
-                      aria-hidden="true"
-                      className="
-                        text-[10px]
-                        font-medium
-                        text-brand-primary/35
-                      "
-                    >
-                      //
-                    </span>
-
-                    <span
                       className="
                         truncate
+                        border-b
+                        border-brand-cyan
+                        pb-0.5
                         text-[10px]
                         font-semibold
                         uppercase

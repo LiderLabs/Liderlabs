@@ -461,28 +461,38 @@ function ContactHubSection() {
           "
         >
           <div>
-            <div
+           <div
+            className="
+              contact-overview-label
+              inline-flex
+              flex-col
+              items-start
+            "
+          >
+            <span
               className="
-                contact-hub-label
-                inline-flex
-                rounded
-                bg-brand-primary-light
-                px-3
-                py-1.5
+                text-[11px]
+                font-semibold
+                uppercase
+                tracking-[0.18em]
+                text-brand-primary
               "
             >
-              <span
-                className="
-                  text-[10px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.14em]
-                  text-brand-primary
-                "
-              >
-                Physical Presence
-              </span>
-            </div>
+              PHYSICAL PRESENCE
+            </span>
+
+            <span
+              aria-hidden="true"
+              className="
+                mt-2
+                h-0.5
+                w-16
+                rounded-full
+                bg-brand-cyan
+                sm:w-40
+              "
+            />
+          </div>
 
             <h2
               className="
@@ -733,7 +743,7 @@ function ContactHubSection() {
                 </a>
 
                 <a
-                  href="mailto:accra@lider.com"
+                  href="mailto:info@liderlabs.com"
                   className="
                     contact-hub-contact-row
                     group
@@ -795,7 +805,7 @@ function ContactHubSection() {
                     </svg>
                   </span>
 
-                  accra@lider.com
+                  info@liderlabs.com
                 </a>
               </div>
 

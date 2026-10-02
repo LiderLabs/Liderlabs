@@ -874,15 +874,33 @@ function AboutWhoWeAreSection() {
             className="
               about-who-label
               inline-flex
-              rounded-full
-              bg-brand-primary-light
-              px-3
-              py-1.5
+              flex-col
+              items-start
             "
           >
-            <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-brand-primary">
+            <span
+              className="
+                text-[11px]
+                font-semibold
+                uppercase
+                tracking-[0.18em]
+                text-brand-primary
+              "
+            >
               Who We Are
             </span>
+
+            <span
+              aria-hidden="true"
+              className="
+                mt-2
+                h-0.5
+                w-20
+                rounded-full
+                bg-brand-cyan
+                sm:w-24
+              "
+            />
           </div>
 
           <h2
@@ -928,20 +946,40 @@ function AboutWhoWeAreSection() {
           </div>
         </div>
 
-        <p
-          className="
-            about-capability-label
-            mt-12
-            text-[10px]
-            font-semibold
-            uppercase
-            tracking-[0.16em]
-            text-brand-muted
-            sm:mt-14
-          "
-        >
-          What Sets Us Apart
-        </p>
+        <div
+  className="
+    about-capability-label
+    mt-12
+    inline-flex
+    flex-col
+    items-start
+    sm:mt-14
+  "
+>
+  <span
+    className="
+      text-[11px]
+      font-semibold
+      uppercase
+      tracking-[0.18em]
+      text-brand-primary
+    "
+  >
+    What Sets Us Apart
+  </span>
+
+  <span
+    aria-hidden="true"
+    className="
+      mt-2
+      h-0.5
+      w-24
+      rounded-full
+      bg-brand-cyan
+      sm:w-40
+    "
+  />
+        </div>
 
         <div
           className="

@@ -574,38 +574,40 @@ function ClientsCTASection() {
             "
           >
             <div className="max-w-[680px]">
+              {/* NOW BOOKING LABEL */}
+
               <div
                 className="
                   clients-cta-badge
                   inline-flex
-                  items-center
-                  gap-2
-                  rounded-full
-                  bg-white/10
-                  px-3
-                  py-1.5
+                  flex-col
+                  items-start
                 "
               >
-                <span
-                  aria-hidden="true"
-                  className="
-                    size-1.5
-                    rounded-full
-                    bg-white
-                  "
-                />
-
                 <span
                   className="
                     text-[10px]
                     font-semibold
                     uppercase
-                    tracking-[0.14em]
+                    tracking-[0.16em]
                     text-white/80
+                    sm:text-[11px]
                   "
                 >
                   Now Booking Engagements
                 </span>
+
+                <span
+                  aria-hidden="true"
+                  className="
+                    mt-2
+                    h-0.5
+                    w-28
+                    rounded-full
+                    bg-brand-cyan
+                    sm:w-60
+                  "
+                />
               </div>
 
               <h2

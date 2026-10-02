@@ -9,7 +9,7 @@ import {
 import productShowcase1 from "../../assets/images/product-showcase-1.png";
 import productShowcase2 from "../../assets/images/product-showcase-2.png";
 import productShowcase3 from "../../assets/images/product-showcase-3.png";
-import productShowcase4 from "../../assets/images/product-showcase-4.jpg";
+import productShowcase4 from "../../assets/images/product-showcase-1.png";
 
 const solutions = [
   {
@@ -204,6 +204,7 @@ function ProductStorySection() {
           reduceMotion:
             "(prefers-reduced-motion: reduce)",
         },
+
         (context) => {
           const {
             mobile,
@@ -212,14 +213,30 @@ function ProductStorySection() {
             reduceMotion,
           } = context.conditions;
 
-          const label =
-            section.querySelector(".product-label");
+          const labelText =
+            section.querySelector(
+              ".product-label-text",
+            );
+
+          const labelLine =
+            section.querySelector(
+              ".product-label-line",
+            );
+
+          const labelSheen =
+            section.querySelector(
+              ".product-label-sheen",
+            );
 
           const heading =
-            section.querySelector(".product-heading");
+            section.querySelector(
+              ".product-heading",
+            );
 
           const intro =
-            section.querySelector(".product-intro");
+            section.querySelector(
+              ".product-intro",
+            );
 
           const mobileHeader =
             section.querySelector(
@@ -260,7 +277,9 @@ function ProductStorySection() {
             );
 
           const glow =
-            section.querySelector(".product-glow");
+            section.querySelector(
+              ".product-glow",
+            );
 
           /*
            * REDUCED MOTION
@@ -269,16 +288,17 @@ function ProductStorySection() {
           if (reduceMotion) {
             gsap.set(
               [
-                label,
+                labelText,
                 heading,
                 intro,
                 mobileHeader,
-                mobileSteps,
-                steps,
+                ...mobileSteps,
+                ...steps,
                 rightHeader,
                 visualShell,
-                imagePanels,
-              ],
+                ...imagePanels,
+              ].filter(Boolean),
+
               {
                 x: 0,
                 y: 0,
@@ -286,6 +306,14 @@ function ProductStorySection() {
                 autoAlpha: 1,
               },
             );
+
+            gsap.set(labelLine, {
+              scaleX: 1,
+            });
+
+            gsap.set(labelSheen, {
+              autoAlpha: 0,
+            });
 
             gsap.set(glow, {
               scale: 1,
@@ -325,6 +353,7 @@ function ProductStorySection() {
                 desktopDotRef.current,
                 timelineSignalRef.current,
               ],
+
               {
                 autoAlpha: 0,
               },
@@ -366,25 +395,29 @@ function ProductStorySection() {
           }
 
           /*
-           * MAIN INTRO
+           * WHAT WE DO LABEL
            */
 
-          gsap.fromTo(
-            label,
-            {
-              y: 14,
-              autoAlpha: 0,
-            },
-            {
-              y: 0,
-              autoAlpha: 1,
+          gsap.set(labelText, {
+            y: 14,
+            autoAlpha: 0,
+          });
 
-              duration: 0.42,
+          gsap.set(labelLine, {
+            scaleX: 0,
+            transformOrigin:
+              "left center",
+          });
 
-              ease: "power3.out",
+          gsap.set(labelSheen, {
+            xPercent: -180,
+            autoAlpha: 0,
+          });
 
+          gsap
+            .timeline({
               scrollTrigger: {
-                trigger: label,
+                trigger: labelText,
 
                 start: "top 94%",
 
@@ -392,15 +425,75 @@ function ProductStorySection() {
 
                 invalidateOnRefresh: true,
               },
-            },
-          );
+
+              defaults: {
+                ease: "power3.out",
+              },
+            })
+
+            .to(labelText, {
+              y: 0,
+              autoAlpha: 1,
+              duration: 0.42,
+            })
+
+            .to(
+              labelLine,
+
+              {
+                scaleX: 1,
+                duration: 0.55,
+                ease: "power3.out",
+              },
+
+              "-=0.18",
+            )
+
+            .set(
+              labelSheen,
+
+              {
+                autoAlpha: 1,
+              },
+
+              "-=0.24",
+            )
+
+            .to(
+              labelSheen,
+
+              {
+                xPercent: 360,
+                duration: 0.62,
+                ease: "power2.inOut",
+              },
+
+              "-=0.24",
+            )
+
+            .to(
+              labelSheen,
+
+              {
+                autoAlpha: 0,
+                duration: 0.1,
+              },
+
+              "-=0.08",
+            );
+
+          /*
+           * MAIN INTRO
+           */
 
           gsap.fromTo(
             heading,
+
             {
               y: mobile ? 30 : 34,
               autoAlpha: 0,
             },
+
             {
               y: 0,
               autoAlpha: 1,
@@ -423,10 +516,12 @@ function ProductStorySection() {
 
           gsap.fromTo(
             intro,
+
             {
               y: 22,
               autoAlpha: 0,
             },
+
             {
               y: 0,
               autoAlpha: 1,
@@ -455,10 +550,12 @@ function ProductStorySection() {
             if (mobileHeader) {
               gsap.fromTo(
                 mobileHeader,
+
                 {
                   y: 26,
                   autoAlpha: 0,
                 },
+
                 {
                   y: 0,
                   autoAlpha: 1,
@@ -488,17 +585,6 @@ function ProductStorySection() {
                 mobileSteps.length - 1
               ];
 
-            /*
-             * Calculate the exact vertical
-             * positions of bullet 01 and 04.
-             *
-             * Each dot is:
-             * mt-1 = 4px
-             * size-4 = 16px
-             *
-             * Center = 12px from step top.
-             */
-
             const getRailStart = () => {
               if (!firstStep) return 12;
 
@@ -517,13 +603,9 @@ function ProductStorySection() {
               Math.max(
                 getRailEnd() -
                   getRailStart(),
+
                 0,
               );
-
-            /*
-             * Keep the rail exactly between
-             * the first and final bullet.
-             */
 
             const updateMobileRail = () => {
               const start =
@@ -535,6 +617,7 @@ function ProductStorySection() {
               if (mobileLineBaseRef.current) {
                 gsap.set(
                   mobileLineBaseRef.current,
+
                   {
                     y: start,
                     height: distance,
@@ -545,9 +628,11 @@ function ProductStorySection() {
               if (mobileLineFillRef.current) {
                 gsap.set(
                   mobileLineFillRef.current,
+
                   {
                     y: start,
                     height: distance,
+
                     transformOrigin:
                       "top center",
                   },
@@ -562,13 +647,6 @@ function ProductStorySection() {
               updateMobileRail,
             );
 
-            /*
-             * TRAVELLING MOBILE SIGNAL
-             *
-             * This is now the same concept
-             * as the desktop timeline dot.
-             */
-
             if (
               firstStep &&
               lastStep &&
@@ -577,6 +655,7 @@ function ProductStorySection() {
             ) {
               gsap.set(
                 mobileLineFillRef.current,
+
                 {
                   scaleY: 0,
                 },
@@ -584,6 +663,7 @@ function ProductStorySection() {
 
               gsap.set(
                 mobileTimelineSignalRef.current,
+
                 {
                   x: 0,
 
@@ -604,21 +684,10 @@ function ProductStorySection() {
                   scrollTrigger: {
                     trigger: firstStep,
 
-                    /*
-                     * The signal begins when
-                     * bullet 01 crosses 58%
-                     * of the viewport.
-                     */
-
                     start: "top 58%",
 
-                    /*
-                     * It finishes exactly when
-                     * bullet 04 reaches the
-                     * same viewport position.
-                     */
-
                     endTrigger: lastStep,
+
                     end: "top 58%",
 
                     scrub: 0.55,
@@ -630,6 +699,7 @@ function ProductStorySection() {
               mobileRailTimeline
                 .to(
                   mobileLineFillRef.current,
+
                   {
                     scaleY: 1,
 
@@ -637,10 +707,13 @@ function ProductStorySection() {
 
                     ease: "none",
                   },
+
                   0,
                 )
+
                 .to(
                   mobileTimelineSignalRef.current,
+
                   {
                     y: () =>
                       getRailEnd() - 6,
@@ -649,18 +722,10 @@ function ProductStorySection() {
 
                     ease: "none",
                   },
+
                   0,
                 );
             }
-
-            /*
-             * MOBILE PRODUCTS
-             *
-             * Content reveal and bullet
-             * activation happen when the
-             * travelling signal reaches
-             * that product.
-             */
 
             mobileSteps.forEach(
               (step) => {
@@ -689,10 +754,6 @@ function ProductStorySection() {
                     ".product-mobile-number",
                   );
 
-                /*
-                 * QUIET DOT
-                 */
-
                 if (dot) {
                   gsap.set(dot, {
                     scale: 0.82,
@@ -714,13 +775,6 @@ function ProductStorySection() {
                     autoAlpha: 0,
                   });
                 }
-
-                /*
-                 * BULLET ACTIVATION
-                 *
-                 * Reversible so scrolling upward
-                 * behaves like desktop.
-                 */
 
                 if (dot) {
                   gsap.to(dot, {
@@ -755,6 +809,7 @@ function ProductStorySection() {
                 if (dotCore) {
                   gsap.to(dotCore, {
                     scale: 1,
+
                     autoAlpha: 1,
 
                     duration: 0.2,
@@ -774,13 +829,10 @@ function ProductStorySection() {
                   });
                 }
 
-                /*
-                 * NUMBER ACTIVATION
-                 */
-
                 if (number) {
                   gsap.to(number, {
                     color: "#1092bf",
+
                     scale: 1.12,
 
                     duration: 0.22,
@@ -807,15 +859,6 @@ function ProductStorySection() {
                   });
                 }
 
-                /*
-                 * PRODUCT CONTENT
-                 *
-                 * Reveal once the signal reaches
-                 * the product. Content stays
-                 * visible afterward for safe
-                 * mobile scrolling.
-                 */
-
                 const productReveal =
                   gsap.timeline({
                     scrollTrigger: {
@@ -836,16 +879,19 @@ function ProductStorySection() {
                 if (copy) {
                   productReveal.fromTo(
                     copy,
+
                     {
                       y: 24,
                       autoAlpha: 0,
                     },
+
                     {
                       y: 0,
                       autoAlpha: 1,
 
                       duration: 0.55,
                     },
+
                     0,
                   );
                 }
@@ -853,6 +899,7 @@ function ProductStorySection() {
                 if (image) {
                   productReveal.fromTo(
                     image,
+
                     {
                       y: 26,
 
@@ -860,6 +907,7 @@ function ProductStorySection() {
 
                       autoAlpha: 0,
                     },
+
                     {
                       y: 0,
 
@@ -871,15 +919,12 @@ function ProductStorySection() {
 
                       ease: "power3.out",
                     },
+
                     0.12,
                   );
                 }
               },
             );
-
-            /*
-             * DECORATIVE BACKGROUND SIGNAL
-             */
 
             if (
               mobilePathRef.current &&
@@ -887,6 +932,7 @@ function ProductStorySection() {
             ) {
               gsap.to(
                 mobilePathRef.current,
+
                 {
                   strokeDashoffset: -130,
 
@@ -900,6 +946,7 @@ function ProductStorySection() {
 
               gsap.set(
                 mobileDotRef.current,
+
                 {
                   autoAlpha: 1,
 
@@ -912,6 +959,7 @@ function ProductStorySection() {
 
               gsap.to(
                 mobileDotRef.current,
+
                 {
                   motionPath: {
                     path:
@@ -966,10 +1014,12 @@ function ProductStorySection() {
 
           gsap.fromTo(
             rightHeader,
+
             {
               y: 24,
               autoAlpha: 0,
             },
+
             {
               y: 0,
               autoAlpha: 1,
@@ -992,11 +1042,13 @@ function ProductStorySection() {
 
           gsap.fromTo(
             visualShell,
+
             {
               y: 26,
               scale: 0.985,
               autoAlpha: 0,
             },
+
             {
               y: 0,
               scale: 1,
@@ -1020,10 +1072,12 @@ function ProductStorySection() {
 
           gsap.fromTo(
             glow,
+
             {
               scale: 0.86,
               autoAlpha: 0,
             },
+
             {
               scale: 1,
               autoAlpha: 1,
@@ -1041,10 +1095,6 @@ function ProductStorySection() {
               },
             },
           );
-
-          /*
-           * Initial story state
-           */
 
           gsap.set(steps, {
             x: 10,
@@ -1109,6 +1159,7 @@ function ProductStorySection() {
           if (timelineFillRef.current) {
             gsap.set(
               timelineFillRef.current,
+
               {
                 scaleY: 0,
 
@@ -1121,16 +1172,13 @@ function ProductStorySection() {
           if (timelineSignalRef.current) {
             gsap.set(
               timelineSignalRef.current,
+
               {
                 y: 0,
                 autoAlpha: 1,
               },
             );
           }
-
-          /*
-           * Responsive background signal
-           */
 
           const signalPath = tablet
             ? tabletPathRef.current
@@ -1221,6 +1269,7 @@ function ProductStorySection() {
           if (timelineFillRef.current) {
             story.to(
               timelineFillRef.current,
+
               {
                 scaleY: 1,
 
@@ -1228,6 +1277,7 @@ function ProductStorySection() {
 
                 ease: "none",
               },
+
               0,
             );
           }
@@ -1238,11 +1288,13 @@ function ProductStorySection() {
           ) {
             story.to(
               timelineSignalRef.current,
+
               {
                 y: () =>
                   Math.max(
                     timelineRef.current
                       .offsetHeight - 36,
+
                     0,
                   ),
 
@@ -1250,6 +1302,7 @@ function ProductStorySection() {
 
                 ease: "none",
               },
+
               0,
             );
           }
@@ -1293,6 +1346,7 @@ function ProductStorySection() {
               if (previousStep) {
                 story.to(
                   previousStep,
+
                   {
                     x: 0,
 
@@ -1302,6 +1356,7 @@ function ProductStorySection() {
 
                     ease: "power2.inOut",
                   },
+
                   position,
                 );
               }
@@ -1309,6 +1364,7 @@ function ProductStorySection() {
               if (nextStep) {
                 story.to(
                   nextStep,
+
                   {
                     x: 0,
 
@@ -1318,6 +1374,7 @@ function ProductStorySection() {
 
                     ease: "power2.out",
                   },
+
                   position + 0.04,
                 );
 
@@ -1335,6 +1392,7 @@ function ProductStorySection() {
                   story
                     .to(
                       nextDot,
+
                       {
                         backgroundColor:
                           "#1092bf",
@@ -1349,15 +1407,19 @@ function ProductStorySection() {
 
                         duration: 0.12,
                       },
+
                       position + 0.04,
                     )
+
                     .to(
                       nextDot,
+
                       {
                         scale: 1,
 
                         duration: 0.14,
                       },
+
                       position + 0.16,
                     );
                 }
@@ -1365,11 +1427,13 @@ function ProductStorySection() {
                 if (nextNumber) {
                   story.to(
                     nextNumber,
+
                     {
                       color: "#1092bf",
 
                       duration: 0.14,
                     },
+
                     position + 0.04,
                   );
                 }
@@ -1378,6 +1442,7 @@ function ProductStorySection() {
               if (previousImage) {
                 story.to(
                   previousImage,
+
                   {
                     y: -12,
 
@@ -1389,6 +1454,7 @@ function ProductStorySection() {
 
                     ease: "power2.inOut",
                   },
+
                   position,
                 );
               }
@@ -1396,6 +1462,7 @@ function ProductStorySection() {
               if (nextImage) {
                 story.fromTo(
                   nextImage,
+
                   {
                     y: 18,
 
@@ -1403,6 +1470,7 @@ function ProductStorySection() {
 
                     autoAlpha: 0,
                   },
+
                   {
                     y: 0,
 
@@ -1414,6 +1482,7 @@ function ProductStorySection() {
 
                     ease: "power3.out",
                   },
+
                   position + 0.08,
                 );
               }
@@ -1427,6 +1496,7 @@ function ProductStorySection() {
           if (imagePanels[3]) {
             story.to(
               imagePanels[3],
+
               {
                 y: 0,
 
@@ -1438,6 +1508,7 @@ function ProductStorySection() {
 
                 ease: "none",
               },
+
               3.3,
             );
           }
@@ -1448,6 +1519,7 @@ function ProductStorySection() {
         mm.revert();
       };
     },
+
     {
       scope: sectionRef,
     },
@@ -1486,22 +1558,61 @@ function ProductStorySection() {
             className="
               product-label
               inline-flex
-              rounded-full
-              bg-brand-primary-light
-              px-3
-              py-1.5
+              flex-col
+              items-start
             "
           >
             <span
               className="
-                text-[10px]
+                product-label-text
+                text-[11px]
                 font-semibold
                 uppercase
-                tracking-[0.14em]
+                tracking-[0.18em]
                 text-brand-primary
               "
             >
               What We Do
+            </span>
+
+            <span
+              aria-hidden="true"
+              className="
+                relative
+                mt-2
+                h-0.5
+                w-20
+                overflow-hidden
+                rounded-full
+                bg-brand-primary/10
+                sm:w-24
+              "
+            >
+              <span
+                className="
+                  product-label-line
+                  absolute
+                  inset-0
+                  origin-left
+                  rounded-full
+                  bg-brand-cyan
+                "
+              />
+
+              <span
+                className="
+                  product-label-sheen
+                  absolute
+                  -left-5
+                  top-1/2
+                  h-1
+                  w-8
+                  -translate-y-1/2
+                  rounded-full
+                  bg-white/90
+                  blur-[1px]
+                "
+              />
             </span>
           </div>
 
@@ -1605,14 +1716,10 @@ function ProductStorySection() {
               </h3>
             </div>
 
-            {/* MOBILE TIMELINE */}
-
             <div
               ref={mobileTimelineRef}
               className="relative"
             >
-              {/* Quiet rail */}
-
               <div
                 ref={mobileLineBaseRef}
                 aria-hidden="true"
@@ -1626,8 +1733,6 @@ function ProductStorySection() {
                   bg-brand-primary/15
                 "
               />
-
-              {/* Cyan completed rail */}
 
               <div
                 ref={mobileLineFillRef}
@@ -1643,8 +1748,6 @@ function ProductStorySection() {
                   bg-brand-cyan
                 "
               />
-
-              {/* TRAVELLING SIGNAL */}
 
               <div
                 ref={mobileTimelineSignalRef}
@@ -1687,8 +1790,6 @@ function ProductStorySection() {
                         gap-4
                       "
                     >
-                      {/* BULLET */}
-
                       <div
                         className="
                           relative
@@ -1719,8 +1820,6 @@ function ProductStorySection() {
                           />
                         </div>
                       </div>
-
-                      {/* PRODUCT */}
 
                       <div
                         className="
@@ -1896,8 +1995,6 @@ function ProductStorySection() {
                 lg:gap-20
               "
             >
-              {/* TIMELINE */}
-
               <div>
                 <div
                   ref={timelineRef}
@@ -2050,8 +2147,6 @@ function ProductStorySection() {
                   </div>
                 </div>
               </div>
-
-              {/* VISUAL */}
 
               <div className="flex min-w-0 flex-col">
                 <div

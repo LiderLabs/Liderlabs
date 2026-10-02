@@ -176,10 +176,13 @@ function WhoWeAreSection() {
       mm.add(
         {
           mobile: "(max-width: 767px)",
-          tablet: "(min-width: 768px) and (max-width: 1023px)",
+          tablet:
+            "(min-width: 768px) and (max-width: 1023px)",
           desktop: "(min-width: 1024px)",
-          reduceMotion: "(prefers-reduced-motion: reduce)",
+          reduceMotion:
+            "(prefers-reduced-motion: reduce)",
         },
+
         (context) => {
           const {
             mobile,
@@ -188,23 +191,46 @@ function WhoWeAreSection() {
             reduceMotion,
           } = context.conditions;
 
-          const label =
-            section.querySelector(".who-label");
+          const labelText =
+            section.querySelector(
+              ".who-label-text",
+            );
+
+          const labelLine =
+            section.querySelector(
+              ".who-label-line",
+            );
+
+          const labelSheen =
+            section.querySelector(
+              ".who-label-sheen",
+            );
 
           const heading =
-            section.querySelector(".who-heading");
+            section.querySelector(
+              ".who-heading",
+            );
 
           const copy =
-            section.querySelector(".who-copy");
+            section.querySelector(
+              ".who-copy",
+            );
 
           const divider =
-            section.querySelector(".who-divider");
+            section.querySelector(
+              ".who-divider",
+            );
 
           const subLabel =
-            section.querySelector(".who-sub-label");
+            section.querySelector(
+              ".who-sub-label",
+            );
 
-          const cards =
-            gsap.utils.toArray(".who-card");
+          const cards = Array.from(
+            section.querySelectorAll(
+              ".who-card",
+            ),
+          );
 
           const observers = [];
 
@@ -218,13 +244,16 @@ function WhoWeAreSection() {
             const observer =
               new IntersectionObserver(
                 ([entry]) => {
-                  if (!entry?.isIntersecting) {
+                  if (
+                    !entry?.isIntersecting
+                  ) {
                     return;
                   }
 
                   callback();
                   observer.disconnect();
                 },
+
                 options,
               );
 
@@ -239,12 +268,13 @@ function WhoWeAreSection() {
           if (reduceMotion) {
             gsap.set(
               [
-                label,
+                labelText,
                 heading,
                 copy,
                 subLabel,
-                cards,
-              ],
+                ...cards,
+              ].filter(Boolean),
+
               {
                 x: 0,
                 y: 0,
@@ -257,12 +287,21 @@ function WhoWeAreSection() {
               scaleX: 1,
             });
 
+            gsap.set(labelLine, {
+              scaleX: 1,
+            });
+
+            gsap.set(labelSheen, {
+              autoAlpha: 0,
+            });
+
             gsap.set(
               [
                 mobileDotRef.current,
                 tabletDotRef.current,
                 desktopDotRef.current,
               ],
+
               {
                 autoAlpha: 0,
               },
@@ -275,8 +314,19 @@ function WhoWeAreSection() {
            * INTRO
            */
 
-          gsap.set(label, {
-            y: 16,
+          gsap.set(labelText, {
+            y: 14,
+            autoAlpha: 0,
+          });
+
+          gsap.set(labelLine, {
+            scaleX: 0,
+            transformOrigin:
+              "left center",
+          });
+
+          gsap.set(labelSheen, {
+            xPercent: -180,
             autoAlpha: 0,
           });
 
@@ -286,6 +336,7 @@ function WhoWeAreSection() {
               : tablet
                 ? 32
                 : 30,
+
             autoAlpha: 0,
           });
 
@@ -296,7 +347,8 @@ function WhoWeAreSection() {
 
           gsap.set(divider, {
             scaleX: 0,
-            transformOrigin: "left center",
+            transformOrigin:
+              "left center",
           });
 
           gsap.set(subLabel, {
@@ -306,6 +358,7 @@ function WhoWeAreSection() {
 
           observeOnce(
             section,
+
             () => {
               gsap
                 .timeline({
@@ -313,49 +366,139 @@ function WhoWeAreSection() {
                     ease: "power3.out",
                   },
                 })
-                .to(label, {
+
+                /*
+                 * WHO WE ARE LABEL
+                 */
+
+                .to(labelText, {
                   y: 0,
                   autoAlpha: 1,
-                  duration: 0.45,
+                  duration: 0.42,
                 })
+
+                /*
+                 * UNDERLINE DRAWS IN
+                 */
+
+                .to(
+                  labelLine,
+
+                  {
+                    scaleX: 1,
+                    duration: 0.55,
+                    ease: "power3.out",
+                  },
+
+                  "-=0.18",
+                )
+
+                /*
+                 * QUICK LIGHT SWEEP
+                 */
+
+                .set(
+                  labelSheen,
+
+                  {
+                    autoAlpha: 1,
+                  },
+
+                  "-=0.24",
+                )
+
+                .to(
+                  labelSheen,
+
+                  {
+                    xPercent: 360,
+                    duration: 0.62,
+                    ease: "power2.inOut",
+                  },
+
+                  "-=0.24",
+                )
+
+                .to(
+                  labelSheen,
+
+                  {
+                    autoAlpha: 0,
+                    duration: 0.1,
+                  },
+
+                  "-=0.08",
+                )
+
+                /*
+                 * MAIN HEADING
+                 */
+
                 .to(
                   heading,
+
                   {
                     y: 0,
                     autoAlpha: 1,
                     duration: 0.7,
                   },
-                  "-=0.2",
+
+                  "-=0.24",
                 )
+
+                /*
+                 * COPY
+                 */
+
                 .to(
                   copy,
+
                   {
                     y: 0,
                     autoAlpha: 1,
                     duration: 0.6,
                   },
+
                   "-=0.4",
                 )
+
+                /*
+                 * SECTION DIVIDER
+                 */
+
                 .to(
                   divider,
+
                   {
                     scaleX: 1,
                     duration: 0.65,
                   },
+
                   "-=0.3",
                 )
+
+                /*
+                 * WHAT SETS US APART
+                 */
+
                 .to(
                   subLabel,
+
                   {
                     y: 0,
                     autoAlpha: 1,
                     duration: 0.4,
                   },
+
                   "-=0.3",
                 );
             },
+
             {
-              threshold: mobile ? 0.06 : 0.12,
+              threshold: mobile
+                ? 0.06
+                : 0.12,
+
               rootMargin: mobile
                 ? "0px 0px -2% 0px"
                 : "0px 0px -6% 0px",
@@ -364,55 +507,65 @@ function WhoWeAreSection() {
 
           /*
            * MOBILE / TABLET CARDS
-           *
-           * Dedicated ScrollTriggers are more reliable
-           * on tall mobile viewports.
            */
 
           if (!desktop) {
-            cards.forEach((card, index) => {
-              gsap.fromTo(
-                card,
-                {
-                  y: mobile ? 52 : 42,
-                  scale: mobile ? 0.95 : 0.97,
-                  autoAlpha: 0,
-                },
-                {
-                  y: 0,
-                  scale: 1,
-                  autoAlpha: 1,
+            cards.forEach(
+              (card, index) => {
+                gsap.fromTo(
+                  card,
 
-                  duration: mobile
-                    ? 0.75
-                    : 0.68,
+                  {
+                    y: mobile
+                      ? 52
+                      : 42,
 
-                  delay: tablet
-                    ? (index % 2) * 0.07
-                    : 0,
+                    scale: mobile
+                      ? 0.95
+                      : 0.97,
 
-                  ease: "power3.out",
-
-                  scrollTrigger: {
-                    trigger: card,
-
-                    start: mobile
-                      ? "top 94%"
-                      : "top 90%",
-
-                    once: true,
-
-                    invalidateOnRefresh: true,
+                    autoAlpha: 0,
                   },
 
-                  onComplete: () => {
-                    gsap.set(card, {
-                      clearProps: "transform",
-                    });
+                  {
+                    y: 0,
+                    scale: 1,
+                    autoAlpha: 1,
+
+                    duration: mobile
+                      ? 0.75
+                      : 0.68,
+
+                    delay: tablet
+                      ? (index % 2) *
+                        0.07
+                      : 0,
+
+                    ease: "power3.out",
+
+                    scrollTrigger: {
+                      trigger: card,
+
+                      start: mobile
+                        ? "top 94%"
+                        : "top 90%",
+
+                      once: true,
+
+                      invalidateOnRefresh:
+                        true,
+                    },
+
+                    onComplete: () => {
+                      gsap.set(card, {
+                        clearProps:
+                          "transform",
+                      });
+                    },
                   },
-                },
-              );
-            });
+                );
+              },
+            );
           } else {
             gsap.set(cards, {
               y: 46,
@@ -429,27 +582,39 @@ function WhoWeAreSection() {
           let dot = null;
 
           if (mobile) {
-            path = mobilePathRef.current;
-            dot = mobileDotRef.current;
+            path =
+              mobilePathRef.current;
+
+            dot =
+              mobileDotRef.current;
           }
 
           if (tablet) {
-            path = tabletPathRef.current;
-            dot = tabletDotRef.current;
+            path =
+              tabletPathRef.current;
+
+            dot =
+              tabletDotRef.current;
           }
 
           if (desktop) {
-            path = desktopPathRef.current;
-            dot = desktopDotRef.current;
+            path =
+              desktopPathRef.current;
+
+            dot =
+              desktopDotRef.current;
           }
 
           if (path && dot) {
             gsap.to(path, {
-              strokeDashoffset: desktop
-                ? -160
-                : -120,
+              strokeDashoffset:
+                desktop
+                  ? -160
+                  : -120,
 
-              duration: desktop ? 8 : 7,
+              duration: desktop
+                ? 8
+                : 7,
 
               repeat: -1,
 
@@ -465,42 +630,51 @@ function WhoWeAreSection() {
                   ? 0.85
                   : 0.8,
 
-              transformOrigin: "50% 50%",
+              transformOrigin:
+                "50% 50%",
             });
 
-            const story = gsap.timeline({
-              scrollTrigger: {
-                trigger: section,
+            const story =
+              gsap.timeline({
+                scrollTrigger: {
+                  trigger: section,
 
-                start: desktop
-                  ? "top 82%"
-                  : tablet
-                    ? "top 88%"
-                    : "top 92%",
+                  start: desktop
+                    ? "top 82%"
+                    : tablet
+                      ? "top 88%"
+                      : "top 92%",
 
-                end: desktop
-                  ? "bottom 38%"
-                  : tablet
-                    ? "bottom 22%"
-                    : "bottom 12%",
+                  end: desktop
+                    ? "bottom 38%"
+                    : tablet
+                      ? "bottom 22%"
+                      : "bottom 12%",
 
-                scrub: desktop
-                  ? 1.1
-                  : tablet
-                    ? 0.95
-                    : 0.8,
+                  scrub: desktop
+                    ? 1.1
+                    : tablet
+                      ? 0.95
+                      : 0.8,
 
-                invalidateOnRefresh: true,
-              },
-            });
+                  invalidateOnRefresh:
+                    true,
+                },
+              });
 
             story.to(
               dot,
+
               {
                 motionPath: {
                   path,
                   align: path,
-                  alignOrigin: [0.5, 0.5],
+
+                  alignOrigin: [
+                    0.5,
+                    0.5,
+                  ],
+
                   start: 0,
                   end: 1,
                 },
@@ -508,17 +682,19 @@ function WhoWeAreSection() {
                 duration: 1,
                 ease: "none",
               },
+
               0,
             );
 
             /*
-             * Desktop cards remain part of the
-             * section storytelling timeline.
+             * Desktop cards remain part
+             * of the section story.
              */
 
             if (desktop) {
               story.to(
                 cards,
+
                 {
                   y: 0,
                   scale: 1,
@@ -530,13 +706,16 @@ function WhoWeAreSection() {
 
                   ease: "power2.out",
                 },
+
                 0.18,
               );
             }
 
             story
+
               .to(
                 dot,
+
                 {
                   scale: desktop
                     ? 1.35
@@ -548,22 +727,28 @@ function WhoWeAreSection() {
 
                   ease: "power2.out",
                 },
+
                 0.9,
               )
+
               .to(
                 dot,
+
                 {
                   scale: 1,
                   duration: 0.1,
                 },
+
                 0.97,
               );
           }
 
           return () => {
-            observers.forEach((observer) => {
-              observer.disconnect();
-            });
+            observers.forEach(
+              (observer) => {
+                observer.disconnect();
+              },
+            );
           };
         },
       );
@@ -572,6 +757,7 @@ function WhoWeAreSection() {
         mm.revert();
       };
     },
+
     {
       scope: sectionRef,
     },
@@ -594,7 +780,7 @@ function WhoWeAreSection() {
         lg:py-20
       "
     >
-      {/* Mobile signal */}
+      {/* MOBILE SIGNAL */}
 
       <svg
         aria-hidden="true"
@@ -683,7 +869,7 @@ function WhoWeAreSection() {
         </g>
       </svg>
 
-      {/* Tablet signal */}
+      {/* TABLET SIGNAL */}
 
       <svg
         aria-hidden="true"
@@ -774,7 +960,7 @@ function WhoWeAreSection() {
         </g>
       </svg>
 
-      {/* Desktop signal */}
+      {/* DESKTOP SIGNAL */}
 
       <svg
         aria-hidden="true"
@@ -864,6 +1050,8 @@ function WhoWeAreSection() {
         </g>
       </svg>
 
+      {/* CONTENT */}
+
       <div className="relative z-10 mx-auto max-w-7xl">
         <div
           className="
@@ -891,26 +1079,67 @@ function WhoWeAreSection() {
             "
           >
             <div>
+              {/* WHO WE ARE LABEL */}
+
               <div
                 className="
                   who-label
                   inline-flex
-                  rounded-full
-                  bg-brand-primary-light
-                  px-3
-                  py-1.5
+                  flex-col
+                  items-start
                 "
               >
                 <span
                   className="
-                    text-[10px]
+                    who-label-text
+                    text-[11px]
                     font-semibold
                     uppercase
-                    tracking-[0.14em]
+                    tracking-[0.18em]
                     text-brand-primary
                   "
                 >
                   Who We Are
+                </span>
+
+                <span
+                  aria-hidden="true"
+                  className="
+                    relative
+                    mt-2
+                    h-0.5
+                    w-20
+                    overflow-hidden
+                    rounded-full
+                    bg-brand-primary/10
+                    sm:w-24
+                  "
+                >
+                  <span
+                    className="
+                      who-label-line
+                      absolute
+                      inset-0
+                      origin-left
+                      rounded-full
+                      bg-brand-cyan
+                    "
+                  />
+
+                  <span
+                    className="
+                      who-label-sheen
+                      absolute
+                      -left-5
+                      top-1/2
+                      h-1
+                      w-8
+                      -translate-y-1/2
+                      rounded-full
+                      bg-white/90
+                      blur-[1px]
+                    "
+                  />
                 </span>
               </div>
 
@@ -1005,64 +1234,68 @@ function WhoWeAreSection() {
               lg:grid-cols-3
             "
           >
-            {capabilities.map((item, index) => (
-              <article
-                key={item.title}
-                className={[
-                  "who-card",
-                  "relative flex min-h-48 flex-col rounded-xl",
-                  "border border-brand-border bg-white",
-                  "p-5 sm:p-6",
-                  "transition-[border-color,box-shadow] duration-300",
-                  "motion-reduce:transition-none",
-                  "hover:border-brand-primary/20",
-                  "hover:shadow-brand-card",
-                  index === capabilities.length - 1
-                    ? "md:col-span-2 lg:col-span-2"
-                    : "",
-                ].join(" ")}
-              >
-                <div
-                  className="
-                    flex
-                    size-10
-                    items-center
-                    justify-center
-                    rounded-lg
-                    bg-brand-primary-light
-                    text-brand-primary
-                  "
-                >
-                  {item.icon}
-                </div>
+            {capabilities.map(
+              (item, index) => (
+                <article
+                  key={item.title}
+                  className={[
+                    "who-card",
+                    "relative flex min-h-48 flex-col rounded-xl",
+                    "border border-brand-border bg-white",
+                    "p-5 sm:p-6",
+                    "transition-[border-color,box-shadow] duration-300",
+                    "motion-reduce:transition-none",
+                    "hover:border-brand-primary/20",
+                    "hover:shadow-brand-card",
 
-                <h3
-                  className="
-                    mt-5
-                    text-[15px]
-                    font-semibold
-                    leading-6
-                    text-brand-ink
-                    md:text-[16px]
-                  "
+                    index ===
+                    capabilities.length - 1
+                      ? "md:col-span-2 lg:col-span-2"
+                      : "",
+                  ].join(" ")}
                 >
-                  {item.title}
-                </h3>
+                  <div
+                    className="
+                      flex
+                      size-10
+                      items-center
+                      justify-center
+                      rounded-lg
+                      bg-brand-primary-light
+                      text-brand-primary
+                    "
+                  >
+                    {item.icon}
+                  </div>
 
-                <p
-                  className="
-                    mt-2
-                    max-w-[600px]
-                    text-[13px]
-                    leading-6
-                    text-brand-muted
-                    md:text-[14px]
-                  "
-                >
-                  {item.description}
-                </p>
-              </article>
-            ))}
+                  <h3
+                    className="
+                      mt-5
+                      text-[15px]
+                      font-semibold
+                      leading-6
+                      text-brand-ink
+                      md:text-[16px]
+                    "
+                  >
+                    {item.title}
+                  </h3>
+
+                  <p
+                    className="
+                      mt-2
+                      max-w-[600px]
+                      text-[13px]
+                      leading-6
+                      text-brand-muted
+                      md:text-[14px]
+                    "
+                  >
+                    {item.description}
+                  </p>
+                </article>
+              ),
+            )}
           </div>
         </div>
       </div>

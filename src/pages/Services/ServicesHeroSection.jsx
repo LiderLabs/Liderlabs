@@ -51,7 +51,10 @@ function ServicesSignal({
           width="500%"
           height="500%"
         >
-          <feGaussianBlur stdDeviation="4" result="blur" />
+          <feGaussianBlur
+            stdDeviation="4"
+            result="blur"
+          />
 
           <feMerge>
             <feMergeNode in="blur" />
@@ -83,7 +86,10 @@ function ServicesSignal({
         vectorEffect="non-scaling-stroke"
       />
 
-      <g ref={dotRef} filter={`url(#${filterId})`}>
+      <g
+        ref={dotRef}
+        filter={`url(#${filterId})`}
+      >
         <circle
           cx="0"
           cy="0"
@@ -133,9 +139,11 @@ function ServicesHeroSection() {
       mm.add(
         {
           mobile: "(max-width: 767px)",
-          tablet: "(min-width: 768px) and (max-width: 1023px)",
+          tablet:
+            "(min-width: 768px) and (max-width: 1023px)",
           desktop: "(min-width: 1024px)",
-          reduceMotion: "(prefers-reduced-motion: reduce)",
+          reduceMotion:
+            "(prefers-reduced-motion: reduce)",
         },
         (context) => {
           const {
@@ -208,7 +216,11 @@ function ServicesHeroSection() {
           });
 
           gsap.set(heading, {
-            y: mobile ? 46 : tablet ? 42 : 38,
+            y: mobile
+              ? 46
+              : tablet
+                ? 42
+                : 38,
             autoAlpha: 0,
           });
 
@@ -325,7 +337,9 @@ function ServicesHeroSection() {
 
           if (signalPath && signalDot) {
             gsap.to(signalPath, {
-              strokeDashoffset: desktop ? -135 : -110,
+              strokeDashoffset: desktop
+                ? -135
+                : -110,
               duration: desktop ? 8 : 7,
               repeat: -1,
               ease: "none",
@@ -538,27 +552,39 @@ function ServicesHeroSection() {
           text-center
         "
       >
+        {/* SERVICES LABEL */}
+
         <div
           className="
             services-hero-label
             inline-flex
-            rounded-full
-            bg-brand-primary-light
-            px-3
-            py-1.5
+            flex-col
+            items-center
           "
         >
           <span
             className="
-              text-[10px]
+              text-[11px]
               font-semibold
               uppercase
-              tracking-[0.14em]
+              tracking-[0.18em]
               text-brand-primary
             "
           >
             Services &amp; Capabilities
           </span>
+
+          <span
+            aria-hidden="true"
+            className="
+              mt-2
+              h-0.5
+              w-24
+              rounded-full
+              bg-brand-cyan
+              sm:w-28
+            "
+          />
         </div>
 
         <h1

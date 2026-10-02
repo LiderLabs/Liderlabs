@@ -76,3 +76,27 @@
     cursor: pointer;
   }
 }
+
+
+
+@keyframes servicesPartnerMarquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.services-partner-marquee {
+  animation: servicesPartnerMarquee 16s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services-partner-marquee {
+    animation: none;
+    transform: translateX(0);
+  }
+}
