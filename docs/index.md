@@ -247,28 +247,18 @@ Development is complete. Remaining work is focused on release quality:
 
 ## Documentation
 
-- [Architecture](./docs/ARCHITECTURE.md)
-- [Animations](./docs/ANIMATIONS.md)
-- [Components](./docs/COMPONENTS.md)
-- [Deployment](./docs/DEPLOYMENT.md)
-- [Contributing](./docs/CONTRIBUTING.md)
+- [Architecture](ARCHITECTURE.md)
+- [Animations](ANIMATIONS.md)
+- [Components](COMPONENTS.md)
+- [Deployment](DEPLOYMENT.md)
+- [Contributing](CONTRIBUTING.md)
 
-### Documentation Site
+## Documentation development
 
-The documentation uses MkDocs. Install Python and pip, then run these commands
-from the repository root:
+Install Python and pip, then run these commands from the repository root to
+install MkDocs and preview the documentation:
 
 ```bash
 python -m pip install -r requirements.txt
 python -m mkdocs serve
 ```
-
-
-Build and validate the static documentation:
-
-```bash
-python -m mkdocs build --strict
-```
-
-The generated site is written to `site/`, which is ignored by Git. The MkDocs
-build is separate from the frontend's `npm run build` output in `dist/`.

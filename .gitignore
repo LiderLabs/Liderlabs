@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# MkDocs output and local Python environment
+/site/
+/.venv/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
