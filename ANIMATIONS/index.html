@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Animation System - Lider Technologies Documentation</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Lider Technologies Documentation</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../ARCHITECTURE/" class="nav-link">Architecture</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../COMPONENTS/" class="nav-link">Components</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">Animation System</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../DEPLOYMENT/" class="nav-link">Deployment</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../CONTRIBUTING/" class="nav-link">Contributing</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../COMPONENTS/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../DEPLOYMENT/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#animation-system" class="nav-link">Animation System</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#tools" class="nav-link">Tools</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#motion-style" class="nav-link">Motion Style</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#home" class="nav-link">Home</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#other-pages" class="nav-link">Other Pages</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#rules" class="nav-link">Rules</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="animation-system">Animation System<a class="headerlink" href="#animation-system" title="Permanent link">&para;</a></h1>
+<p>Animation on the Lider site is there to support the story, not to decorate every section.</p>
+<p>The main visual idea is a <strong>cyan signal</strong> (<code>#1092bf</code>) moving through the product and engineering journey.</p>
+<pre><code class="language-text">Idea → Architecture → Build → Deploy → Client → Business Impact
+</code></pre>
+<h2 id="tools">Tools<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h2>
+<p>The site uses:</p>
+<ul>
+<li>GSAP</li>
+<li>ScrollTrigger</li>
+<li>MotionPathPlugin</li>
+<li><code>@gsap/react</code></li>
+<li>CSS <code>sticky</code> for long story sections</li>
+</ul>
+<p><code>useGSAP()</code> handles React-safe setup and cleanup, while <code>gsap.matchMedia()</code> keeps mobile, tablet, desktop, and reduced-motion behavior separate.</p>
+<h2 id="motion-style">Motion Style<a class="headerlink" href="#motion-style" title="Permanent link">&para;</a></h2>
+<h3 id="small-interactions">Small interactions<a class="headerlink" href="#small-interactions" title="Permanent link">&para;</a></h3>
+<p>Buttons, icons, status indicators, and hover states should stay quick and subtle.</p>
+<p>Typical range: <strong>150–300ms</strong>.</p>
+<h3 id="section-reveals">Section reveals<a class="headerlink" href="#section-reveals" title="Permanent link">&para;</a></h3>
+<p>Headings, cards, logos, and images usually enters with a small vertical movement, scale, or opacity transition.</p>
+<p>Typical range: <strong>400–800ms</strong>.</p>
+<h3 id="scroll-stories">Scroll stories<a class="headerlink" href="#scroll-stories" title="Permanent link">&para;</a></h3>
+<p>The larger animated sections use ScrollTrigger to connect progress to scrolling. Layout is handled by CSS wherever possible so animation does not distort the page.</p>
+<p>For long stories we prefer:</p>
+<pre><code class="language-text">CSS sticky
+    +
+ScrollTrigger progress
+</code></pre>
+<p>over GSAP pinning when pin spacing would stretch the section.</p>
+<h2 id="home">Home<a class="headerlink" href="#home" title="Permanent link">&para;</a></h2>
+<h3 id="hero">Hero<a class="headerlink" href="#hero" title="Permanent link">&para;</a></h3>
+<ul>
+<li>responsive GSAP entrance</li>
+<li>heading, image, and supporting content reveal</li>
+<li>cyan signal animation</li>
+<li>separate mobile/tablet/desktop timings</li>
+<li>reduced-motion fallback</li>
+</ul>
+<h3 id="who-we-are">Who We Are<a class="headerlink" href="#who-we-are" title="Permanent link">&para;</a></h3>
+<p>Desktop uses a controlled section story.</p>
+<p>Mobile and tablet use independent card triggers so each card reveals reliably on tall screens and stays visible once shown.</p>
+<h3 id="product-story">Product Story<a class="headerlink" href="#product-story" title="Permanent link">&para;</a></h3>
+<p>Products:</p>
+<ol>
+<li>UI/UX Design</li>
+<li>Web App Development</li>
+<li>Mobile App Development</li>
+<li>IT Consultancy</li>
+</ol>
+<h4 id="desktop-tablet">Desktop / tablet<a class="headerlink" href="#desktop-tablet" title="Permanent link">&para;</a></h4>
+<p>The section uses a tall scroll track with a CSS sticky stage.</p>
+<p>GSAP controls:</p>
+<ul>
+<li>active product</li>
+<li>active timeline item</li>
+<li>image changes</li>
+<li>signal movement</li>
+<li>final IT Consultancy hold</li>
+</ul>
+<p>The section does not release until the final image has had enough time on screen.</p>
+<h4 id="mobile">Mobile<a class="headerlink" href="#mobile" title="Permanent link">&para;</a></h4>
+<p>Products stay in normal document flow.</p>
+<p>The mobile timeline includes:</p>
+<ul>
+<li>cyan progress rail</li>
+<li>travelling signal dot</li>
+<li>product bullets</li>
+<li>synchronized bullet activation</li>
+<li>product copy and image reveal</li>
+<li>full-width product images</li>
+</ul>
+<p>When lazy-loaded image height changes the timeline geometry, ScrollTrigger is refreshed.</p>
+<h3 id="process">Process<a class="headerlink" href="#process" title="Permanent link">&para;</a></h3>
+<p>Stages:</p>
+<pre><code class="language-text">Concept → Build → Launch
+</code></pre>
+<h4 id="desktop">Desktop<a class="headerlink" href="#desktop" title="Permanent link">&para;</a></h4>
+<p>The heading stays in normal flow while only the card viewport becomes sticky.</p>
+<p>Each stage gets:</p>
+<ul>
+<li>subtle active-card lift</li>
+<li>cyan border/shadow</li>
+<li>number pulse</li>
+<li>staged content reveal</li>
+<li>arrow movement</li>
+<li><code>LIVE</code> animation on Launch</li>
+</ul>
+<p>Launch receives a final hold before the next section appears.</p>
+<h4 id="mobile-tablet">Mobile / tablet<a class="headerlink" href="#mobile-tablet" title="Permanent link">&para;</a></h4>
+<p>Cards stay in normal flow and use their own ScrollTriggers.</p>
+<p>Animations are shorter, movement is smaller, and the cards remain visible after reveal.</p>
+<h3 id="trusted-clients">Trusted Clients<a class="headerlink" href="#trusted-clients" title="Permanent link">&para;</a></h3>
+<p>Desktop uses a controlled stagger.</p>
+<p>Mobile and tablet use individual card triggers so logos reveal reliably on smaller screens.</p>
+<h3 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h3>
+<p>Counters do not use ScrollTrigger for the number animation.</p>
+<pre><code class="language-text">IntersectionObserver
+        ↓
+requestAnimationFrame
+        ↓
+final number
+</code></pre>
+<p>GSAP is only used for the visual entrance.</p>
+<h3 id="cta">CTA<a class="headerlink" href="#cta" title="Permanent link">&para;</a></h3>
+<p>The CTA reveals once, then the closing cyan signal travels into the terminal.</p>
+<h2 id="other-pages">Other Pages<a class="headerlink" href="#other-pages" title="Permanent link">&para;</a></h2>
+<h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
+<p>Motion stays light across the Hero, Capabilities, Engineering Principles, Trusted Ecosystem, and Careers CTA.</p>
+<h3 id="services">Services<a class="headerlink" href="#services" title="Permanent link">&para;</a></h3>
+<p>Service cards and approach sections use restrained reveals. Development Process carries more of the storytelling. Metrics use the same reliable counter pattern.</p>
+<h3 id="clients">Clients<a class="headerlink" href="#clients" title="Permanent link">&para;</a></h3>
+<p>Metrics count once. Project cards, testimonials, and trusted businesses use simple reveal motion.</p>
+<h3 id="contact">Contact<a class="headerlink" href="#contact" title="Permanent link">&para;</a></h3>
+<p>Contact is intentionally the calmest page. Important details should never depend on a long animation.</p>
+<p>The FAQ uses interaction-based accordion animation rather than scroll animation.</p>
+<h2 id="rules">Rules<a class="headerlink" href="#rules" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Prefer transform and opacity.</li>
+<li>Keep text readable while moving.</li>
+<li>Do not hide essential content for long periods.</li>
+<li>Keep mobile motion simpler and shorter.</li>
+<li>Use <code>useGSAP()</code> for section animation.</li>
+<li>Use <code>gsap.matchMedia()</code> for responsive behavior.</li>
+<li>Scope selectors to the section.</li>
+<li>Clean up observers, RAF callbacks, event listeners, and ScrollTriggers.</li>
+<li>Respect <code>prefers-reduced-motion</code>.</li>
+<li>Refresh ScrollTrigger when lazy-loaded content changes measured layout.</li>
+<li>Use reversible scrub timelines for real scroll stories.</li>
+<li>Use <code>once: true</code> for simple reveals that should stay visible.</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

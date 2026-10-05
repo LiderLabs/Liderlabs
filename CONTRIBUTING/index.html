@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Contributing - Lider Technologies Documentation</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Lider Technologies Documentation</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../ARCHITECTURE/" class="nav-link">Architecture</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../COMPONENTS/" class="nav-link">Components</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../ANIMATIONS/" class="nav-link">Animation System</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../DEPLOYMENT/" class="nav-link">Deployment</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">Contributing</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../DEPLOYMENT/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#contributing" class="nav-link">Contributing</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#start-from-an-updated-branch" class="nav-link">Start From an Updated Branch</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#commit-messages" class="nav-link">Commit Messages</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#pull-requests" class="nav-link">Pull Requests</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#frontend-rules" class="nav-link">Frontend Rules</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#brand" class="nav-link">Brand</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#tailwind-css-v4" class="nav-link">Tailwind CSS v4</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#react" class="nav-link">React</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#gsap" class="nav-link">GSAP</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#mobile-animation" class="nav-link">Mobile Animation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#qa-sizes" class="nav-link">QA Sizes</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#content" class="nav-link">Content</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#form-work" class="nav-link">Form Work</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#before-committing" class="nav-link">Before Committing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h1>
+<p>Keep changes focused, easy to review, and consistent with the current design and animation system.</p>
+<h2 id="start-from-an-updated-branch">Start From an Updated Branch<a class="headerlink" href="#start-from-an-updated-branch" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">git checkout main
+git pull origin main
+git checkout -b feature/contact-form
+</code></pre>
+<p>Example branch names:</p>
+<pre><code class="language-text">feature/contact-form
+fix/product-story-mobile-signal
+fix/process-scroll-story
+fix/mobile-navbar
+docs/update-readme
+</code></pre>
+<h2 id="commit-messages">Commit Messages<a class="headerlink" href="#commit-messages" title="Permanent link">&para;</a></h2>
+<p>Use clear messages that explain the change.</p>
+<p>Good:</p>
+<pre><code class="language-text">feat: build contact sales form
+fix: sync mobile product signal
+fix: keep process cards inside sticky viewport
+docs: update project documentation
+</code></pre>
+<p>Avoid:</p>
+<pre><code class="language-text">changes
+stuff
+update
+final
+</code></pre>
+<h2 id="pull-requests">Pull Requests<a class="headerlink" href="#pull-requests" title="Permanent link">&para;</a></h2>
+<p>Include:</p>
+<ul>
+<li>what changed</li>
+<li>why it changed</li>
+<li>screenshots/video for UI work</li>
+<li>breakpoints tested</li>
+<li>anything reviewers should pay attention to</li>
+<li>known follow-up work</li>
+</ul>
+<h2 id="frontend-rules">Frontend Rules<a class="headerlink" href="#frontend-rules" title="Permanent link">&para;</a></h2>
+<ul>
+<li>follow the approved Figma/reference before adding new styling</li>
+<li>preserve approved copy</li>
+<li>reuse shared components where it makes sense</li>
+<li>keep unique storytelling sections local</li>
+<li>avoid unnecessary dependencies</li>
+<li>use semantic HTML</li>
+<li>use router links for internal navigation</li>
+<li>test desktop, tablet, and mobile</li>
+<li>never commit secrets</li>
+</ul>
+<h2 id="brand">Brand<a class="headerlink" href="#brand" title="Permanent link">&para;</a></h2>
+<p>Keep new work inside the current system:</p>
+<pre><code class="language-text">teal
+cyan
+deep navy
+white
+light blue-gray
+</code></pre>
+<p>Signal accent:</p>
+<pre><code class="language-text">#1092bf
+</code></pre>
+<h2 id="tailwind-css-v4">Tailwind CSS v4<a class="headerlink" href="#tailwind-css-v4" title="Permanent link">&para;</a></h2>
+<p>Prefer standard utilities where possible.</p>
+<pre><code class="language-text">h-11 w-11     → size-11
+h-[2px]       → h-0.5
+h-full w-full → size-full
+</code></pre>
+<p>Use arbitrary values only when they are intentional parts of the design.</p>
+<p>Prefer targeted transition properties over a generic <code>transition</code>.</p>
+<h2 id="react">React<a class="headerlink" href="#react" title="Permanent link">&para;</a></h2>
+<ul>
+<li>keep components focused</li>
+<li>keep render logic pure</li>
+<li>use stable keys</li>
+<li>prefer local state</li>
+<li>clean up side effects</li>
+<li>do not manipulate the DOM during render</li>
+</ul>
+<h2 id="gsap">GSAP<a class="headerlink" href="#gsap" title="Permanent link">&para;</a></h2>
+<ul>
+<li>use <code>useGSAP()</code></li>
+<li>register plugins once</li>
+<li>use <code>gsap.matchMedia()</code> for responsive variants</li>
+<li>scope selectors</li>
+<li>prefer transform and opacity</li>
+<li>clean observers, RAF callbacks, and custom listeners</li>
+<li>support reduced motion</li>
+<li>refresh ScrollTrigger when lazy-loaded content changes measured layout</li>
+</ul>
+<p>For long stories, prefer the current project pattern:</p>
+<pre><code class="language-text">CSS sticky + ScrollTrigger
+</code></pre>
+<p>Do not replace a working sticky story with GSAP pinning without full breakpoint testing.</p>
+<h2 id="mobile-animation">Mobile Animation<a class="headerlink" href="#mobile-animation" title="Permanent link">&para;</a></h2>
+<p>Mobile needs its own QA.</p>
+<p>For simple reveals:</p>
+<ul>
+<li>trigger late enough to actually be visible</li>
+<li>keep movement small</li>
+<li>use <code>once: true</code> when content should stay visible</li>
+</ul>
+<p>For scroll stories:</p>
+<ul>
+<li>keep signal, progress rail, and item activation synchronized</li>
+<li>refresh measurements after lazy-loaded content changes height</li>
+</ul>
+<h2 id="qa-sizes">QA Sizes<a class="headerlink" href="#qa-sizes" title="Permanent link">&para;</a></h2>
+<p>At minimum test:</p>
+<pre><code class="language-text">320
+375
+390
+430
+768
+1024
+1280+
+</code></pre>
+<p>Check overflow, wrapping, image behavior, sticky sections, tap targets, focus states, forms, map, accordions, and orientation changes.</p>
+<h2 id="content">Content<a class="headerlink" href="#content" title="Permanent link">&para;</a></h2>
+<p>Do not silently rewrite approved content.</p>
+<p>Flag questionable copy separately from engineering fixes.</p>
+<h2 id="form-work">Form Work<a class="headerlink" href="#form-work" title="Permanent link">&para;</a></h2>
+<p>When the Contact Sales backend is added:</p>
+<ul>
+<li>keep secrets server-side</li>
+<li>validate on client and server</li>
+<li>add submitting/success/error states</li>
+<li>prevent duplicate submissions</li>
+<li>add spam/rate-limit protection where appropriate</li>
+</ul>
+<h2 id="before-committing">Before Committing<a class="headerlink" href="#before-committing" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">npm run build
+git status
+git diff
+</code></pre>
+<p>Run the project's lint command too if one exists.</p>
+<p>Do not commit <code>node_modules</code>, <code>dist</code>, <code>.env</code> secrets, temporary recordings, or unrelated experiment files.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
