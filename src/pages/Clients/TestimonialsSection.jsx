@@ -976,7 +976,6 @@ function TestimonialsSection() {
                   aria-hidden="true"
                   className="
                     testimonial-quote-mark
-                    font-serif
                     text-[52px]
                     font-bold
                     leading-none

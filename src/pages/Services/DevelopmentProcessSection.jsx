@@ -1043,7 +1043,7 @@ function DevelopmentProcessSection() {
                     {step.number}
                   </div>
 
-                  <div
+                  {/* <div
                     className="
                       development-step-icon
                       mx-auto
@@ -1061,10 +1061,11 @@ function DevelopmentProcessSection() {
                     "
                   >
                     {step.icon}
-                  </div>
+                  </div> */}
 
                   <h3
                     className="
+                      card-heading
                       development-step-title
                       mt-5
                       text-[15px]

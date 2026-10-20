@@ -641,6 +641,7 @@ function ContactHubSection() {
               <div className="flex items-start justify-between gap-4">
                 <h3
                   className="
+                    card-heading
                     contact-hub-location-title
                     text-[20px]
                     font-bold

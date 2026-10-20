@@ -182,6 +182,8 @@ function ProductStorySection() {
   const timelineFillRef = useRef(null);
   const timelineSignalRef = useRef(null);
 
+  const servicesListRef = useRef(null);
+
   useGSAP(
     () => {
       const section = sectionRef.current;
@@ -189,6 +191,27 @@ function ProductStorySection() {
       const storyStage = storyStageRef.current;
 
       if (!section) return;
+
+      const syncStageHeight = () => {
+        const list = servicesListRef.current;
+
+        if (!list) return;
+
+        section.style.setProperty(
+          "--product-stage-height",
+          `${list.offsetHeight}px`,
+        );
+      };
+
+      syncStageHeight();
+
+      if (servicesListRef.current && typeof ResizeObserver !== "undefined") {
+        const observer = new ResizeObserver(syncStageHeight);
+        observer.observe(servicesListRef.current);
+      }
+
+      ScrollTrigger.addEventListener("refreshInit", syncStageHeight);
+      window.addEventListener("load", syncStageHeight);
 
       const mm = gsap.matchMedia();
 
@@ -213,21 +236,6 @@ function ProductStorySection() {
             reduceMotion,
           } = context.conditions;
 
-          const labelText =
-            section.querySelector(
-              ".product-label-text",
-            );
-
-          const labelLine =
-            section.querySelector(
-              ".product-label-line",
-            );
-
-          const labelSheen =
-            section.querySelector(
-              ".product-label-sheen",
-            );
-
           const heading =
             section.querySelector(
               ".product-heading",
@@ -236,11 +244,6 @@ function ProductStorySection() {
           const intro =
             section.querySelector(
               ".product-intro",
-            );
-
-          const mobileHeader =
-            section.querySelector(
-              ".product-mobile-header",
             );
 
           const mobileStory =
@@ -266,11 +269,6 @@ function ProductStorySection() {
             ),
           );
 
-          const rightHeader =
-            section.querySelector(
-              ".product-right-header",
-            );
-
           const visualShell =
             section.querySelector(
               ".product-visual-shell",
@@ -288,13 +286,10 @@ function ProductStorySection() {
           if (reduceMotion) {
             gsap.set(
               [
-                labelText,
                 heading,
                 intro,
-                mobileHeader,
                 ...mobileSteps,
                 ...steps,
-                rightHeader,
                 visualShell,
                 ...imagePanels,
               ].filter(Boolean),
@@ -306,14 +301,6 @@ function ProductStorySection() {
                 autoAlpha: 1,
               },
             );
-
-            gsap.set(labelLine, {
-              scaleX: 1,
-            });
-
-            gsap.set(labelSheen, {
-              autoAlpha: 0,
-            });
 
             gsap.set(glow, {
               scale: 1,
@@ -395,94 +382,6 @@ function ProductStorySection() {
           }
 
           /*
-           * WHAT WE DO LABEL
-           */
-
-          gsap.set(labelText, {
-            y: 14,
-            autoAlpha: 0,
-          });
-
-          gsap.set(labelLine, {
-            scaleX: 0,
-            transformOrigin:
-              "left center",
-          });
-
-          gsap.set(labelSheen, {
-            xPercent: -180,
-            autoAlpha: 0,
-          });
-
-          gsap
-            .timeline({
-              scrollTrigger: {
-                trigger: labelText,
-
-                start: "top 94%",
-
-                once: true,
-
-                invalidateOnRefresh: true,
-              },
-
-              defaults: {
-                ease: "power3.out",
-              },
-            })
-
-            .to(labelText, {
-              y: 0,
-              autoAlpha: 1,
-              duration: 0.42,
-            })
-
-            .to(
-              labelLine,
-
-              {
-                scaleX: 1,
-                duration: 0.55,
-                ease: "power3.out",
-              },
-
-              "-=0.18",
-            )
-
-            .set(
-              labelSheen,
-
-              {
-                autoAlpha: 1,
-              },
-
-              "-=0.24",
-            )
-
-            .to(
-              labelSheen,
-
-              {
-                xPercent: 360,
-                duration: 0.62,
-                ease: "power2.inOut",
-              },
-
-              "-=0.24",
-            )
-
-            .to(
-              labelSheen,
-
-              {
-                autoAlpha: 0,
-                duration: 0.1,
-              },
-
-              "-=0.08",
-            );
-
-          /*
            * MAIN INTRO
            */
 
@@ -547,36 +446,6 @@ function ProductStorySection() {
            */
 
           if (mobile) {
-            if (mobileHeader) {
-              gsap.fromTo(
-                mobileHeader,
-
-                {
-                  y: 26,
-                  autoAlpha: 0,
-                },
-
-                {
-                  y: 0,
-                  autoAlpha: 1,
-
-                  duration: 0.65,
-
-                  ease: "power3.out",
-
-                  scrollTrigger: {
-                    trigger: mobileHeader,
-
-                    start: "top 94%",
-
-                    once: true,
-
-                    invalidateOnRefresh: true,
-                  },
-                },
-              );
-            }
-
             const firstStep =
               mobileSteps[0];
 
@@ -749,11 +618,6 @@ function ProductStorySection() {
                     ".product-mobile-dot-core",
                   );
 
-                const number =
-                  step.querySelector(
-                    ".product-mobile-number",
-                  );
-
                 if (dot) {
                   gsap.set(dot, {
                     scale: 0.82,
@@ -825,36 +689,6 @@ function ProductStorySection() {
                         "play none none reverse",
 
                       invalidateOnRefresh: true,
-                    },
-                  });
-                }
-
-                if (number) {
-                  gsap.to(number, {
-                    color: "#1092bf",
-
-                    scale: 1.12,
-
-                    duration: 0.22,
-
-                    ease: "power2.out",
-
-                    scrollTrigger: {
-                      trigger: step,
-
-                      start: "top 58%",
-
-                      toggleActions:
-                        "play none none reverse",
-
-                      invalidateOnRefresh: true,
-                    },
-
-                    onComplete: () => {
-                      gsap.to(number, {
-                        scale: 1,
-                        duration: 0.16,
-                      });
                     },
                   });
                 }
@@ -1013,34 +847,6 @@ function ProductStorySection() {
           }
 
           gsap.fromTo(
-            rightHeader,
-
-            {
-              y: 24,
-              autoAlpha: 0,
-            },
-
-            {
-              y: 0,
-              autoAlpha: 1,
-
-              duration: 0.65,
-
-              ease: "power3.out",
-
-              scrollTrigger: {
-                trigger: storyTrack,
-
-                start: "top 88%",
-
-                once: true,
-
-                invalidateOnRefresh: true,
-              },
-            },
-          );
-
-          gsap.fromTo(
             visualShell,
 
             {
@@ -1112,11 +918,6 @@ function ProductStorySection() {
                 ".product-step-dot",
               );
 
-            const firstNumber =
-              steps[0].querySelector(
-                ".product-step-number",
-              );
-
             if (firstDot) {
               gsap.set(firstDot, {
                 backgroundColor:
@@ -1130,11 +931,6 @@ function ProductStorySection() {
               });
             }
 
-            if (firstNumber) {
-              gsap.set(firstNumber, {
-                color: "#1092bf",
-              });
-            }
           }
 
           gsap.set(imagePanels, {
@@ -1383,11 +1179,6 @@ function ProductStorySection() {
                     ".product-step-dot",
                   );
 
-                const nextNumber =
-                  nextStep.querySelector(
-                    ".product-step-number",
-                  );
-
                 if (nextDot) {
                   story
                     .to(
@@ -1424,19 +1215,6 @@ function ProductStorySection() {
                     );
                 }
 
-                if (nextNumber) {
-                  story.to(
-                    nextNumber,
-
-                    {
-                      color: "#1092bf",
-
-                      duration: 0.14,
-                    },
-
-                    position + 0.04,
-                  );
-                }
               }
 
               if (previousImage) {
@@ -1516,6 +1294,13 @@ function ProductStorySection() {
       );
 
       return () => {
+        ScrollTrigger.removeEventListener(
+          "refreshInit",
+          syncStageHeight,
+        );
+
+        window.removeEventListener("load", syncStageHeight);
+
         mm.revert();
       };
     },
@@ -1530,7 +1315,7 @@ function ProductStorySection() {
       ref={sectionRef}
       className="
         relative
-        bg-brand-surface
+        bg-brand-surface-blue
         px-4
         pb-14
         pt-14
@@ -1554,81 +1339,12 @@ function ProductStorySection() {
         {/* INTRO */}
 
         <div className="max-w-[700px]">
-          <div
-            className="
-              product-label
-              inline-flex
-              flex-col
-              items-start
-            "
-          >
-            <span
-              className="
-                product-label-text
-                text-[11px]
-                font-semibold
-                uppercase
-                tracking-[0.18em]
-                text-brand-primary
-              "
-            >
-              What We Do
-            </span>
-
-            <span
-              aria-hidden="true"
-              className="
-                relative
-                mt-2
-                h-0.5
-                w-20
-                overflow-hidden
-                rounded-full
-                bg-brand-primary/10
-                sm:w-24
-              "
-            >
-              <span
-                className="
-                  product-label-line
-                  absolute
-                  inset-0
-                  origin-left
-                  rounded-full
-                  bg-brand-cyan
-                "
-              />
-
-              <span
-                className="
-                  product-label-sheen
-                  absolute
-                  -left-5
-                  top-1/2
-                  h-1
-                  w-8
-                  -translate-y-1/2
-                  rounded-full
-                  bg-white/90
-                  blur-[1px]
-                "
-              />
-            </span>
-          </div>
-
           <h2
             className="
               product-heading
-              mt-4
+              section-heading
               max-w-[620px]
-              text-[30px]
-              font-bold
-              leading-[1.04]
-              tracking-[-0.04em]
               text-brand-ink
-              sm:text-[34px]
-              md:text-[38px]
-              lg:text-[42px]
             "
           >
             Complete digital solutions for modern businesses
@@ -1681,41 +1397,6 @@ function ProductStorySection() {
           />
 
           <div className="relative z-10">
-            <div
-              className="
-                product-mobile-header
-                mb-9
-              "
-            >
-              <p
-                className="
-                  text-[10px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.16em]
-                  text-brand-muted
-                "
-              >
-                Built for Teams
-              </p>
-
-              <h3
-                className="
-                  mt-2
-                  text-[24px]
-                  font-bold
-                  leading-[1.08]
-                  tracking-[-0.035em]
-                  text-brand-ink
-                "
-              >
-                Digital products that move{" "}
-                <span className="text-brand-primary">
-                  businesses forward
-                </span>
-              </h3>
-            </div>
-
             <div
               ref={mobileTimelineRef}
               className="relative"
@@ -1827,40 +1508,16 @@ function ProductStorySection() {
                           min-w-0
                         "
                       >
-                        <div
+                        <h3
                           className="
-                            flex
-                            flex-wrap
-                            items-center
-                            gap-3
+                            card-heading
+                            text-[16px]
+                            font-semibold
+                            text-brand-ink
                           "
                         >
-                          <span
-                            className="
-                              product-mobile-number
-                              inline-block
-                              text-[12px]
-                              font-semibold
-                              text-brand-primary
-                            "
-                          >
-                            {solution.number}
-                          </span>
-
-                          <span className="text-brand-border">
-                            —
-                          </span>
-
-                          <h3
-                            className="
-                              text-[16px]
-                              font-semibold
-                              text-brand-ink
-                            "
-                          >
-                            {solution.title}
-                          </h3>
-                        </div>
+                          {solution.title}
+                        </h3>
 
                         <p
                           className="
@@ -1990,12 +1647,12 @@ function ProductStorySection() {
                 w-full
                 gap-10
                 md:grid-cols-[0.92fr_1.08fr]
-                md:items-center
+                md:items-stretch
                 lg:grid-cols-[0.9fr_1.1fr]
                 lg:gap-20
               "
             >
-              <div>
+              <div className="flex min-w-0 flex-col justify-center">
                 <div
                   ref={timelineRef}
                   className="
@@ -2058,7 +1715,10 @@ function ProductStorySection() {
                     />
                   </div>
 
-                  <div className="space-y-7 lg:space-y-8">
+                  <div
+                    ref={servicesListRef}
+                    className="space-y-7 lg:space-y-8"
+                  >
                     {solutions.map(
                       (solution) => (
                         <div
@@ -2092,41 +1752,18 @@ function ProductStorySection() {
                           </div>
 
                           <div>
-                            <div
+                            <h3
                               className="
-                                flex
-                                flex-wrap
-                                items-center
-                                gap-3
+                                card-heading
+                                product-step-title
+                                text-[16px]
+                                font-semibold
+                                text-brand-ink
+                                lg:text-[17px]
                               "
                             >
-                              <span
-                                className="
-                                  product-step-number
-                                  text-[12px]
-                                  font-semibold
-                                  text-brand-primary/65
-                                "
-                              >
-                                {solution.number}
-                              </span>
-
-                              <span className="text-brand-border">
-                                —
-                              </span>
-
-                              <h3
-                                className="
-                                  product-step-title
-                                  text-[16px]
-                                  font-semibold
-                                  text-brand-ink
-                                  lg:text-[17px]
-                                "
-                              >
-                                {solution.title}
-                              </h3>
-                            </div>
+                              {solution.title}
+                            </h3>
 
                             <p
                               className="
@@ -2148,51 +1785,14 @@ function ProductStorySection() {
                 </div>
               </div>
 
-              <div className="flex min-w-0 flex-col">
-                <div
-                  className="
-                    product-right-header
-                    text-right
-                  "
-                >
-                  <p
-                    className="
-                      text-[10px]
-                      font-semibold
-                      uppercase
-                      tracking-[0.16em]
-                      text-brand-muted
-                    "
-                  >
-                    Built for Teams
-                  </p>
-
-                  <h3
-                    className="
-                      ml-auto
-                      mt-2
-                      max-w-[510px]
-                      text-[26px]
-                      font-bold
-                      leading-[1.08]
-                      tracking-[-0.035em]
-                      text-brand-ink
-                      lg:text-[32px]
-                    "
-                  >
-                    Digital products that move{" "}
-                    <span className="text-brand-primary">
-                      businesses forward
-                    </span>
-                  </h3>
-                </div>
-
+              <div className="relative min-h-0 min-w-0">
                 <div
                   className="
                     product-visual-shell
-                    relative
-                    mt-7
-                    lg:mt-9
+                    absolute
+                    inset-x-0
+                    top-0
+                    h-[var(--product-stage-height,405px)]
                   "
                 >
                   <div
@@ -2217,11 +1817,9 @@ function ProductStorySection() {
                     className="
                       relative
                       mx-auto
-                      h-90
+                      h-full
                       w-full
                       max-w-[680px]
-                      lg:h-[430px]
-                      xl:h-[500px]
                     "
                   >
                     {solutions.map(

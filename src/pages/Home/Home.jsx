@@ -11,8 +11,8 @@ function Home() {
   return (
     <main>
       <HeroSection />
-      <WhoWeAreSection />
       <ProvenSystemsSection/>
+      <WhoWeAreSection />
       <ProductStorySection />
       <ProcessSection/>
       <TrustedClientsSection/>

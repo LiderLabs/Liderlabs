@@ -4,8 +4,6 @@ import { gsap, useGSAP } from "../../lib/gsap";
 
 const stages = [
   {
-    number: "01",
-    label: "CONCEPT",
     title: "WE FIND THE STORY WORTH TELLING",
     description:
       "We listen first. Then we map the terrain. Wireframing, user journeys, validating enterprise feasibility, and capturing the core narrative.",
@@ -14,8 +12,6 @@ const stages = [
     variant: "light",
   },
   {
-    number: "02",
-    label: "BUILD",
     title: "WE SCULPT THE WORLD IN THREE DIMENSIONS",
     description:
       "Models take shape. Motion begins. Modern full-stack architectures are developed using clean engineering principles and continuous testing.",
@@ -24,8 +20,6 @@ const stages = [
     variant: "dark",
   },
   {
-    number: "03",
-    label: "LAUNCH",
     title: "WE TUNE IT UNTIL IT RUNS TRUE",
     description:
       "Every detail is checked before release. Performance, responsiveness, reliability, monitoring, and deployment are refined for production.",
@@ -155,81 +149,11 @@ function ProcessSignal({
 function ProcessHeader() {
   return (
     <div className="process-header text-center">
-      {/* PROCESS LABEL */}
-
-      <div
-        className="
-          process-label
-          inline-flex
-          flex-col
-          items-center
-        "
-      >
-        <span
-          className="
-            process-label-text
-            text-[11px]
-            font-semibold
-            uppercase
-            tracking-[0.18em]
-            text-brand-primary
-          "
-        >
-          Process
-        </span>
-
-        <span
-          aria-hidden="true"
-          className="
-            relative
-            mt-2
-            h-0.5
-            w-16
-            overflow-hidden
-            rounded-full
-            bg-brand-primary/10
-            sm:w-20
-          "
-        >
-          <span
-            className="
-              process-label-line
-              absolute
-              inset-0
-              origin-center
-              rounded-full
-              bg-brand-cyan
-            "
-          />
-
-          <span
-            className="
-              process-label-sheen
-              absolute
-              -left-5
-              top-1/2
-              h-1
-              w-8
-              -translate-y-1/2
-              rounded-full
-              bg-white/90
-              blur-[1px]
-            "
-          />
-        </span>
-      </div>
-
       <h2
         className="
           process-heading
-          mt-4
-          text-[30px]
-          font-bold
-          tracking-[-0.04em]
-          text-brand-ink
-          sm:text-[34px]
-          md:text-[38px]
-          lg:text-[42px]
+          section-heading
+          text-white
         "
       >
         FROM IDEA TO DIMENSION
@@ -241,7 +165,7 @@ function ProcessHeader() {
           mt-3
           text-[13px]
           leading-6
-          text-brand-muted
+          text-white/75
           sm:text-[14px]
         "
       >
@@ -269,57 +193,12 @@ function StageCard({
         className,
       ].join(" ")}
     >
-      {/* STAGE META */}
-
-      <div
-        className="
-          process-stage-meta
-          flex
-          items-center
-          gap-3
-        "
-      >
-        <span
-          className="
-            process-stage-number
-            inline-block
-            text-[11px]
-            font-semibold
-            text-brand-primary
-          "
-        >
-          {stage.number}
-        </span>
-
-        <span
-          className="
-            relative
-            inline-block
-            pb-1
-            text-[10px]
-            font-semibold
-            uppercase
-            tracking-[0.15em]
-            text-brand-primary
-            after:absolute
-            after:bottom-0
-            after:left-0
-            after:h-0.5
-            after:w-full
-            after:rounded-full
-            after:bg-brand-cyan
-          "
-        >
-          {stage.label}
-        </span>
-      </div>
-
       {/* TITLE */}
 
       <h3
         className="
+          card-heading
           process-stage-title
-          mt-6
           max-w-[310px]
           text-[17px]
           font-bold
@@ -363,14 +242,14 @@ function StageCard({
           text-brand-primary
         "
       >
-        Services
+        <a href="/services">Services</a>
 
-        <span
+        {/* <span
           aria-hidden="true"
           className="process-arrow inline-block"
         >
           →
-        </span>
+        </span> */}
       </span>
 
       {/* FOOTER */}
@@ -511,11 +390,6 @@ function ProcessSection() {
               ".process-main-header",
             );
 
-          const label =
-            header?.querySelector(
-              ".process-label",
-            );
-
           const heading =
             header?.querySelector(
               ".process-heading",
@@ -545,12 +419,10 @@ function ProcessSection() {
           if (reduceMotion) {
             gsap.set(
               [
-                label,
                 heading,
                 description,
                 ...flowCards,
                 ...desktopCards,
-                ".process-stage-meta",
                 ".process-stage-title",
                 ".process-stage-description",
                 ".process-stage-footer",
@@ -602,21 +474,6 @@ function ProcessSection() {
               })
 
               .fromTo(
-                label,
-
-                {
-                  y: 14,
-                  autoAlpha: 0,
-                },
-
-                {
-                  y: 0,
-                  autoAlpha: 1,
-                  duration: 0.42,
-                },
-              )
-
-              .fromTo(
                 heading,
 
                 {
@@ -660,11 +517,6 @@ function ProcessSection() {
           if (!desktop) {
             flowCards.forEach(
               (card) => {
-                const meta =
-                  card.querySelector(
-                    ".process-stage-meta",
-                  );
-
                 const title =
                   card.querySelector(
                     ".process-stage-title",
@@ -680,11 +532,6 @@ function ProcessSection() {
                 const footer =
                   card.querySelector(
                     ".process-stage-footer",
-                  );
-
-                const number =
-                  card.querySelector(
-                    ".process-stage-number",
                   );
 
                 const arrow =
@@ -746,24 +593,6 @@ function ProcessSection() {
                         ? 0.72
                         : 0.66,
                     },
-                  )
-
-                  .fromTo(
-                    meta,
-
-                    {
-                      y: 14,
-                      autoAlpha: 0,
-                    },
-
-                    {
-                      y: 0,
-                      autoAlpha: 1,
-
-                      duration: 0.34,
-                    },
-
-                    "-=0.4",
                   )
 
                   .fromTo(
@@ -848,32 +677,6 @@ function ProcessSection() {
 
                     ease: "power2.inOut",
                   });
-
-                /*
-                 * NUMBER PULSE
-                 */
-
-                if (number) {
-                  entrance
-                    .to(
-                      number,
-
-                      {
-                        scale: 1.16,
-                        color: "#1092bf",
-
-                        duration: 0.13,
-                      },
-
-                      "-=0.34",
-                    )
-
-                    .to(number, {
-                      scale: 1,
-
-                      duration: 0.16,
-                    });
-                }
 
                 /*
                  * ARROW MOVEMENT
@@ -1039,10 +842,6 @@ function ProcessSection() {
           }
 
           const getCardParts = (card) => ({
-            meta: card.querySelector(
-              ".process-stage-meta",
-            ),
-
             title: card.querySelector(
               ".process-stage-title",
             ),
@@ -1059,10 +858,6 @@ function ProcessSection() {
 
             footerBox: card.querySelector(
               ".process-footer-box",
-            ),
-
-            number: card.querySelector(
-              ".process-stage-number",
             ),
 
             arrow: card.querySelector(
@@ -1113,7 +908,6 @@ function ProcessSection() {
               });
 
               const {
-                meta,
                 title,
                 body,
                 footer,
@@ -1122,7 +916,6 @@ function ProcessSection() {
               if (index === 0) {
                 gsap.set(
                   [
-                    meta,
                     title,
                     ...body,
                     footer,
@@ -1134,11 +927,6 @@ function ProcessSection() {
                   },
                 );
               } else {
-                gsap.set(meta, {
-                  y: 10,
-                  autoAlpha: 0,
-                });
-
                 gsap.set(title, {
                   y: 14,
                   autoAlpha: 0,
@@ -1259,19 +1047,6 @@ function ProcessSection() {
               )
 
               .to(
-                parts.meta,
-
-                {
-                  y: 0,
-                  autoAlpha: 1,
-
-                  duration: 0.14,
-                },
-
-                0.74,
-              )
-
-              .to(
                 parts.title,
 
                 {
@@ -1311,34 +1086,6 @@ function ProcessSection() {
 
                 0.94,
               );
-
-            if (parts.number) {
-              story
-                .to(
-                  parts.number,
-
-                  {
-                    scale: 1.18,
-                    color: "#1092bf",
-
-                    duration: 0.1,
-                  },
-
-                  0.76,
-                )
-
-                .to(
-                  parts.number,
-
-                  {
-                    scale: 1,
-
-                    duration: 0.12,
-                  },
-
-                  0.86,
-                );
-            }
 
             if (parts.arrow) {
               story
@@ -1444,19 +1191,6 @@ function ProcessSection() {
               )
 
               .to(
-                parts.meta,
-
-                {
-                  y: 0,
-                  autoAlpha: 1,
-
-                  duration: 0.14,
-                },
-
-                1.84,
-              )
-
-              .to(
                 parts.title,
 
                 {
@@ -1496,34 +1230,6 @@ function ProcessSection() {
 
                 2.04,
               );
-
-            if (parts.number) {
-              story
-                .to(
-                  parts.number,
-
-                  {
-                    scale: 1.18,
-                    color: "#1092bf",
-
-                    duration: 0.1,
-                  },
-
-                  1.86,
-                )
-
-                .to(
-                  parts.number,
-
-                  {
-                    scale: 1,
-
-                    duration: 0.12,
-                  },
-
-                  1.96,
-                );
-            }
 
             if (parts.arrow) {
               story
@@ -1697,7 +1403,7 @@ function ProcessSection() {
       ref={sectionRef}
       className="
         relative
-        bg-white
+        bg-brand-navy
       "
     >
       {/* HEADER */}
@@ -1790,7 +1496,7 @@ function ProcessSection() {
           {stages.map(
             (stage, index) => (
               <div
-                key={stage.number}
+                key={stage.title}
                 className={
                   index ===
                   stages.length - 1
@@ -1875,7 +1581,7 @@ function ProcessSection() {
               {stages.map(
                 (stage, index) => (
                   <div
-                    key={stage.number}
+                    key={stage.title}
                     className="
                       min-w-0
                       overflow-visible

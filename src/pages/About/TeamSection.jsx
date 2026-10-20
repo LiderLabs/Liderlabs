@@ -82,7 +82,7 @@ function TeamSection() {
               </div>
 
               <div className="p-5">
-                <h3 className="text-[14px] font-semibold text-brand-ink">
+                <h3 className="card-heading text-[14px] font-semibold text-brand-ink">
                   {member.name}
                 </h3>
 

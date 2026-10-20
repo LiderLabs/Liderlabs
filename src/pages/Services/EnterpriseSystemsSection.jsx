@@ -1294,7 +1294,7 @@ function EnterpriseSystemsSection() {
                         text-brand-primary
                       "
                     >
-                      {service.number}
+                      {/* {service.number} */}
                     </span>
 
                     <span
@@ -1314,7 +1314,7 @@ function EnterpriseSystemsSection() {
                     </span>
                   </div>
 
-                  <div
+                  {/* <div
                     className="
                       enterprise-service-icon
                       flex
@@ -1332,11 +1332,12 @@ function EnterpriseSystemsSection() {
                     "
                   >
                     {service.icon}
-                  </div>
+                  </div> */}
                 </div>
 
                 <h3
                   className="
+                    card-heading
                     mt-5
                     text-[16px]
                     font-semibold

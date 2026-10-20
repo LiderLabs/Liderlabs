@@ -48,9 +48,6 @@ function CTASection() {
           const primary =
             section.querySelector(".cta-primary");
 
-          const secondary =
-            section.querySelector(".cta-secondary");
-
           const supporting =
             section.querySelector(".cta-supporting");
 
@@ -65,7 +62,6 @@ function CTASection() {
                 heading,
                 subtitle,
                 primary,
-                secondary,
                 supporting,
               ],
               {
@@ -126,14 +122,11 @@ function CTASection() {
             autoAlpha: 0,
           });
 
-          gsap.set(
-            [primary, secondary],
-            {
-              y: mobile ? 24 : 18,
-              scale: 0.96,
-              autoAlpha: 0,
-            },
-          );
+          gsap.set(primary, {
+            y: mobile ? 24 : 18,
+            scale: 0.96,
+            autoAlpha: 0,
+          });
 
           gsap.set(supporting, {
             y: 14,
@@ -224,15 +217,13 @@ function CTASection() {
             )
 
             .to(
-              [primary, secondary],
+              primary,
               {
                 y: 0,
                 scale: 1,
                 autoAlpha: 1,
 
                 duration: 0.44,
-
-                stagger: 0.08,
               },
               "-=0.25",
             )
@@ -604,17 +595,26 @@ function CTASection() {
             <h2
               className="
                 cta-heading
-                text-[34px]
-                font-bold
-                leading-tight
-                tracking-[-0.04em]
+                section-heading
                 text-white
-                sm:text-[38px]
-                md:text-[44px]
-                lg:text-[48px]
               "
             >
-              Work with us
+              Work with <span
+                className="
+                  relative
+                  inline-block
+                  text-brand-cyan
+                  after:absolute
+                  after:-bottom-1
+                  after:left-0
+                  after:h-[3px]
+                  after:w-full
+                  after:rounded-full
+                  after:bg-brand-cyan
+                "
+              >
+                us
+              </span>
             </h2>
 
             <p
@@ -638,11 +638,8 @@ function CTASection() {
               className="
                 mt-7
                 flex
-                flex-col
                 items-center
                 justify-center
-                gap-3
-                sm:flex-row
               "
             >
               <Link
@@ -651,7 +648,7 @@ function CTASection() {
                   cta-primary
                   inline-flex
                   min-h-11
-                  w-full
+                  w-fit
                   items-center
                   justify-center
                   gap-3
@@ -679,44 +676,11 @@ function CTASection() {
               >
                 Fill out the contact form
 
-                <span aria-hidden="true">
+                {/* <span aria-hidden="true">
                   →
-                </span>
+                </span> */}
               </Link>
 
-              <Link
-                to="/contact"
-                className="
-                  cta-secondary
-                  inline-flex
-                  min-h-11
-                  w-full
-                  items-center
-                  justify-center
-                  rounded-full
-                  bg-white
-                  px-6
-                  py-3
-                  text-[12px]
-                  font-semibold
-                  text-brand-ink
-                  shadow-sm
-                  transition-[transform,box-shadow]
-                  duration-200
-                  ease-out
-                  motion-reduce:transition-none
-                  hover:-translate-y-0.5
-                  hover:shadow-md
-                  focus-visible:outline-none
-                  focus-visible:ring-2
-                  focus-visible:ring-white
-                  focus-visible:ring-offset-2
-                  focus-visible:ring-offset-brand-navy
-                  sm:w-auto
-                "
-              >
-                Reach out to us now...
-              </Link>
             </div>
 
             <p

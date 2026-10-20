@@ -261,14 +261,3 @@ from the repository root:
 ```bash
 python -m pip install -r requirements.txt
 python -m mkdocs serve
-```
-
-
-Build and validate the static documentation:
-
-```bash
-python -m mkdocs build --strict
-```
-
-The generated site is written to `site/`, which is ignored by Git. The MkDocs
-build is separate from the frontend's `npm run build` output in `dist/`.

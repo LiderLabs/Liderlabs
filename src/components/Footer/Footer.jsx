@@ -393,7 +393,7 @@ function Footer() {
                 >
                   Find us
 
-                  <span
+                  {/* <span
                     aria-hidden="true"
                     className="
                       transition-transform
@@ -402,7 +402,7 @@ function Footer() {
                     "
                   >
                     →
-                  </span>
+                  </span> */}
                 </a>
               </div>
             </div>

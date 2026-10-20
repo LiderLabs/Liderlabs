@@ -681,7 +681,7 @@ function ClientsCTASection() {
               >
                 Fill out the contact form
 
-                <span
+                {/* <span
                   aria-hidden="true"
                   className="
                     transition-transform
@@ -690,7 +690,7 @@ function ClientsCTASection() {
                   "
                 >
                   →
-                </span>
+                </span> */}
               </Link>
             </div>
           </div>

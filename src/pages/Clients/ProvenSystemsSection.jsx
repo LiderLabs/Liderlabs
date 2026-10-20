@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { gsap, useGSAP } from "../../lib/gsap";
 
@@ -7,6 +7,10 @@ import styleoImage from "../../assets/images/styleo-bg.png";
 import taliImage from "../../assets/images/tali-bg.png";
 import gridImage from "../../assets/images/grid-bg.png";
 import portaImage from "../../assets/images/porta-bg.png";
+
+import taliDashboard from "../../assets/images/tali-dash.png";
+import gridDashboard from "../../assets/images/grid-dashboard.png";
+import portaDashboard from "../../assets/images/porta-dashboard.png";
 
 const projects = [
   {
@@ -32,6 +36,7 @@ const projects = [
       "A management application designed to help organizations manage workflows, operations, and everyday business processes.",
     url: null,
     image: taliImage,
+    dashboard: taliDashboard,
   },
   {
     name: "Grid",
@@ -40,6 +45,7 @@ const projects = [
       "A centralized screen management platform built on top of a Node server and dashboard, allowing multiple screens and applications to be controlled from one place.",
     url: null,
     image: gridImage,
+    dashboard: gridDashboard,
   },
   {
     name: "Porta",
@@ -48,6 +54,7 @@ const projects = [
       "A digital check-in system designed to manage guest and visitor arrivals and departures through a simple check-in and check-out workflow.",
     url: null,
     image: portaImage,
+    dashboard: portaDashboard,
   },
 ];
 
@@ -158,9 +165,175 @@ function ProvenSystemsSignal({
   );
 }
 
+function DashboardModal({ project, onClose }) {
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    dialogRef.current?.focus();
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${project.name} dashboard preview`}
+      ref={dialogRef}
+      tabIndex={-1}
+      onClick={onClose}
+      className="
+        fixed
+        inset-0
+        z-[100]
+        flex
+        items-center
+        justify-center
+        bg-brand-ink/70
+        p-4
+        backdrop-blur-sm
+        outline-none
+        sm:p-8
+      "
+    >
+      <div
+        onClick={(event) => event.stopPropagation()}
+        className="
+          relative
+          max-h-full
+          w-full
+          max-w-5xl
+          overflow-y-auto
+          rounded-[18px]
+          bg-white
+          shadow-[0_30px_80px_rgba(15,35,55,0.35)]
+        "
+      >
+        <div
+          className="
+            sticky
+            top-0
+            z-10
+            flex
+            items-center
+            justify-between
+            gap-4
+            border-b
+            border-brand-border-light
+            bg-white/95
+            px-5
+            py-4
+            backdrop-blur-md
+          "
+        >
+          <div>
+            <p
+              className="
+                text-[10px]
+                font-semibold
+                uppercase
+                tracking-[0.14em]
+                text-brand-primary/60
+              "
+            >
+              {project.category}
+            </p>
+
+            <h3
+              className="
+                mt-1
+                text-[18px]
+                font-semibold
+                tracking-[-0.02em]
+                text-brand-ink
+              "
+            >
+              {project.name} dashboard
+            </h3>
+          </div>
+
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close dashboard preview"
+            className="
+              flex
+              size-9
+              shrink-0
+              items-center
+              justify-center
+              rounded-full
+              border
+              border-brand-border-light
+              bg-brand-surface
+              text-brand-muted
+              transition-colors
+              duration-200
+              hover:bg-brand-surface-blue
+              hover:text-brand-ink
+              focus-visible:outline-none
+              focus-visible:ring-2
+              focus-visible:ring-brand-primary
+              focus-visible:ring-offset-2
+            "
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 20 20"
+              fill="none"
+              className="size-4"
+            >
+              <path
+                d="M5 5l10 10M15 5L5 15"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div className="bg-brand-surface-blue p-3 sm:p-5">
+          <img
+            src={project.dashboard}
+            alt={`${project.name} dashboard screenshot`}
+            decoding="async"
+            className="
+              block
+              w-full
+              rounded-[12px]
+              border
+              border-brand-border/60
+              object-contain
+              shadow-[0_18px_45px_rgba(15,35,55,0.14)]
+            "
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ProvenSystemsSection() {
   const sectionRef = useRef(null);
   const gridRef = useRef(null);
+
+  const [activeProject, setActiveProject] =
+    useState(null);
 
   const mobilePathRef = useRef(null);
   const mobileDotRef = useRef(null);
@@ -198,10 +371,6 @@ function ProvenSystemsSection() {
             ".proven-heading",
           );
 
-          const copy = section.querySelector(
-            ".proven-copy",
-          );
-
           const cards = gsap.utils.toArray(
             ".proven-system-card",
           );
@@ -233,7 +402,6 @@ function ProvenSystemsSection() {
             gsap.set(
               [
                 heading,
-                copy,
                 cards,
                 ".proven-system-image-wrap",
                 ".proven-system-content",
@@ -273,11 +441,6 @@ function ProvenSystemsSection() {
             autoAlpha: 0,
           });
 
-          gsap.set(copy, {
-            y: mobile ? 26 : 20,
-            autoAlpha: 0,
-          });
-
           observeOnce(
             heading,
             () => {
@@ -291,16 +454,7 @@ function ProvenSystemsSection() {
                   y: 0,
                   autoAlpha: 1,
                   duration: 0.7,
-                })
-                .to(
-                  copy,
-                  {
-                    y: 0,
-                    autoAlpha: 1,
-                    duration: 0.55,
-                  },
-                  "-=0.38",
-                );
+                });
             },
             {
               threshold: 0.1,
@@ -911,6 +1065,7 @@ function ProvenSystemsSection() {
       >
         <h3
           className="
+            card-heading
             text-[20px]
             font-semibold
             tracking-[-0.025em]
@@ -946,7 +1101,11 @@ function ProvenSystemsSection() {
             text-brand-primary/60
           "
         >
-          {project.url ? "Live product" : "In Progress"}
+          {project.url
+            ? "Live product"
+            : project.dashboard
+              ? "Dashboard preview"
+              : "In Progress"}
         </div>
       </div>
     </>
@@ -1084,9 +1243,6 @@ function ProvenSystemsSection() {
           className="
             grid
             gap-5
-            lg:grid-cols-[1fr_0.75fr]
-            lg:items-end
-            lg:gap-8
           "
         >
           <h2
@@ -1096,31 +1252,14 @@ function ProvenSystemsSection() {
               font-bold
               leading-[1.05]
               tracking-[-0.04em]
-              text-brand-ink
+              text-brand-cyan
               sm:text-[32px]
               md:text-[38px]
               lg:text-[40px]
             "
           >
-            Proven Systems in Production
+            Works
           </h2>
-
-          <p
-            className="
-              proven-copy
-              max-w-[460px]
-              text-[13px]
-              leading-6
-              text-brand-muted
-              md:text-[14px]
-              lg:justify-self-end
-              lg:text-right
-            "
-          >
-            Real digital products designed to solve operational challenges
-            across services, management, connected environments, and guest
-            experiences.
-          </p>
         </div>
 
         <div
@@ -1170,11 +1309,19 @@ function ProvenSystemsSection() {
                 {renderCardContent(project)}
               </a>
             ) : (
-              <article
+              <button
                 key={project.name}
+                type="button"
+                onClick={() => setActiveProject(project)}
+                aria-label={`View ${project.name} dashboard preview`}
                 className={`
                   ${cardClasses}
-                  cursor-default
+                  cursor-pointer
+                  text-left
+                  focus-visible:outline-none
+                  focus-visible:ring-2
+                  focus-visible:ring-brand-primary
+                  focus-visible:ring-offset-2
                 `}
               >
                 <span
@@ -1193,11 +1340,18 @@ function ProvenSystemsSection() {
                 />
 
                 {renderCardContent(project)}
-              </article>
+              </button>
             ),
           )}
         </div>
       </div>
+
+      {activeProject && (
+        <DashboardModal
+          project={activeProject}
+          onClose={() => setActiveProject(null)}
+        />
+      )}
     </section>
   );
 }

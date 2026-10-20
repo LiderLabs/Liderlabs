@@ -342,7 +342,6 @@ function AboutWhoWeAreSection() {
                 copy,
                 capabilityLabel,
                 cards,
-                ".about-capability-icon",
               ],
               {
                 x: 0,
@@ -535,10 +534,6 @@ function AboutWhoWeAreSection() {
 
           if (!desktop) {
             cards.forEach((card, index) => {
-              const icon = card.querySelector(
-                ".about-capability-icon",
-              );
-
               const sheen = card.querySelector(
                 ".about-card-sheen",
               );
@@ -550,12 +545,6 @@ function AboutWhoWeAreSection() {
                 x: mobile ? 0 : direction * 18,
                 y: 30,
                 scale: 0.975,
-                autoAlpha: 0,
-              });
-
-              gsap.set(icon, {
-                scale: 0.7,
-                rotate: direction * -6,
                 autoAlpha: 0,
               });
 
@@ -580,17 +569,6 @@ function AboutWhoWeAreSection() {
                       autoAlpha: 1,
                       duration: 0.6,
                     })
-                    .to(
-                      icon,
-                      {
-                        scale: 1,
-                        rotate: 0,
-                        autoAlpha: 1,
-                        duration: 0.42,
-                        ease: "back.out(1.7)",
-                      },
-                      "-=0.38",
-                    )
                     .to(
                       sheen,
                       {
@@ -636,10 +614,6 @@ function AboutWhoWeAreSection() {
                   ? 28
                   : 0;
 
-            const icon = card.querySelector(
-              ".about-capability-icon",
-            );
-
             const sheen = card.querySelector(
               ".about-card-sheen",
             );
@@ -648,12 +622,6 @@ function AboutWhoWeAreSection() {
               x: xOffset,
               y: 42,
               scale: 0.965,
-              autoAlpha: 0,
-            });
-
-            gsap.set(icon, {
-              scale: 0.7,
-              rotate: -6,
               autoAlpha: 0,
             });
 
@@ -685,10 +653,6 @@ function AboutWhoWeAreSection() {
           cards.forEach((card, index) => {
             const position = cardPositions[index];
 
-            const icon = card.querySelector(
-              ".about-capability-icon",
-            );
-
             const sheen = card.querySelector(
               ".about-card-sheen",
             );
@@ -705,29 +669,6 @@ function AboutWhoWeAreSection() {
               },
               position,
             );
-
-            if (icon) {
-              story
-                .to(
-                  icon,
-                  {
-                    scale: 1.12,
-                    rotate: 0,
-                    autoAlpha: 1,
-                    duration: 0.09,
-                    ease: "back.out(1.8)",
-                  },
-                  position + 0.02,
-                )
-                .to(
-                  icon,
-                  {
-                    scale: 1,
-                    duration: 0.07,
-                  },
-                  position + 0.1,
-                );
-            }
 
             if (sheen) {
               story
@@ -1035,25 +976,7 @@ function AboutWhoWeAreSection() {
               />
 
               <div className="relative z-10">
-                <div
-                  className="
-                    about-capability-icon
-                    flex
-                    size-10
-                    items-center
-                    justify-center
-                    rounded-lg
-                    bg-brand-primary-light
-                    text-brand-primary
-                    transition-transform
-                    duration-300
-                    group-hover:scale-105
-                  "
-                >
-                  {capability.icon}
-                </div>
-
-                <h3 className="mt-5 text-[15px] font-semibold leading-6 text-brand-ink sm:mt-6 md:text-[16px]">
+                <h3 className="card-heading text-[15px] font-semibold leading-6 text-brand-ink md:text-[16px]">
                   {capability.title}
                 </h3>
 

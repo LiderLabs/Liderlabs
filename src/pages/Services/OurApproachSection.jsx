@@ -1012,7 +1012,7 @@ function OurApproachSection() {
               />
 
               <div className="relative z-10 flex flex-col items-center">
-                <div
+                {/* <div
                   className="
                     approach-icon
                     flex
@@ -1029,10 +1029,11 @@ function OurApproachSection() {
                   "
                 >
                   {approach.icon}
-                </div>
+                </div> */}
 
                 <h3
                   className="
+                    card-heading
                     approach-title
                     mt-5
                     text-[15px]

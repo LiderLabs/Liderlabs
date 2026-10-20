@@ -1191,7 +1191,7 @@ function ServicesProofSection() {
               "
             >
               Explore client case studies
-              <span aria-hidden="true">→</span>
+              {/* <span aria-hidden="true">→</span> */}
             </Link>
           </div>
         </div>

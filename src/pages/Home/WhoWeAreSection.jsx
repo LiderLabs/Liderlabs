@@ -7,125 +7,26 @@ const capabilities = [
     title: "Purpose-Driven Solutions",
     description:
       "Aligning technology with your core business objectives to unlock exponential value.",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        className="size-4"
-        aria-hidden="true"
-      >
-        <circle
-          cx="12"
-          cy="12"
-          r="7"
-          stroke="currentColor"
-          strokeWidth="1.6"
-        />
-
-        <path
-          d="M12 8v8M8 12h8"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
   },
   {
     title: "Tailored Technology",
     description:
       "Custom-built architectures designed strictly for your specific operational scale and needs.",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        className="size-4"
-        aria-hidden="true"
-      >
-        <path
-          d="m9 7-5 5 5 5M15 7l5 5-5 5M13.5 5l-3 14"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
   },
   {
     title: "Scalable & Future-Ready",
     description:
       "Resilient cloud-native systems that grow seamlessly alongside your enterprise roadmap.",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        className="size-4"
-        aria-hidden="true"
-      >
-        <path
-          d="M5 18V7M5 18h14M8 14l3-3 3 1 4-5"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
   },
   {
     title: "End-to-End Expertise",
     description:
       "From initial product discovery through development, infrastructure, and ongoing maintenance.",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        className="size-4"
-        aria-hidden="true"
-      >
-        <path
-          d="m6 8 6-3 6 3-6 3-6-3Z"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinejoin="round"
-        />
-
-        <path
-          d="M6 8v7l6 4 6-4V8M12 11v8"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
   },
   {
     title: "Strong Partnership Approach",
     description:
       "We embed deeply as an extension of your internal team, guaranteeing radical transparency and shared accountability at every project milestone.",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        className="size-4"
-        aria-hidden="true"
-      >
-        <path
-          d="m8 12 3-3c1-1 2.5-1 3.5 0l1 1M16 12l-3 3c-1 1-2.5 1-3.5 0l-1-1"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-        />
-
-        <path
-          d="m7 9-2 2a3 3 0 0 0 0 4l1 1M17 15l2-2a3 3 0 0 0 0-4l-1-1"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
   },
 ];
 
@@ -191,21 +92,6 @@ function WhoWeAreSection() {
             reduceMotion,
           } = context.conditions;
 
-          const labelText =
-            section.querySelector(
-              ".who-label-text",
-            );
-
-          const labelLine =
-            section.querySelector(
-              ".who-label-line",
-            );
-
-          const labelSheen =
-            section.querySelector(
-              ".who-label-sheen",
-            );
-
           const heading =
             section.querySelector(
               ".who-heading",
@@ -268,7 +154,6 @@ function WhoWeAreSection() {
           if (reduceMotion) {
             gsap.set(
               [
-                labelText,
                 heading,
                 copy,
                 subLabel,
@@ -285,14 +170,6 @@ function WhoWeAreSection() {
 
             gsap.set(divider, {
               scaleX: 1,
-            });
-
-            gsap.set(labelLine, {
-              scaleX: 1,
-            });
-
-            gsap.set(labelSheen, {
-              autoAlpha: 0,
             });
 
             gsap.set(
@@ -313,22 +190,6 @@ function WhoWeAreSection() {
           /*
            * INTRO
            */
-
-          gsap.set(labelText, {
-            y: 14,
-            autoAlpha: 0,
-          });
-
-          gsap.set(labelLine, {
-            scaleX: 0,
-            transformOrigin:
-              "left center",
-          });
-
-          gsap.set(labelSheen, {
-            xPercent: -180,
-            autoAlpha: 0,
-          });
 
           gsap.set(heading, {
             y: desktop
@@ -366,69 +227,6 @@ function WhoWeAreSection() {
                     ease: "power3.out",
                   },
                 })
-
-                /*
-                 * WHO WE ARE LABEL
-                 */
-
-                .to(labelText, {
-                  y: 0,
-                  autoAlpha: 1,
-                  duration: 0.42,
-                })
-
-                /*
-                 * UNDERLINE DRAWS IN
-                 */
-
-                .to(
-                  labelLine,
-
-                  {
-                    scaleX: 1,
-                    duration: 0.55,
-                    ease: "power3.out",
-                  },
-
-                  "-=0.18",
-                )
-
-                /*
-                 * QUICK LIGHT SWEEP
-                 */
-
-                .set(
-                  labelSheen,
-
-                  {
-                    autoAlpha: 1,
-                  },
-
-                  "-=0.24",
-                )
-
-                .to(
-                  labelSheen,
-
-                  {
-                    xPercent: 360,
-                    duration: 0.62,
-                    ease: "power2.inOut",
-                  },
-
-                  "-=0.24",
-                )
-
-                .to(
-                  labelSheen,
-
-                  {
-                    autoAlpha: 0,
-                    duration: 0.1,
-                  },
-
-                  "-=0.08",
-                )
 
                 /*
                  * MAIN HEADING
@@ -1057,8 +855,11 @@ function WhoWeAreSection() {
           className="
             rounded-[22px]
             border
-            border-brand-border
-            bg-brand-surface/60
+            border-white/15
+            bg-gradient-to-br
+            from-brand-primary
+            via-brand-primary-dark
+            to-brand-navy
             px-5
             py-8
             shadow-brand-card
@@ -1079,83 +880,12 @@ function WhoWeAreSection() {
             "
           >
             <div>
-              {/* WHO WE ARE LABEL */}
-
-              <div
-                className="
-                  who-label
-                  inline-flex
-                  flex-col
-                  items-start
-                "
-              >
-                <span
-                  className="
-                    who-label-text
-                    text-[11px]
-                    font-semibold
-                    uppercase
-                    tracking-[0.18em]
-                    text-brand-primary
-                  "
-                >
-                  Who We Are
-                </span>
-
-                <span
-                  aria-hidden="true"
-                  className="
-                    relative
-                    mt-2
-                    h-0.5
-                    w-20
-                    overflow-hidden
-                    rounded-full
-                    bg-brand-primary/10
-                    sm:w-24
-                  "
-                >
-                  <span
-                    className="
-                      who-label-line
-                      absolute
-                      inset-0
-                      origin-left
-                      rounded-full
-                      bg-brand-cyan
-                    "
-                  />
-
-                  <span
-                    className="
-                      who-label-sheen
-                      absolute
-                      -left-5
-                      top-1/2
-                      h-1
-                      w-8
-                      -translate-y-1/2
-                      rounded-full
-                      bg-white/90
-                      blur-[1px]
-                    "
-                  />
-                </span>
-              </div>
-
               <h2
                 className="
                   who-heading
-                  mt-4
+                  section-heading
                   max-w-[540px]
-                  text-[30px]
-                  font-bold
-                  leading-[1.05]
-                  tracking-[-0.04em]
-                  text-brand-ink
-                  sm:text-[32px]
-                  md:text-[36px]
-                  lg:text-[40px]
+                  text-white
                 "
               >
                 Driving Digital Transformation with Passion and Expertise
@@ -1168,7 +898,7 @@ function WhoWeAreSection() {
                   text-[13px]
                   font-medium
                   leading-6
-                  text-brand-text
+                  text-white/90
                   sm:text-[14px]
                   sm:leading-7
                   md:text-[15px]
@@ -1185,7 +915,7 @@ function WhoWeAreSection() {
                   mt-4
                   text-[13px]
                   leading-6
-                  text-brand-muted
+                  text-white/75
                   sm:text-[14px]
                   sm:leading-7
                   md:text-[15px]
@@ -1206,7 +936,7 @@ function WhoWeAreSection() {
               lg:my-12
             "
           >
-            <div className="who-divider h-px bg-brand-border-light" />
+            <div className="who-divider h-px bg-white/25" />
           </div>
 
           <p
@@ -1216,7 +946,7 @@ function WhoWeAreSection() {
               font-semibold
               uppercase
               tracking-[0.16em]
-              text-brand-muted
+              text-white/75
             "
           >
             What Sets Us Apart
@@ -1254,23 +984,9 @@ function WhoWeAreSection() {
                       : "",
                   ].join(" ")}
                 >
-                  <div
-                    className="
-                      flex
-                      size-10
-                      items-center
-                      justify-center
-                      rounded-lg
-                      bg-brand-primary-light
-                      text-brand-primary
-                    "
-                  >
-                    {item.icon}
-                  </div>
-
                   <h3
                     className="
-                      mt-5
+                      card-heading
                       text-[15px]
                       font-semibold
                       leading-6

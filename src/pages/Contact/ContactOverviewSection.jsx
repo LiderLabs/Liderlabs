@@ -1030,7 +1030,7 @@ function ContactOverviewSection() {
                   </svg>
                 </div>
 
-                <span
+                {/* <span
                   aria-hidden="true"
                   className="
                     text-[16px]
@@ -1042,10 +1042,10 @@ function ContactOverviewSection() {
                   "
                 >
                   ↗
-                </span>
+                </span> */}
               </div>
 
-              <h3 className="mt-5 text-[16px] font-semibold text-brand-ink">
+              <h3 className="card-heading mt-5 text-[16px] font-semibold text-brand-ink">
                 Sales
               </h3>
 
@@ -1127,7 +1127,7 @@ function ContactOverviewSection() {
                   </svg>
                 </div>
 
-                <span
+                {/* <span
                   aria-hidden="true"
                   className="
                     text-[16px]
@@ -1139,10 +1139,10 @@ function ContactOverviewSection() {
                   "
                 >
                   ↗
-                </span>
+                </span> */}
               </div>
 
-              <h3 className="mt-5 text-[16px] font-semibold text-brand-ink">
+              <h3 className="card-heading mt-5 text-[16px] font-semibold text-brand-ink">
                 Support
               </h3>
 

@@ -938,10 +938,10 @@ function EngineeringPrinciplesSection() {
                       text-brand-primary
                     "
                   >
-                    {principle.number}
+                    {/* {principle.number} */}
                   </span>
 
-                  <span
+                  {/* <span
                     className="
                       principle-rule
                       h-px
@@ -949,11 +949,12 @@ function EngineeringPrinciplesSection() {
                       origin-left
                       bg-brand-primary/25
                     "
-                  />
+                  /> */}
                 </div>
 
                 <h3
                   className="
+                    card-heading
                     mt-5
                     text-[17px]
                     font-semibold
