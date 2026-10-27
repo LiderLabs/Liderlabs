@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+@theme {
+  /* Lider redesign — primary brand colors */
+  --color-brand-primary: #176d8c;
+  --color-brand-primary-dark: #0f5874;
+  --color-brand-primary-light: #e9f5f9;
+
+  /* Main typography */
+  --color-brand-ink: #0d162b;
+  --color-brand-text: #334155;
+  --color-brand-muted: #64748b;
+
+  /* Dark areas / footer */
+  --color-brand-navy: #002d33;
+  --color-brand-navy-soft: #063c46;
+
+  /* Background surfaces */
+  --color-brand-surface: #f7f9fb;
+  --color-brand-surface-blue: #f0f8fb;
+  --color-brand-card: #ffffff;
+
+  /* Borders */
+  --color-brand-border: #dce7ec;
+  --color-brand-border-light: #edf2f5;
+
+  /* Accent */
+  --color-brand-cyan: #1092bf;
+
+  /* Reusable shadows */
+  --shadow-brand-card: 0 8px 28px rgb(15 35 55 / 0.06);
+  --shadow-brand-button: 0 5px 16px rgb(23 109 140 / 0.2);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    background: var(--color-brand-card);
+    color: var(--color-brand-ink);
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  img,
+  picture,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
+
+@keyframes servicesPartnerMarquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.services-partner-marquee {
+  animation: servicesPartnerMarquee 16s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services-partner-marquee {
+    animation: none;
+    transform: translateX(0);
+  }
+}
+
+:root {
+  --font-site-sans: Arial, Helvetica, sans-serif;
+  --type-hero: clamp(2.25rem, 3.6vw, 2.75rem);
+  --type-section: clamp(1.75rem, 2.7vw, 2.125rem);
+  --type-card: clamp(1rem, 1.15vw, 1.125rem);
+  --type-body: 0.875rem;
+  --type-caption: 0.75rem;
+}
+
+body {
+  font-family: var(--font-site-sans);
+  font-size: var(--type-body);
+}
+
+h1,
+.hero-heading {
+  font-family: var(--font-site-sans);
+  font-size: var(--type-hero);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+h2,
+.section-heading {
+  font-family: var(--font-site-sans);
+  font-size: var(--type-section);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.card-heading {
+  font-family: var(--font-site-sans);
+  font-size: var(--type-card);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.body-copy {
+  font-family: var(--font-site-sans);
+  font-size: var(--type-body);
+  line-height: 1.6;
+}
+
+.eyebrow {
+  font-family: var(--font-site-sans);
+  font-size: var(--type-caption);
+  font-weight: 600;
+  line-height: 1.3;
+}

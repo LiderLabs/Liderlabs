@@ -1,0 +1,20 @@
+site_name: Lider Technologies Documentation
+site_description: Technical documentation for the Lider Technologies website
+
+theme:
+  name: mkdocs
+  navigation_depth: 2
+
+nav:
+  - Home: index.md
+  - Architecture: ARCHITECTURE.md
+  - Components: COMPONENTS.md
+  - Animation System: ANIMATIONS.md
+  - Deployment: DEPLOYMENT.md
+  - Contributing: CONTRIBUTING.md
+
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
