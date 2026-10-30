@@ -1,16 +1,18 @@
+import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router";
 
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import ScrollToHash from "./components/ScrollToHash";
 
+// Home stays in the main bundle (first paint); other routes load on demand.
 import Home from "./pages/Home/Home";
-import About from "./pages/About/About";
-import Services from "./pages/Services/Services";
-import Clients from "./pages/Clients/Clients";
-import DeployedWorks from "./pages/DeployedWorks/DeployedWorks";
-import Contact from "./pages/Contact/Contact";
-import ContactSales from "./pages/Contact/ContactSales";
+
+const About = lazy(() => import("./pages/About/About"));
+const Services = lazy(() => import("./pages/Services/Services"));
+const Clients = lazy(() => import("./pages/Clients/Clients"));
+const Contact = lazy(() => import("./pages/Contact/Contact"));
+const ContactSales = lazy(() => import("./pages/Contact/ContactSales"));
 
 function App() {
   return (
@@ -20,18 +22,19 @@ function App() {
       <ScrollToHash />
 
       <div className="flex-1">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/clients" element={<Clients />} />
-          <Route path="/deployed-works" element={<DeployedWorks />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route
-            path="/contact/sales"
-            element={<ContactSales />}
-          />
-        </Routes>
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/clients" element={<Clients />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route
+              path="/contact/sales"
+              element={<ContactSales />}
+            />
+          </Routes>
+        </Suspense>
       </div>
 
       <Footer />

@@ -1,7 +1,7 @@
-import kwameImage from "../../assets/images/team/team-1.jpg";
-import arabaImage from "../../assets/images/team/team-1.jpg";
-import kofiImage from "../../assets/images/team/team-1.jpg";
-import euniceImage from "../../assets/images/team/team-1.jpg";
+import kwameImage from "../../assets/images/team/team-1.webp";
+import arabaImage from "../../assets/images/team/team-1.webp";
+import kofiImage from "../../assets/images/team/team-1.webp";
+import euniceImage from "../../assets/images/team/team-1.webp";
 
 const team = [
   {
@@ -82,7 +82,7 @@ function TeamSection() {
               </div>
 
               <div className="p-5">
-                <h3 className="card-heading text-[14px] font-semibold text-brand-ink">
+                <h3 className="text-[14px] font-semibold text-brand-ink">
                   {member.name}
                 </h3>
 
